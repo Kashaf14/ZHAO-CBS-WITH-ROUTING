@@ -20,9 +20,9 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 
-from optimizers.cbs import CBSOptimizer
+from algorithm.cbs import CBSOptimizer
 from usecase_adapter import build_usecase_from_payload
 from cbs_response_adapter import build_cbs_response_v13
 from tsn_contract_validator.response_validator import validate_optimizer_response

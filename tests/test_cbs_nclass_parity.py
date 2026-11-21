@@ -25,10 +25,10 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 
-from optimizers.cbs import CBSOptimizer
-from optimizers.cbs_nclass_candidate import optimize_nclass_candidate
+from algorithm.cbs import CBSOptimizer
+from algorithm.cbs_nclass_candidate import optimize_nclass_candidate
 from usecase_adapter import build_usecase_from_payload
 
 TC1 = Path(os.environ.get("CBS_TC1_REQUEST") or (
@@ -103,7 +103,7 @@ class TestNClassNumericalParity(unittest.TestCase):
         # optimize() dispatcher (which now calls the generic solver).
         selected = request["optimizationTask"]["scope"]["trafficClasses"]
         if selected == ["M1", "M2"]:
-            from optimizers.cbs_multiclass_pipeline import optimize_m1_m2_candidate
+            from algorithm.cbs_multiclass_pipeline import optimize_m1_m2_candidate
             old = optimize_m1_m2_candidate(
                 self.optimizer, build_usecase_from_payload(deepcopy(request))
             )

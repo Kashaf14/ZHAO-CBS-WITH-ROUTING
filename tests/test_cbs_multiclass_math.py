@@ -5,9 +5,9 @@ import unittest
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(PROJECT_ROOT / "optimizer-manager"))
+sys.path.insert(0, str(PROJECT_ROOT))
 
-from optimizers.cbs_multiclass_math import (  # noqa: E402
+from algorithm.cbs_multiclass_math import (  # noqa: E402
     HigherPriorityClass,
     calculate_class_cbs,
 )

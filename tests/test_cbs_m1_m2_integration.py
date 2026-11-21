@@ -18,9 +18,9 @@ import sys
 import unittest
 
 FRAMEWORK = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(FRAMEWORK / 'optimizer-manager'))
+sys.path.insert(0, str(FRAMEWORK))
 
-from optimizers.cbs import CBSOptimizer  # noqa: E402
+from algorithm.cbs import CBSOptimizer  # noqa: E402
 from usecase_adapter import build_usecase_from_payload  # noqa: E402
 
 TC1 = Path(os.environ.get('CBS_TC1_REQUEST') or (

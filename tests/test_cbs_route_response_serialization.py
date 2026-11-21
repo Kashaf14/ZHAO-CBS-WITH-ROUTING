@@ -7,7 +7,7 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 from cbs_route_response import generated_route_changes
 from cbs_response_adapter import build_cbs_response_v13
 

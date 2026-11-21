@@ -209,7 +209,7 @@ class TestCBSRoutePreparation(unittest.TestCase):
 
     def test_generated_route_can_be_parsed_by_actual_cbs_optimizer(self):
         try:
-            from optimizers.cbs import CBSOptimizer
+            from algorithm.cbs import CBSOptimizer
         except ImportError:
             self.skipTest("Full CBS optimizer package unavailable in isolated patch workspace")
         req = payload()

@@ -14,10 +14,10 @@ import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from optimizers.cbs import CBSOptimizer
+from algorithm.cbs import CBSOptimizer
 from optimizers.cbs_m3_candidate import optimize_m1_m2_m3_candidate
 from usecase_adapter import build_usecase_from_payload
 from test_cbs_m3_candidate import m3_request_from_tc1

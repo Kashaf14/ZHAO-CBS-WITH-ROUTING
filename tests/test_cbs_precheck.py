@@ -17,11 +17,11 @@ import unittest
 from unittest.mock import Mock, patch
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 
 from cbs_precheck import validate_cbs_precheck
 from cbs_response_adapter import CBSResponseConversionError
-from optimizers.cbs import CBSOptimizer
+from algorithm.cbs import CBSOptimizer
 
 
 def scenario(*, target_classes=("M1",), include_m2=False, benchmark=None):

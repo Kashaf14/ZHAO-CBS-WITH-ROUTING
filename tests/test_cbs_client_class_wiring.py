@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 import sys
 
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 
 from capability_catalog import request_satisfies_input_requirements
 from capability_catalog import supports_requested_traffic_classes

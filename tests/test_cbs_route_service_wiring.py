@@ -66,7 +66,7 @@ def load_service(calls):
             "cbs_translation_boundary", prepare_cbs_solver_usecase=translation,
             restore_client_classes_in_cbs_result=restore),
     }
-    sys.path.insert(0, str(ROOT / "optimizer-manager"))
+    sys.path.insert(0, str(ROOT))
     try:
         with patch.dict(sys.modules, fakes):
             spec = importlib.util.spec_from_file_location("_route_service_local_test", SERVICE)

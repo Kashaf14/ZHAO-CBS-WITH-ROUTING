@@ -4,9 +4,9 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 
-from optimizers.cbs_priority_dependencies import (
+from algorithm.cbs_priority_dependencies import (
     higher_priority_for_port, priority_index,
 )
 

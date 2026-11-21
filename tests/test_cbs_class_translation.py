@@ -4,7 +4,7 @@ import importlib.util
 import pathlib
 import unittest
 
-SOURCE = pathlib.Path(__file__).resolve().parents[1] / 'optimizer-manager' / 'cbs_class_translation.py'
+SOURCE = pathlib.Path(__file__).resolve().parents[1] / 'cbs_class_translation.py'
 spec = importlib.util.spec_from_file_location('cbs_class_translation', SOURCE)
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)

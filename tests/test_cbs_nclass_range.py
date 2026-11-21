@@ -22,11 +22,11 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from optimizers.cbs import CBSOptimizer
-from optimizers.cbs_priority_dependencies import priority_index
+from algorithm.cbs import CBSOptimizer
+from algorithm.cbs_priority_dependencies import priority_index
 from test_cbs_nclass_candidate import synth_request
 from usecase_adapter import build_usecase_from_payload
 

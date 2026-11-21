@@ -10,10 +10,10 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 
-from optimizers.cbs import CBSOptimizer
-from optimizers.cbs_nclass_candidate import optimize_nclass_candidate
+from algorithm.cbs import CBSOptimizer
+from algorithm.cbs_nclass_candidate import optimize_nclass_candidate
 
 
 def one_stream_usecase(*, benchmark):

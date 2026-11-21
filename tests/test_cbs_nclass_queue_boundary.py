@@ -18,11 +18,11 @@ import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / 'optimizer-manager'))
+sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / 'tests'))
 
 from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13
-from optimizers.cbs import CBSOptimizer
+from algorithm.cbs import CBSOptimizer
 from test_cbs_nclass_candidate import synth_request
 from tsn_contract_validator.response_validator import validate_optimizer_response
 from usecase_adapter import build_usecase_from_payload

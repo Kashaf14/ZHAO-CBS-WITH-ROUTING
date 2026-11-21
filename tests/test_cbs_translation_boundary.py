@@ -8,7 +8,7 @@ import types
 import unittest
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 
 # Supply the same egress helper interface used by the real N-class solver.
 # This isolates the adapter wiring without substituting a numerical solve.
