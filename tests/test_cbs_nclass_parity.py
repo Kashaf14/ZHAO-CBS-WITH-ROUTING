@@ -108,7 +108,7 @@ class TestNClassNumericalParity(unittest.TestCase):
                 self.optimizer, build_usecase_from_payload(deepcopy(request))
             )
         elif selected == ["M1", "M2", "M3"]:
-            from optimizers.cbs_m3_candidate import optimize_m1_m2_m3_candidate
+            from algorithm.cbs_m3_candidate import optimize_m1_m2_m3_candidate
             old = optimize_m1_m2_m3_candidate(
                 self.optimizer, build_usecase_from_payload(deepcopy(request))
             )

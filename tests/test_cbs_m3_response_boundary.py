@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT / "tests"))
 
 from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13
 from algorithm.cbs import CBSOptimizer
-from optimizers.cbs_m3_candidate import optimize_m1_m2_m3_candidate
+from algorithm.cbs_m3_candidate import optimize_m1_m2_m3_candidate
 from tsn_contract_validator.response_validator import validate_optimizer_response
 from usecase_adapter import build_usecase_from_payload
 from test_cbs_m3_candidate import m3_request_from_tc1

@@ -12,9 +12,9 @@ sys.path.insert(0, str(ROOT))
 
 # Supply the same egress helper interface used by the real N-class solver.
 # This isolates the adapter wiring without substituting a numerical solve.
-package = types.ModuleType("optimizers")
+package = types.ModuleType("algorithm")
 package.__path__ = []
-solver = types.ModuleType("optimizers.cbs_nclass_candidate")
+solver = types.ModuleType("algorithm.cbs_nclass_candidate")
 
 def resolve_egress(optimizer, stream, usecase):
     return {"egressPorts": [
@@ -25,8 +25,8 @@ def resolve_egress(optimizer, stream, usecase):
 solver._cbs_egress_context = resolve_egress
 # Import the adapter under a scoped stub without polluting other test modules.
 with patch.dict(sys.modules, {
-    "optimizers": package,
-    "optimizers.cbs_nclass_candidate": solver,
+    "algorithm": package,
+    "algorithm.cbs_nclass_candidate": solver,
 }):
     source = ROOT / "optimizer-manager" / "cbs_translation_boundary.py"
     spec = importlib.util.spec_from_file_location("cbs_translation_boundary_isolated", source)

@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
 from algorithm.cbs import CBSOptimizer
-from optimizers.cbs_m3_candidate import optimize_m1_m2_m3_candidate
+from algorithm.cbs_m3_candidate import optimize_m1_m2_m3_candidate
 from usecase_adapter import build_usecase_from_payload
 from test_cbs_m3_candidate import m3_request_from_tc1
 from test_cbs_m3_response_boundary import with_test_only_mappings
@@ -47,7 +47,7 @@ class TestCBSM3Dispatch(unittest.TestCase):
 
     def test_dispatch_invokes_generic_nclass_solver(self):
         # After migration, optimize() must call the same N-class path for M3.
-        import optimizers.cbs_nclass_candidate as candidate
+        import algorithm.cbs_nclass_candidate as candidate
         with patch.object(candidate, "optimize_nclass_candidate",
                           wraps=candidate.optimize_nclass_candidate) as call:
             result = self.optimizer.optimize(build_usecase_from_payload(deepcopy(self.request)))

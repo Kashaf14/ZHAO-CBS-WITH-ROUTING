@@ -11,7 +11,7 @@ from types import SimpleNamespace
 import sys
 import unittest
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "optimizer-manager"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from cbs_route_preparation import (  # noqa: E402
     CBSRoutePreparationError, prepare_cbs_routes,
 )

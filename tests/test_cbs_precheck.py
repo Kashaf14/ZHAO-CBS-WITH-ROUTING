@@ -137,7 +137,7 @@ class CBSPrecheckTests(unittest.TestCase):
         del req["mechanisms"][0]["constraints"]
         adapter = ModuleType("usecase_adapter")
         adapter.build_usecase_from_payload = Mock(return_value=uc)
-        path = ROOT / "optimizer-manager" / "cbs_service.py"
+        path = ROOT / "cbs_service.py"
         spec = importlib.util.spec_from_file_location("cbs_be_bound_service_test", path)
         service = importlib.util.module_from_spec(spec)
         with patch.dict(sys.modules, {"usecase_adapter": adapter}):
@@ -254,7 +254,7 @@ class CBSPrecheckTests(unittest.TestCase):
         capability(req, "ES1")["mechanisms"]["CBS"]["supported"] = False
         adapter = ModuleType("usecase_adapter")
         adapter.build_usecase_from_payload = Mock(return_value=uc)
-        path = ROOT / "optimizer-manager" / "cbs_service.py"
+        path = ROOT / "cbs_service.py"
         spec = importlib.util.spec_from_file_location("cbs_precheck_service_test", path)
         service = importlib.util.module_from_spec(spec)
         with patch.dict(sys.modules, {"usecase_adapter": adapter}):

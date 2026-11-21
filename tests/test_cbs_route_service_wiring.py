@@ -16,7 +16,7 @@ from unittest.mock import patch
 from test_cbs_route_preparation import HOPS, StrictCBSResolver, payload, usecase
 
 ROOT = Path(__file__).resolve().parents[1]
-SERVICE = ROOT / "optimizer-manager" / "cbs_service.py"
+SERVICE = ROOT / "cbs_service.py"
 
 
 class FakeCBSOptimizer(StrictCBSResolver):
@@ -52,12 +52,12 @@ def load_service(calls):
         calls.append(("response", deepcopy(request), deepcopy(generated_routes)))
         return {"status": "ok", "result": result}
 
-    fake_pkg = make_module("optimizers")
+    fake_pkg = make_module("algorithm")
     fake_pkg.__path__ = []
     fakes = {
         "usecase_adapter": make_module("usecase_adapter", build_usecase_from_payload=new_usecase),
-        "optimizers": fake_pkg,
-        "optimizers.cbs": make_module("optimizers.cbs", CBSOptimizer=lambda: FakeCBSOptimizer(calls)),
+        "algorithm": fake_pkg,
+        "algorithm.cbs": make_module("algorithm.cbs", CBSOptimizer=lambda: FakeCBSOptimizer(calls)),
         "cbs_response_adapter": make_module(
             "cbs_response_adapter", build_cbs_response_v13=response,
             CBSResponseConversionError=type("CBSResponseConversionError", (ValueError,), {})),

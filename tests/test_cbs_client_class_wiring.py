@@ -78,7 +78,7 @@ class TestCBSServiceWiring(unittest.TestCase):
     def test_precheck_translate_solve_restore_response_order(self):
         # Inspect the actual function AST rather than inferring call ordering
         # from a handcrafted mock service implementation.
-        src = (ROOT / "optimizer-manager" / "cbs_service.py").read_text(encoding="utf-8")
+        src = (ROOT / "cbs_service.py").read_text(encoding="utf-8")
         cls = ast.parse(src)
         fn = next(f for f in cls.body if isinstance(f, ast.FunctionDef) and f.name == "optimize")
         positions_by_name = {
