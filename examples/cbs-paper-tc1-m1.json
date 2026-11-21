@@ -1,0 +1,203 @@
+{
+  "optimizationTask": "configuration",
+  "mechanism": "CBS",
+  "beMaxFrameSize": 200,
+
+  "nodes": [
+    {
+      "type": "host",
+      "name": "ES1",
+      "ports": {
+        "Port1": {
+          "name": "Port1",
+          "speed": 100,
+          "queueCount": 8
+        }
+      }
+    },
+    {
+      "type": "host",
+      "name": "ES2",
+      "ports": {
+        "Port1": {
+          "name": "Port1",
+          "speed": 100,
+          "queueCount": 8
+        }
+      }
+    },
+    {
+      "type": "host",
+      "name": "ES3",
+      "ports": {
+        "Port1": {
+          "name": "Port1",
+          "speed": 100,
+          "queueCount": 8
+        }
+      }
+    },
+    {
+      "type": "host",
+      "name": "ES4",
+      "ports": {
+        "Port1": {
+          "name": "Port1",
+          "speed": 100,
+          "queueCount": 8
+        }
+      }
+    },
+    {
+      "type": "host",
+      "name": "ES5",
+      "ports": {
+        "Port1": {
+          "name": "Port1",
+          "speed": 100,
+          "queueCount": 8
+        }
+      }
+    },
+    {
+      "type": "switch",
+      "name": "SW1",
+      "procDelay": 0,
+      "ports": {
+        "P1": {
+          "name": "P1",
+          "speed": 100,
+          "queueCount": 8
+        },
+        "P2": {
+          "name": "P2",
+          "speed": 100,
+          "queueCount": 8
+        },
+        "P3": {
+          "name": "P3",
+          "speed": 100,
+          "queueCount": 8
+        },
+        "P4": {
+          "name": "P4",
+          "speed": 100,
+          "queueCount": 8
+        },
+        "P5": {
+          "name": "P5",
+          "speed": 100,
+          "queueCount": 8
+        }
+      }
+    }
+  ],
+
+  "links": [
+    {
+      "sourceNode": "ES1",
+      "sourcePort": "Port1",
+      "destNode": "SW1",
+      "destPort": "P1",
+      "propDelay": 0,
+      "linkBw": 100000000
+    },
+    {
+      "sourceNode": "ES2",
+      "sourcePort": "Port1",
+      "destNode": "SW1",
+      "destPort": "P2",
+      "propDelay": 0,
+      "linkBw": 100000000
+    },
+    {
+      "sourceNode": "ES3",
+      "sourcePort": "Port1",
+      "destNode": "SW1",
+      "destPort": "P3",
+      "propDelay": 0,
+      "linkBw": 100000000
+    },
+    {
+      "sourceNode": "SW1",
+      "sourcePort": "P4",
+      "destNode": "ES4",
+      "destPort": "Port1",
+      "propDelay": 0,
+      "linkBw": 100000000
+    },
+    {
+      "sourceNode": "SW1",
+      "sourcePort": "P5",
+      "destNode": "ES5",
+      "destPort": "Port1",
+      "propDelay": 0,
+      "linkBw": 100000000
+    }
+  ],
+
+  "streams": [
+    {
+      "name": "f1",
+      "type": "isochronous",
+      "interval": 1000000,
+      "maxFramesPerInterval": 1,
+      "maxFrameSize": 100,
+      "maxLatency": 1000000,
+      "srClass": "M1",
+      "beMaxFrameSize": 200,
+      "tlkrPssblPlcmnt": ["ES1"],
+      "lstnsrPssblPlcmnt": [["ES4"]],
+      "earliest-transmit-offset": 0,
+      "latest-transmit-offset": 0,
+      "jitter": 0
+    },
+    {
+      "name": "f2",
+      "type": "isochronous",
+      "interval": 500000,
+      "maxFramesPerInterval": 1,
+      "maxFrameSize": 200,
+      "maxLatency": 500000,
+      "srClass": "M1",
+      "beMaxFrameSize": 200,
+      "tlkrPssblPlcmnt": ["ES1"],
+      "lstnsrPssblPlcmnt": [["ES5"]],
+      "earliest-transmit-offset": 0,
+      "latest-transmit-offset": 0,
+      "jitter": 0
+    },
+    {
+      "name": "f3",
+      "type": "isochronous",
+      "interval": 500000,
+      "maxFramesPerInterval": 1,
+      "maxFrameSize": 100,
+      "maxLatency": 500000,
+      "srClass": "M1",
+      "beMaxFrameSize": 200,
+      "tlkrPssblPlcmnt": ["ES2"],
+      "lstnsrPssblPlcmnt": [["ES4"]],
+      "earliest-transmit-offset": 0,
+      "latest-transmit-offset": 0,
+      "jitter": 0
+    },
+    {
+      "name": "f4",
+      "type": "isochronous",
+      "interval": 1000000,
+      "maxFramesPerInterval": 1,
+      "maxFrameSize": 100,
+      "maxLatency": 1000000,
+      "srClass": "M1",
+      "beMaxFrameSize": 200,
+      "tlkrPssblPlcmnt": ["ES3"],
+      "lstnsrPssblPlcmnt": [["ES4"]],
+      "earliest-transmit-offset": 0,
+      "latest-transmit-offset": 0,
+      "jitter": 0
+    }
+  ],
+
+  "index": null
+}
