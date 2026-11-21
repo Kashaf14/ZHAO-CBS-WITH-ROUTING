@@ -12,8 +12,7 @@ from cbs_response_adapter import (
     _mapped_egress_queue,
     _port_index,
 )
-from optimizers.cbs_nclass_candidate import _cbs_egress_context
-
+from algorithm.cbs_nclass_candidate import _cbs_egress_context
 
 def validate_cbs_precheck(request: dict, usecase, optimizer) -> None:
     """Reject a complete request if any required CBS output queue is inapplicable.

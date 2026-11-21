@@ -3,9 +3,8 @@ from .topology import (
     get_path_links,
     build_egress_ports
 )
-from .base import Optimizer
 
-class CBSOptimizer(Optimizer):
+class CBSOptimizer:
     name = "CBS"
 
     def get_capabilities(self):

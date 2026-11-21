@@ -12,8 +12,7 @@ from cbs_class_translation import (
     CBSClassTranslationError,
     derive_zhao_class_mapping,
 )
-from optimizers.cbs_nclass_candidate import _cbs_egress_context
-
+from algorithm.cbs_nclass_candidate import _cbs_egress_context
 
 def prepare_cbs_solver_usecase(request: dict, usecase, optimizer) -> dict[str, str]:
     """Return {client class: Zhao class} and translate the *internal* Usecase.

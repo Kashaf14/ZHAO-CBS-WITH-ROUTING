@@ -7,7 +7,7 @@ import psutil
 from fastapi import FastAPI, HTTPException
 
 from usecase_adapter import build_usecase_from_payload
-from optimizers.cbs import CBSOptimizer
+from algorithm.cbs import CBSOptimizer
 from cbs_response_adapter import build_cbs_response_v13, CBSResponseConversionError
 from cbs_precheck import validate_cbs_precheck
 from cbs_route_preparation import prepare_cbs_routes, CBSRoutePreparationError
@@ -60,7 +60,7 @@ def optimize(payload: dict):
                 }
             ) from exc
 
-        # Resolve routing only inside the CBS adapter; Manager stays generic.
+        # Resolve routing only inside the CBS adapter;
         # Fixed/preserve paths remain unchanged. For optimize with no path,
         # populate the internal Usecase with one directed bridge route.
         try:
