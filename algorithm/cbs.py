@@ -3,13 +3,14 @@ from .topology import (
     get_path_links,
     build_egress_ports
 )
+from optimizer_metadata import NAME
 
 class CBSOptimizer:
-    name = "Zhao CBS + Routing"
+    name = NAME
 
     def get_capabilities(self):
         return {
-            "name": "Zhao CBS + Routing",
+            "name": NAME,
             "tasks": ["configuration", "reconfiguration"],
             "mechanisms": ["CBS"],        
             "objectives": [
@@ -20,6 +21,7 @@ class CBSOptimizer:
             "supportsReconfiguration": True,
             "inputRequirements": {
                 "requiresPcp": True,
+                "requiresRoutes": False,
                 "acceptsClientTrafficClassIds": True, # zhao's CBS-specific adapter translates arbitrary client labels to M1..M7.
             }
         }

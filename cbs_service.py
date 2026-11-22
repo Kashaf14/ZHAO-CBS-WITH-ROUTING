@@ -15,8 +15,9 @@ from cbs_translation_boundary import (
     prepare_cbs_solver_usecase,
     restore_client_classes_in_cbs_result,
 )
+from optimizer_metadata import NAME, VERSION
 
-app = FastAPI(title="CBS Optimizer Service")
+app = FastAPI(title=NAME, version=VERSION)
 optimizer = CBSOptimizer()
 
 # Process measurements should not overlap between optimization requests.

@@ -16,7 +16,8 @@ PORT=8001
 STAGE_PORT=18001
 
 SMOKE_REQUEST="${SMOKE_REQUEST:-/tmp/zhao-cbs-smoke-request.json}"
-EXPECTED_NAME="Zhao CBS + Routing"
+EXPECTED_NAME="$(PYTHONPATH="$PROJECT_ROOT" python3 -c 'from optimizer_metadata import NAME; print(NAME)')"
+export EXPECTED_NAME
 
 if [[ ! -f "$PROJECT_ROOT/Dockerfile" ]]; then
   echo "Error: Dockerfile not found" >&2
@@ -93,9 +94,9 @@ verify_capabilities() {
 
   curl -fsS "http://127.0.0.1:${port}/capabilities" |
     python3 -c '
-import json, sys
+import json, os, sys
 caps = json.load(sys.stdin)
-assert caps["name"] == "Zhao CBS + Routing", caps
+assert caps["name"] == os.environ["EXPECTED_NAME"], caps
 assert caps["mechanisms"] == ["CBS"], caps
 assert caps["inputRequirements"]["requiresRoutes"] is False, caps
 print("Capabilities verified:", caps["name"])
@@ -114,13 +115,14 @@ smoke_test() {
   python3 - "$RESULT_FILE" <<'PY'
 import json
 import sys
+import os
 
 with open(sys.argv[1]) as f:
     result = json.load(f)
 
 assert result["schemaVersion"] == "1.3", result
 assert result["status"] == "success", result
-assert result["optimizer"]["name"] == "Zhao CBS + Routing", result
+assert result["optimizer"]["name"] == os.environ["EXPECTED_NAME"], result
 
 print("Optimization smoke test: PASSED")
 PY

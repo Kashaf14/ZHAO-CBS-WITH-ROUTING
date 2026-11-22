@@ -24,6 +24,9 @@ COPY cbs_service.py \
      cbs_class_translation.py \
      ./
 
+# Central optimizer identity and version
+COPY optimizer_metadata.py ./
+
 # CBS algorithm package
 COPY algorithm/ ./algorithm/
 

@@ -15,7 +15,7 @@ from copy import deepcopy
 
 from cbs_route_response import generated_route_change_sets
 from typing import Any
-
+from optimizer_metadata import OPTIMIZER_ID, NAME, VERSION
 
 class CBSResponseConversionError(ValueError):
     """CBS calculations exist but cannot be converted to a valid configuration."""
@@ -583,9 +583,9 @@ def build_cbs_response_v13(
     return {
         "schemaVersion": "1.3",
         "optimizer": {
-            "id": "zhao-cbs-routing",
-            "name": "Zhao CBS + Routing",
-            "version": os.environ.get("CBS_OPTIMIZER_VERSION", "unversioned"),
+            "id": OPTIMIZER_ID,
+            "name": NAME,
+            "version": VERSION,
             "type": "analytical",
         },
         "optimizedAgainst": baseline,
@@ -594,5 +594,5 @@ def build_cbs_response_v13(
         "outcome": outcome,
         "kpis": deepcopy(legacy.get("kpis") or {}),
         "warnings": warnings,
-        "errors": [],
+        "errors": []
     }
