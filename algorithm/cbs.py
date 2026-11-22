@@ -1004,11 +1004,10 @@ class CBSOptimizer:
     
  
     def optimize(self, usecase):
-        """Compute CBS with one priority-ordered N-class algorithm.
+        """Compute CBS using the priority-ordered N-class solver.
 
-        Supported analytical domain and fail-closed preconditions are checked
-        by optimize_nclass_candidate. Manager still advertises M1 only until
-        physical queue mapping and integration are independently checked.
+        The N-class candidate checks its analytical preconditions. CBS service
+        adapters handle request translation and physical-queue compatibility.
         """
         print(
             "[CBS.py] Received stream classes:",

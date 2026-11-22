@@ -1,15 +1,11 @@
-"""Step 15: numerical parity gate before replacing class-specific CBS dispatch.
+"""Compare retained class-specific CBS candidates with the generic N-class solver.
 
-Compares the current CBSOptimizer.optimize() with the direct-call
-optimize_nclass_candidate() on IDENTICAL cloned requests:
+The legacy M1/M2 and M1/M2/M3 candidate functions are called directly and
+compared with optimize_nclass_candidate() on cloned Zhao TC1 requests:
+M1+M2, synthetic M3 at 100 bytes, and synthetic M3 at 300 bytes.
 
-  1) Zhao TC1, M1+M2 (published reference case)
-  2) TC1 + synthetic M3 f9 at 100 bytes
-  3) TC1 + synthetic M3 f9 at 300 bytes (forces lower-class blocking)
-
-These are comparisons against the PREVIOUS code implementation, NOT
-independent NC schedulability tests. The original fixture is never edited.
-The script performs no commits or source modifications.
+This is numerical implementation parity, not an independent schedulability
+proof. The original input fixture is never edited.
 
 Run:
   python -m unittest discover -s tests -p 'test_cbs_nclass_parity.py' -v

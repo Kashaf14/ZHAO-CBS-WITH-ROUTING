@@ -1,11 +1,9 @@
-"""Framework-owned adapter from OaaS Request Contract v1.2 to Hamza's Usecase.
+"""Adapt CBS optimization requests to Hamza's external Usecase format.
 
-The optimizer-facing JSON remains independent of Hamza's internal classes. This
-module is the compatibility boundary used by optimizers that still consume a
-Usecase internally.
+Supports standardized OptimizerRequest v1.4 and a legacy internal input path
+retained for historical tests. The standalone CBS service uses this adapter
+before invoking the solver; it does not select or manage optimizers.
 """
-
-#TODO: see if this use case is used by whom ? and is really needed or it can be removed?
 from __future__ import annotations
 
 import os

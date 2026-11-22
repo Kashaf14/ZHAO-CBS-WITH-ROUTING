@@ -1,7 +1,7 @@
-"""Step 20 regression checks: existing CBS queues and partial response safety.
+"""Check CBS response capacity guards and existing physical queue reservations.
 
 Run:
-    python -m unittest discover -s tests -p 'test_cbs_step20_capacity_guard.py' -v
+    python -m unittest discover -s tests -p 'test_cbs_response_capacity_guard.py' -v
 """
 from __future__ import annotations
 from copy import deepcopy

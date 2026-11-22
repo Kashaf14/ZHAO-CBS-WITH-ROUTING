@@ -1,18 +1,18 @@
-"""Experimental priority-ordered CBS solver for a variable set of SR classes.
+"""Priority-ordered analytical CBS solver for up to seven SR classes.
 
-Zhao et al. (2024), Eqs. 4, 5, 11, 13-15, 23, 24.
-The same algorithm is used for every active class; there is NO M1/M2/M3
-branch or a separate class-specific optimizer. Class priority is M1 > ... > M7
-in Zhao's modeled 8-queue architecture, not a hardware guarantee.
+Based on Zhao et al. (2024), Eqs. 4, 5, 11, 13-15, 23, 24.
+The same generic calculation handles every supported target class, with
+M1 > ... > M7 priority in the modeled eight-queue architecture; this is
+not a guarantee that a physical device supports those queue assignments.
 
-Direct-call only. It does not register capabilities or touch the response
-contract, CNC, or the existing production/experimental solver dispatch.
+CBSOptimizer.optimize() calls this solver. Request translation, route
+preparation, capability reporting, and response mapping happen separately.
 
-KNOWN BOUNDS: fixed routed unicast, one frame per interval, configuration only,
-explicit BE frame maximum, no mixed source/transit within a port/class group,
-N in [1,7], all active higher-priority SR classes targeted; lower-priority
-classes may be present only as frame-size blocking background.
-No independent NC schedulability or physical queue feasibility is established.
+KNOWN BOUNDS: directed fixed-route unicast, one frame per interval, explicit
+BE maximum frame size, no mixed source/transit within a port/class group,
+1–7 targeted SR classes, and all active higher-priority classes targeted.
+Untargeted lower-priority classes may contribute frame-size blocking only.
+No independent schedulability proof or physical queue feasibility is implied.
 """
 from __future__ import annotations
 

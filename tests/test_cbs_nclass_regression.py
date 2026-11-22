@@ -1,8 +1,9 @@
-"""Step 18: immutable pre-dispatch regression against FIVE captured CBS scenarios.
+"""Numerical CBS N-class regression against five frozen legacy scenarios.
 
-The reference is actual user-executed pre-migration CBS output (Step 17),
-NOT independent NC verification or hardware validation. This test refuses
-any altered/missing reference and never regenerates it from new code.
+The reference contains recorded pre-migration CBS outputs. This test verifies
+its checksum and compares current calculations with those historical values.
+It does not regenerate the reference or provide independent network-calculus
+or hardware validation.
 """
 from __future__ import annotations
 

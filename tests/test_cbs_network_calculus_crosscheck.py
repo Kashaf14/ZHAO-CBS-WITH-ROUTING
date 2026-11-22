@@ -1,4 +1,4 @@
-"""Step 22: separate, post-hoc NC verification of Zhao-based CBS results.
+"""Separate, post-hoc network-calculus cross-check of CBS results.
 
 This test does not call any optimizer function to calculate worst-case delays.
 It reconstructs each port's arrival envelope independently from the input
@@ -12,7 +12,7 @@ of the separate deterministic NC analysis tool used for Zhao Table III, NOT
 hardware testing, and NOT a proof that every TSN deployment is schedulable.
 
 Place this file in tests/ and run:
-  python -m unittest discover -s tests -p 'test_cbs_step22_nc_crosscheck.py' -v
+  python -m unittest discover -s tests -p 'test_cbs_network_calculus_crosscheck.py' -v
 """
 from __future__ import annotations
 

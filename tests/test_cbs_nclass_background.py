@@ -1,9 +1,8 @@
-"""Step 16 checks retained after generic dispatch migration.
+"""Verify N-class CBS handling of untargeted background traffic.
 
-Checks generic dispatch versus direct-call behavior, blocking with untargeted
-lower classes, and validation of unsafe selections. These tests are NOT old
-solver parity after Step 18; the immutable numerical reference is checked in
-``test_cbs_nclass_regression.py``. Not independent NC validation.
+Checks generic dispatch, lower-priority blocking, and unsafe class selections.
+The frozen historical numerical comparison is in test_cbs_nclass_regression.py.
+These checks do not constitute independent network-calculus validation.
 """
 from __future__ import annotations
 

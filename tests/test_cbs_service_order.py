@@ -1,7 +1,7 @@
-"""Selection and service-order tests, loading exact source functions via AST.
+"""Statically check the ordering of CBS service processing steps.
 
-Run against the patched repository. Avoid starting a Manager, CBS worker or
-network process; numerical and HTTP integration require separate tests.
+Inspects cbs_service.py using Python's AST; does not start a service,
+invoke the Manager, or establish HTTP or numerical integration.
 """
 from __future__ import annotations
 

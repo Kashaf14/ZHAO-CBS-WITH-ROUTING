@@ -1,6 +1,6 @@
 """Isolated CBS route-preparation regression tests (no Manager/CNC/network).
 
-Install alongside optimizer-manager/cbs_route_preparation.py and run:
+Run from the standalone CBS repository:
   python -m unittest discover -s tests -p 'test_cbs_route_preparation.py' -v
 """
 from __future__ import annotations

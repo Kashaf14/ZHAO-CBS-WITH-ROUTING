@@ -7,7 +7,6 @@ Maps traffic priorities (PCP) to physical queues using the request's
 port configuration. Does not modify CBS calculations.
 """
 
-# TODO: remove 1.2 verison support as its not longer in use  
 from __future__ import annotations
 
 import math

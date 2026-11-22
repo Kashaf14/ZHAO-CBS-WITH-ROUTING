@@ -1,11 +1,12 @@
-"""TC1 candidate integration checks, NOT independent NC or live CNC validation.
+"""Offline Zhao TC1 M1/M2 numerical and adapter integration checks.
 
-Requires:
-  - current TSN-OPTIMIZER-FRAMEWORK checkout with Step 2 helper and Step 4 patch
-  - sibling tsn-optimization-contracts repo (or CBS_TC1_REQUEST JSON path)
-  - user's installed Hamza Usecase dependency (TSN_LIBRARY_PATH as appropriate)
+Run from the standalone CBS repository with Hamza's external Usecase library
+available through TSN_LIBRARY_PATH and the shared-contract TC1 fixture
+available in a sibling repository or through CBS_TC1_REQUEST.
 
-Use `python -m unittest discover -s tests -p test_cbs_m1_m2_integration.py -v`
+These checks do not establish independent NC correctness or live CNC integration.
+
+Run: python -m unittest discover -s tests -p 'test_cbs_m1_m2_integration.py' -v
 """
 from __future__ import annotations
 

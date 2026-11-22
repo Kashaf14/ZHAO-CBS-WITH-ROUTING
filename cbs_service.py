@@ -1,4 +1,4 @@
-#this service lets another program send a scenario to CBS over HTTP and receive the result
+"""HTTP API for the standalone CBS optimizer service."""
 import os
 import time
 from threading import Lock

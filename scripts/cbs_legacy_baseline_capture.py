@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
-"""Step 17: capture numeric CBS outputs BEFORE generic N-class dispatch migration.
+"""Historical capture helper for pre-N-class CBS numerical results.
 
-This is a regression reference from the EXISTING implementation, not an
-independent network-calculus or hardware validation. It does not edit code,
-contracts, requests, or OpenCNC. It refuses to overwrite an existing snapshot.
+Retained to document how the frozen regression reference was produced by
+the previous CBS implementation. The reference is not an independent
+network-calculus or hardware validation.
 
-Run at repository root:
-    python scripts/cbs_legacy_baseline_capture.py
-
-Requires the previously passing Step 15/16 test modules and TC1 fixture.
+DO NOT run this capture procedure with the current generic CBS dispatcher.
+The historical snapshot is immutable and must never be regenerated.
 """
 from __future__ import annotations
 
