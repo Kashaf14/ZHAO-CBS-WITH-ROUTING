@@ -13,7 +13,6 @@ from __future__ import annotations
 from copy import deepcopy
 import json
 import math
-import os
 from pathlib import Path
 import sys
 import unittest
@@ -24,7 +23,7 @@ sys.path.insert(0, str(FRAMEWORK))
 from algorithm.cbs import CBSOptimizer  # noqa: E402
 from usecase_adapter import build_usecase_from_payload  # noqa: E402
 
-TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
+TC1 = FRAMEWORK / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 
 M1_REFERENCE = {
     ('ES1', 'Port1'): 12.77,

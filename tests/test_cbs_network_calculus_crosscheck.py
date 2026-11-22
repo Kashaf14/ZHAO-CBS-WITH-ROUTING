@@ -33,10 +33,7 @@ from algorithm.cbs import CBSOptimizer
 from test_cbs_nclass_candidate import synth_request
 from usecase_adapter import build_usecase_from_payload
 
-FIXTURE = Path(os.environ.get("CBS_TC1_REQUEST") or (
-    ROOT.parent / "tsn-optimization-contracts" / "tests" / "request"
-    / "valid" / "cbs-paper-tc1-full-8flow-contract.json"
-))
+FIXTURE = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 NS = 1_000_000_000.0
 
 # Independently published Zhao et al. (2024), Table II, TC1; percentages.

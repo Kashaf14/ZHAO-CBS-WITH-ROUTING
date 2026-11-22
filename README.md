@@ -27,7 +27,9 @@ See `algorithm/cbs_nclass_candidate.py`, `cbs_route_preparation.py`, and the tes
 - Docker for the provided deployment script (its image uses Python 3.14.2).
 - Hamza's external TSN library, including `usecase_generator.py`. This library is **not included** in this repository.
 - Python packages from `requirements.txt`.
-- For tests based on Zhao's TC1 request: the shared-contract repository's fixture at `tests/request/valid/cbs-paper-tc1-full-8flow-contract.json`, or an explicit `CBS_TC1_REQUEST` path.
+- Historical TC1 Step 17 tests read `tests/fixtures/cbs-paper-tc1-step17-original.json` (PCP 5 only), an unchanged local copy from `tsn-optimization-contracts` at commit `9664a6a09f8a38a65362d90dae95c20eb42d094e`. The frozen regression verifies its SHA-256 against the recorded reference.
+- `tests/fixtures/cbs-paper-tc1-full-8flow-contract.json` is a separate extended fixture with explicit PCP 4-to-queue 4 mappings at five TC1 ports. Do not substitute it for the historical Step 17 input.
+- Both fixtures are local. Normal tests require no sibling contract checkout or `CBS_TC1_REQUEST` variable.
 
 The standardized JSON contracts are maintained separately in [tsn-optimization-contracts](https://github.com/Kashaf14/tsn-optimization-contracts). The JSON files under `examples/` are legacy internal-format scenarios, **not** current v1.4 HTTP request examples.
 
@@ -41,7 +43,7 @@ chmod +x deploy-zhao-cbs-standalone.sh
 ./deploy-zhao-cbs-standalone.sh
 ```
 
-The script builds `zhao-cbs-standalone:local` and starts the container `zhao-cbs-standalone` on `127.0.0.1:8001`. It mounts the external library read-only and refuses to replace an existing container. It does not deploy or change the OaaS Manager.
+The script builds `zhao-cbs-routing:local`, tests an isolated staging container on `127.0.0.1:18001`, and then starts `zhao-cbs-routing` on `127.0.0.1:8001` after successful checks. It preserves the previous container for rollback and mounts the external Hamza library read-only. It does not deploy or change the OaaS Manager.
 
 Once deployed, you can inspect:
 
@@ -55,8 +57,8 @@ curl -fsS http://127.0.0.1:8001/capabilities
 For local Python tests, install `requirements.txt` and make Hamza's library importable:
 
 ```bash
-export TSN_LIBRARY_PATH="/Users/kashaf/Desktop/THESIS/TSN_optimizer_platform-Hamza"
-export CBS_TC1_REQUEST="/Users/kashaf/Desktop/THESIS/tsn-optimization-contracts/tests/request/valid/cbs-paper-tc1-full-8flow-contract.json"
+export TSN_LIBRARY_PATH="/absolute/path/to/TSN_optimizer_platform-Hamza"
+# TC1 fixtures are read directly from tests/fixtures/
 python3 -m unittest discover -s tests -p 'test_cbs_nclass_regression.py' -v
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```

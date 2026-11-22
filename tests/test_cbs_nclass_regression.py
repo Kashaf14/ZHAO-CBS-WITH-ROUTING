@@ -31,10 +31,7 @@ from scripts.cbs_legacy_baseline_capture import (
 
 SNAPSHOT = ROOT / "tests/regression/evidence/cbs_step17_pre_dispatch_baseline.json"
 SNAPSHOT_SHA256 = "d10dd2c8e17ccd55ea0cb9f0e85d54538313cacc4cd88c759b58c37964f11f21"
-FIXTURE = Path(os.environ.get("CBS_TC1_REQUEST") or (
-    ROOT.parent / "tsn-optimization-contracts/tests/request/valid/"
-    "cbs-paper-tc1-full-8flow-contract.json"
-))
+FIXTURE = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 FIELDS = ("linkSpeedBps", "requiredDeadlineNs", "sharedDelayNs",
           "blockingFrameBits", "maxFrameBits", "aggregateRhoBps")
 CBS_FIELDS = ("idleSlopeBps", "sendSlopeBps", "creditMinBits", "creditMaxBits")

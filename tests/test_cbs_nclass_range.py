@@ -16,7 +16,6 @@ from collections import defaultdict
 from copy import deepcopy
 import json
 import math
-import os
 from pathlib import Path
 import sys
 import unittest
@@ -30,10 +29,7 @@ from algorithm.cbs_priority_dependencies import priority_index
 from test_cbs_nclass_candidate import synth_request
 from usecase_adapter import build_usecase_from_payload
 
-FIXTURE = Path(os.environ.get("CBS_TC1_REQUEST") or (
-    ROOT.parent / "tsn-optimization-contracts" / "tests" / "request"
-    / "valid" / "cbs-paper-tc1-full-8flow-contract.json"
-))
+FIXTURE = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 
 
 def close(a, b, *, rel_tol=1e-9, abs_tol=1e-5):
