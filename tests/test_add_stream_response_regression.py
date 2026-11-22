@@ -15,7 +15,7 @@ import unittest
 from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "optimizer-manager"))
+sys.path.insert(0, str(ROOT))
 from cbs_response_adapter import build_cbs_response_v13
 
 FIXTURE = Path(__file__).resolve().parent / "fixtures" / "add_stream_captured_request.json"
