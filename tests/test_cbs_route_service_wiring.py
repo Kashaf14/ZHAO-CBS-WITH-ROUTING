@@ -73,7 +73,7 @@ def load_service(calls):
             mod = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(mod)
     finally:
-        sys.path.remove(str(ROOT / "optimizer-manager"))
+        sys.path.remove(str(ROOT))
     return mod
 
 

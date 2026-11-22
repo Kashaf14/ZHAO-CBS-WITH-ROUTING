@@ -1,0 +1,1766 @@
+{
+    "schemaVersion": "1.2",
+    "job": {
+        "jobId": "9cab7621-6fe1-4a22-b909-9ddb5b708b47",
+        "status": "COMPLETED"
+    },
+    "selection": {
+        "selectedOptimizerId": "CBS",
+        "selectedOptimizerName": "CBS",
+        "reason": "Selected by Manager capability matching; detailed selection reason was not persisted."
+    },
+    "optimizerResult": {
+        "schemaVersion": "1.2",
+        "optimizer": {
+            "id": "CBS",
+            "name": "CBS",
+            "version": "unversioned",
+            "type": "analytical"
+        },
+        "optimizedAgainst": null,
+        "status": "success",
+        "solution": {
+            "type": "configuration",
+            "representation": "full",
+            "forwardingPlane": {
+                "topology": {
+                    "nodes": [
+                        {
+                            "name": "ES1",
+                            "type": "END_STATION",
+                            "ports": [
+                                {
+                                    "id": "Port1",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100,
+                                        "supportsCbs": true
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "ES2",
+                            "type": "END_STATION",
+                            "ports": [
+                                {
+                                    "id": "Port1",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100,
+                                        "supportsCbs": true
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "ES3",
+                            "type": "END_STATION",
+                            "ports": [
+                                {
+                                    "id": "Port1",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100,
+                                        "supportsCbs": true
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "SW1",
+                            "type": "BRIDGE",
+                            "ports": [
+                                {
+                                    "id": "P1",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100,
+                                        "supportsCbs": true
+                                    }
+                                },
+                                {
+                                    "id": "P2",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100,
+                                        "supportsCbs": true
+                                    }
+                                },
+                                {
+                                    "id": "P3",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100,
+                                        "supportsCbs": true
+                                    }
+                                },
+                                {
+                                    "id": "P4",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100,
+                                        "supportsCbs": true
+                                    }
+                                },
+                                {
+                                    "id": "P5",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100,
+                                        "supportsCbs": true
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "ES4",
+                            "type": "END_STATION",
+                            "ports": [
+                                {
+                                    "id": "Port1",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "name": "ES5",
+                            "type": "END_STATION",
+                            "ports": [
+                                {
+                                    "id": "Port1",
+                                    "number_of_queues": 8,
+                                    "capabilities": {
+                                        "port_speed": 100
+                                    }
+                                }
+                            ]
+                        }
+                    ],
+                    "links": [
+                        {
+                            "id": "link-es1-sw1",
+                            "source_node": "ES1",
+                            "source_port": "Port1",
+                            "destination_node": "SW1",
+                            "destination_port": "P1",
+                            "propagation_delay_ns": 0,
+                            "bandwidth_mbps": 100
+                        },
+                        {
+                            "id": "link-es2-sw1",
+                            "source_node": "ES2",
+                            "source_port": "Port1",
+                            "destination_node": "SW1",
+                            "destination_port": "P2",
+                            "propagation_delay_ns": 0,
+                            "bandwidth_mbps": 100
+                        },
+                        {
+                            "id": "link-es3-sw1",
+                            "source_node": "ES3",
+                            "source_port": "Port1",
+                            "destination_node": "SW1",
+                            "destination_port": "P3",
+                            "propagation_delay_ns": 0,
+                            "bandwidth_mbps": 100
+                        },
+                        {
+                            "id": "link-sw1-es4",
+                            "source_node": "SW1",
+                            "source_port": "P4",
+                            "destination_node": "ES4",
+                            "destination_port": "Port1",
+                            "propagation_delay_ns": 0,
+                            "bandwidth_mbps": 100
+                        },
+                        {
+                            "id": "link-sw1-es5",
+                            "source_node": "SW1",
+                            "source_port": "P5",
+                            "destination_node": "ES5",
+                            "destination_port": "Port1",
+                            "propagation_delay_ns": 0,
+                            "bandwidth_mbps": 100
+                        }
+                    ]
+                },
+                "streams": [
+                    {
+                        "definition": {
+                            "id": "f1",
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:01",
+                                "uniqueId": 1
+                            },
+                            "talkerNodeId": "ES1",
+                            "listenerNodeIds": [
+                                "ES4"
+                            ],
+                            "trafficSpec": {
+                                "intervalNs": 1000000,
+                                "maxIntervalFrames": 1,
+                                "maxFrameSize": 100,
+                                "serializationOverheadBytes": 0,
+                                "interFrameGapBytes": 0
+                            },
+                            "userToNetworkRequirements": {
+                                "maxLatencyNs": 1000000
+                            },
+                            "trafficClassId": "M1"
+                        },
+                        "configuration": {
+                            "pcp": 5,
+                            "path": [
+                                {
+                                    "hopNumber": 0,
+                                    "bridgeId": "SW1",
+                                    "ingressPortId": "P1",
+                                    "egressPortId": "P4"
+                                }
+                            ],
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:01",
+                                "uniqueId": 1
+                            }
+                        }
+                    },
+                    {
+                        "definition": {
+                            "id": "f2",
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:01",
+                                "uniqueId": 2
+                            },
+                            "talkerNodeId": "ES1",
+                            "listenerNodeIds": [
+                                "ES5"
+                            ],
+                            "trafficSpec": {
+                                "intervalNs": 500000,
+                                "maxIntervalFrames": 1,
+                                "maxFrameSize": 200,
+                                "serializationOverheadBytes": 0,
+                                "interFrameGapBytes": 0
+                            },
+                            "userToNetworkRequirements": {
+                                "maxLatencyNs": 500000
+                            },
+                            "trafficClassId": "M1"
+                        },
+                        "configuration": {
+                            "pcp": 5,
+                            "path": [
+                                {
+                                    "hopNumber": 0,
+                                    "bridgeId": "SW1",
+                                    "ingressPortId": "P1",
+                                    "egressPortId": "P5"
+                                }
+                            ],
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:01",
+                                "uniqueId": 2
+                            }
+                        }
+                    },
+                    {
+                        "definition": {
+                            "id": "f3",
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:02",
+                                "uniqueId": 3
+                            },
+                            "talkerNodeId": "ES2",
+                            "listenerNodeIds": [
+                                "ES4"
+                            ],
+                            "trafficSpec": {
+                                "intervalNs": 500000,
+                                "maxIntervalFrames": 1,
+                                "maxFrameSize": 100,
+                                "serializationOverheadBytes": 0,
+                                "interFrameGapBytes": 0
+                            },
+                            "userToNetworkRequirements": {
+                                "maxLatencyNs": 500000
+                            },
+                            "trafficClassId": "M1"
+                        },
+                        "configuration": {
+                            "pcp": 5,
+                            "path": [
+                                {
+                                    "hopNumber": 0,
+                                    "bridgeId": "SW1",
+                                    "ingressPortId": "P2",
+                                    "egressPortId": "P4"
+                                }
+                            ],
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:02",
+                                "uniqueId": 3
+                            }
+                        }
+                    },
+                    {
+                        "definition": {
+                            "id": "f4",
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:03",
+                                "uniqueId": 4
+                            },
+                            "talkerNodeId": "ES3",
+                            "listenerNodeIds": [
+                                "ES4"
+                            ],
+                            "trafficSpec": {
+                                "intervalNs": 1000000,
+                                "maxIntervalFrames": 1,
+                                "maxFrameSize": 100,
+                                "serializationOverheadBytes": 0,
+                                "interFrameGapBytes": 0
+                            },
+                            "userToNetworkRequirements": {
+                                "maxLatencyNs": 1000000
+                            },
+                            "trafficClassId": "M1"
+                        },
+                        "configuration": {
+                            "pcp": 5,
+                            "path": [
+                                {
+                                    "hopNumber": 0,
+                                    "bridgeId": "SW1",
+                                    "ingressPortId": "P3",
+                                    "egressPortId": "P4"
+                                }
+                            ],
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:03",
+                                "uniqueId": 4
+                            }
+                        }
+                    },
+                    {
+                        "definition": {
+                            "id": "f5",
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:02",
+                                "uniqueId": 5
+                            },
+                            "talkerNodeId": "ES2",
+                            "listenerNodeIds": [
+                                "ES5"
+                            ],
+                            "trafficSpec": {
+                                "intervalNs": 5000000,
+                                "maxIntervalFrames": 1,
+                                "maxFrameSize": 100,
+                                "serializationOverheadBytes": 0,
+                                "interFrameGapBytes": 0
+                            },
+                            "userToNetworkRequirements": {
+                                "maxLatencyNs": 5000000
+                            },
+                            "trafficClassId": "M2"
+                        },
+                        "configuration": {
+                            "pcp": 4,
+                            "path": [
+                                {
+                                    "hopNumber": 0,
+                                    "bridgeId": "SW1",
+                                    "ingressPortId": "P2",
+                                    "egressPortId": "P5"
+                                }
+                            ],
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:02",
+                                "uniqueId": 5
+                            }
+                        }
+                    },
+                    {
+                        "definition": {
+                            "id": "f6",
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:01",
+                                "uniqueId": 6
+                            },
+                            "talkerNodeId": "ES1",
+                            "listenerNodeIds": [
+                                "ES4"
+                            ],
+                            "trafficSpec": {
+                                "intervalNs": 1000000,
+                                "maxIntervalFrames": 1,
+                                "maxFrameSize": 200,
+                                "serializationOverheadBytes": 0,
+                                "interFrameGapBytes": 0
+                            },
+                            "userToNetworkRequirements": {
+                                "maxLatencyNs": 1000000
+                            },
+                            "trafficClassId": "M2"
+                        },
+                        "configuration": {
+                            "pcp": 4,
+                            "path": [
+                                {
+                                    "hopNumber": 0,
+                                    "bridgeId": "SW1",
+                                    "ingressPortId": "P1",
+                                    "egressPortId": "P4"
+                                }
+                            ],
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:01",
+                                "uniqueId": 6
+                            }
+                        }
+                    },
+                    {
+                        "definition": {
+                            "id": "f7",
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:03",
+                                "uniqueId": 7
+                            },
+                            "talkerNodeId": "ES3",
+                            "listenerNodeIds": [
+                                "ES4"
+                            ],
+                            "trafficSpec": {
+                                "intervalNs": 5000000,
+                                "maxIntervalFrames": 1,
+                                "maxFrameSize": 200,
+                                "serializationOverheadBytes": 0,
+                                "interFrameGapBytes": 0
+                            },
+                            "userToNetworkRequirements": {
+                                "maxLatencyNs": 5000000
+                            },
+                            "trafficClassId": "M2"
+                        },
+                        "configuration": {
+                            "pcp": 4,
+                            "path": [
+                                {
+                                    "hopNumber": 0,
+                                    "bridgeId": "SW1",
+                                    "ingressPortId": "P3",
+                                    "egressPortId": "P4"
+                                }
+                            ],
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:03",
+                                "uniqueId": 7
+                            }
+                        }
+                    },
+                    {
+                        "definition": {
+                            "id": "f8",
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:03",
+                                "uniqueId": 8
+                            },
+                            "talkerNodeId": "ES3",
+                            "listenerNodeIds": [
+                                "ES5"
+                            ],
+                            "trafficSpec": {
+                                "intervalNs": 1000000,
+                                "maxIntervalFrames": 1,
+                                "maxFrameSize": 100,
+                                "serializationOverheadBytes": 0,
+                                "interFrameGapBytes": 0
+                            },
+                            "userToNetworkRequirements": {
+                                "maxLatencyNs": 1000000
+                            },
+                            "trafficClassId": "M2"
+                        },
+                        "configuration": {
+                            "pcp": 4,
+                            "path": [
+                                {
+                                    "hopNumber": 0,
+                                    "bridgeId": "SW1",
+                                    "ingressPortId": "P3",
+                                    "egressPortId": "P5"
+                                }
+                            ],
+                            "streamId": {
+                                "macAddress": "02:00:00:00:00:03",
+                                "uniqueId": 8
+                            }
+                        }
+                    }
+                ],
+                "configuration": {
+                    "configId": "tc1-explicit-pcp5-queue5-test-only",
+                    "nodeConfigs": [
+                        {
+                            "nodeId": "ES1",
+                            "portConfigs": [
+                                {
+                                    "portId": "Port1",
+                                    "pcpMappingEnabled": true,
+                                    "pcpConfig": {
+                                        "trafficClassTable": [
+                                            {
+                                                "priority": 5,
+                                                "egressQueueId": 5
+                                            }
+                                        ]
+                                    },
+                                    "queueConfigs": [
+                                        {
+                                            "queueId": 5,
+                                            "cbs": [
+                                                {
+                                                    "egressQueueId": 5,
+                                                    "adminState": "ENABLED",
+                                                    "adminIdleSlopeBps": 12769330,
+                                                    "sendSlopeBps": 87230670,
+                                                    "hiCreditBytes": 26,
+                                                    "loCreditBytes": 175,
+                                                    "description": "M1 result; idleSlope rounded up to hardware granularity; hi/lo credits rounded outward to bytes; sendSlope/loCredit stored as unsigned magnitudes (provisional CNC encoding)"
+                                                }
+                                            ],
+                                            "scheduling": "CREDIT_BASED_SHAPER"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "nodeId": "ES2",
+                            "portConfigs": [
+                                {
+                                    "portId": "Port1",
+                                    "pcpMappingEnabled": true,
+                                    "pcpConfig": {
+                                        "trafficClassTable": [
+                                            {
+                                                "priority": 5,
+                                                "egressQueueId": 5
+                                            }
+                                        ]
+                                    },
+                                    "queueConfigs": [
+                                        {
+                                            "queueId": 5,
+                                            "cbs": [
+                                                {
+                                                    "egressQueueId": 5,
+                                                    "adminState": "ENABLED",
+                                                    "adminIdleSlopeBps": 4939534,
+                                                    "sendSlopeBps": 95060466,
+                                                    "hiCreditBytes": 5,
+                                                    "loCreditBytes": 96,
+                                                    "description": "M1 result; idleSlope rounded up to hardware granularity; hi/lo credits rounded outward to bytes; sendSlope/loCredit stored as unsigned magnitudes (provisional CNC encoding)"
+                                                }
+                                            ],
+                                            "scheduling": "CREDIT_BASED_SHAPER"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "nodeId": "ES3",
+                            "portConfigs": [
+                                {
+                                    "portId": "Port1",
+                                    "pcpMappingEnabled": true,
+                                    "pcpConfig": {
+                                        "trafficClassTable": [
+                                            {
+                                                "priority": 5,
+                                                "egressQueueId": 5
+                                            }
+                                        ]
+                                    },
+                                    "queueConfigs": [
+                                        {
+                                            "queueId": 5,
+                                            "cbs": [
+                                                {
+                                                    "egressQueueId": 5,
+                                                    "adminState": "ENABLED",
+                                                    "adminIdleSlopeBps": 2469767,
+                                                    "sendSlopeBps": 97530233,
+                                                    "hiCreditBytes": 5,
+                                                    "loCreditBytes": 98,
+                                                    "description": "M1 result; idleSlope rounded up to hardware granularity; hi/lo credits rounded outward to bytes; sendSlope/loCredit stored as unsigned magnitudes (provisional CNC encoding)"
+                                                }
+                                            ],
+                                            "scheduling": "CREDIT_BASED_SHAPER"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "nodeId": "SW1",
+                            "portConfigs": [
+                                {
+                                    "portId": "P4",
+                                    "pcpMappingEnabled": true,
+                                    "pcpConfig": {
+                                        "trafficClassTable": [
+                                            {
+                                                "priority": 5,
+                                                "egressQueueId": 5
+                                            }
+                                        ]
+                                    },
+                                    "queueConfigs": [
+                                        {
+                                            "queueId": 5,
+                                            "cbs": [
+                                                {
+                                                    "egressQueueId": 5,
+                                                    "adminState": "ENABLED",
+                                                    "adminIdleSlopeBps": 9835300,
+                                                    "sendSlopeBps": 90164700,
+                                                    "hiCreditBytes": 20,
+                                                    "loCreditBytes": 91,
+                                                    "description": "M1 result; idleSlope rounded up to hardware granularity; hi/lo credits rounded outward to bytes; sendSlope/loCredit stored as unsigned magnitudes (provisional CNC encoding)"
+                                                }
+                                            ],
+                                            "scheduling": "CREDIT_BASED_SHAPER"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "portId": "P5",
+                                    "pcpMappingEnabled": true,
+                                    "pcpConfig": {
+                                        "trafficClassTable": [
+                                            {
+                                                "priority": 5,
+                                                "egressQueueId": 5
+                                            }
+                                        ]
+                                    },
+                                    "queueConfigs": [
+                                        {
+                                            "queueId": 5,
+                                            "cbs": [
+                                                {
+                                                    "egressQueueId": 5,
+                                                    "adminState": "ENABLED",
+                                                    "adminIdleSlopeBps": 9554445,
+                                                    "sendSlopeBps": 90445555,
+                                                    "hiCreditBytes": 10,
+                                                    "loCreditBytes": 181,
+                                                    "description": "M1 result; idleSlope rounded up to hardware granularity; hi/lo credits rounded outward to bytes; sendSlope/loCredit stored as unsigned magnitudes (provisional CNC encoding)"
+                                                }
+                                            ],
+                                            "scheduling": "CREDIT_BASED_SHAPER"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "metadata": {
+                    "modelId": "zhao-tc1-full-8flow-m1-validation-cbs-candidate",
+                    "revision": 1,
+                    "description": "CBS-generated full desired state; independent validation and CNC deployability not established"
+                }
+            }
+        },
+        "outcome": {
+            "feasibility": "feasible",
+            "optimality": "notProven",
+            "terminationReason": "completed",
+            "deadlineStatus": "satisfied",
+            "configurationChanged": true,
+            "constraints": [
+                {
+                    "name": "deadline:f1",
+                    "status": "satisfied",
+                    "affectedResourceIds": [
+                        "f1"
+                    ],
+                    "message": "CBS analytical path delay 533991.725505297 ns; deadline 1000000 ns"
+                },
+                {
+                    "name": "deadline:f2",
+                    "status": "satisfied",
+                    "affectedResourceIds": [
+                        "f2"
+                    ],
+                    "message": "CBS analytical path delay 443235.224727917 ns; deadline 500000 ns"
+                },
+                {
+                    "name": "deadline:f3",
+                    "status": "satisfied",
+                    "affectedResourceIds": [
+                        "f3"
+                    ],
+                    "message": "CBS analytical path delay 500000.000000000 ns; deadline 500000 ns"
+                },
+                {
+                    "name": "deadline:f4",
+                    "status": "satisfied",
+                    "affectedResourceIds": [
+                        "f4"
+                    ],
+                    "message": "CBS analytical path delay 669958.627526486 ns; deadline 1000000 ns"
+                }
+            ],
+            "details": {
+                "cbsDiagnostics": {
+                    "optimizer": "CBS",
+                    "status": "stream parsing successful",
+                    "streams": [
+                        {
+                            "stream": "f1",
+                            "talker": "ES1",
+                            "listener": "ES4",
+                            "path": [
+                                "ES1",
+                                "SW1",
+                                "ES4"
+                            ],
+                            "frameSize": 100,
+                            "interval": 1000000,
+                            "deadline": 1000000,
+                            "rateBps": 800000,
+                            "pathLinks": [
+                                {
+                                    "id": "link-es1-sw1",
+                                    "sourceNode": "ES1",
+                                    "sourcePort": "Port1",
+                                    "destNode": "SW1",
+                                    "destPort": "P1",
+                                    "propDelay": 0,
+                                    "linkBw": 100000000
+                                },
+                                {
+                                    "id": "link-sw1-es4",
+                                    "sourceNode": "SW1",
+                                    "sourcePort": "P4",
+                                    "destNode": "ES4",
+                                    "destPort": "Port1",
+                                    "propDelay": 0,
+                                    "linkBw": 100000000
+                                }
+                            ],
+                            "srClass": "M1",
+                            "burstBits": 800,
+                            "rhoBps": 800000,
+                            "egressPorts": [
+                                {
+                                    "h": 0,
+                                    "node": "ES1",
+                                    "port": "Port1",
+                                    "linkSpeedBps": 100000000,
+                                    "weightBps": 800000
+                                },
+                                {
+                                    "h": 1,
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "linkSpeedBps": 100000000,
+                                    "weightBps": 800000
+                                }
+                            ],
+                            "totalWeightBps": 1600000,
+                            "localDeadlinesNs": [
+                                414213.562373095,
+                                585786.4376269049
+                            ],
+                            "beMaxFrameBits": 800,
+                            "sourceIdleSlopeBps": 1969407.4105414134,
+                            "portBurstsBits": [
+                                800,
+                                1131.370849898476
+                            ],
+                            "m1IdleSlopes": [
+                                {
+                                    "h": 0,
+                                    "node": "ES1",
+                                    "port": "Port1",
+                                    "idleSlopeBps": 1969407.4105414134,
+                                    "sendSlopeBps": -98030592.58945858,
+                                    "creditMinBits": -784.2447407156686,
+                                    "creditMaxBits": 15.755259284331308
+                                },
+                                {
+                                    "h": 1,
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "idleSlopeBps": 1951455.4477214343,
+                                    "sendSlopeBps": -98048544.55227856,
+                                    "creditMinBits": -784.3883564182285,
+                                    "creditMaxBits": 15.611643581771474
+                                }
+                            ],
+                            "arrivalCurveData": [
+                                {
+                                    "h": 1,
+                                    "flowSlopeBps": 800000,
+                                    "flowInterceptBits": 1131.370849898476,
+                                    "linkSlopeBps": 100000000,
+                                    "linkInterceptBits": 800,
+                                    "cbsSlopeBps": 1969407.4105414134,
+                                    "cbsInterceptBits": 1600
+                                }
+                            ],
+                            "xyCandidates": [
+                                {
+                                    "h": 1,
+                                    "points": [
+                                        {
+                                            "xNs": 3340.431954621735,
+                                            "yBits": 1134.0431954621736
+                                        },
+                                        {
+                                            "xNs": 8160.717780727009,
+                                            "yBits": 1616.071778072701
+                                        }
+                                    ]
+                                }
+                            ],
+                            "xyPoints": [
+                                {
+                                    "h": 1,
+                                    "point": {
+                                        "xNs": 3340.431954621735,
+                                        "yBits": 1134.0431954621736
+                                    }
+                                }
+                            ],
+                            "theorem2Results": [
+                                {
+                                    "h": 1,
+                                    "idleSlopeBps": 1951455.4477214343
+                                }
+                            ],
+                            "worstCaseDelayNs": 1000000,
+                            "deadlineSatisfied": true
+                        },
+                        {
+                            "stream": "f2",
+                            "talker": "ES1",
+                            "listener": "ES5",
+                            "path": [
+                                "ES1",
+                                "SW1",
+                                "ES5"
+                            ],
+                            "frameSize": 200,
+                            "interval": 500000,
+                            "deadline": 500000,
+                            "rateBps": 3200000,
+                            "pathLinks": [
+                                {
+                                    "id": "link-es1-sw1",
+                                    "sourceNode": "ES1",
+                                    "sourcePort": "Port1",
+                                    "destNode": "SW1",
+                                    "destPort": "P1",
+                                    "propDelay": 0,
+                                    "linkBw": 100000000
+                                },
+                                {
+                                    "id": "link-sw1-es5",
+                                    "sourceNode": "SW1",
+                                    "sourcePort": "P5",
+                                    "destNode": "ES5",
+                                    "destPort": "Port1",
+                                    "propDelay": 0,
+                                    "linkBw": 100000000
+                                }
+                            ],
+                            "srClass": "M1",
+                            "burstBits": 1600,
+                            "rhoBps": 3200000,
+                            "egressPorts": [
+                                {
+                                    "h": 0,
+                                    "node": "ES1",
+                                    "port": "Port1",
+                                    "linkSpeedBps": 100000000,
+                                    "weightBps": 3200000
+                                },
+                                {
+                                    "h": 1,
+                                    "node": "SW1",
+                                    "port": "P5",
+                                    "linkSpeedBps": 100000000,
+                                    "weightBps": 3200000
+                                }
+                            ],
+                            "totalWeightBps": 6400000,
+                            "localDeadlinesNs": [
+                                207106.7811865475,
+                                292893.21881345246
+                            ],
+                            "beMaxFrameBits": 800,
+                            "sourceIdleSlopeBps": 8035889.036350424,
+                            "portBurstsBits": [
+                                1600,
+                                2262.741699796952
+                            ],
+                            "m1IdleSlopes": [
+                                {
+                                    "h": 0,
+                                    "node": "ES1",
+                                    "port": "Port1",
+                                    "idleSlopeBps": 8035889.036350424,
+                                    "sendSlopeBps": -91964110.96364957,
+                                    "creditMinBits": -1471.4257754183932,
+                                    "creditMaxBits": 64.28711229080339
+                                },
+                                {
+                                    "h": 1,
+                                    "node": "SW1",
+                                    "port": "P5",
+                                    "idleSlopeBps": 7831125.926828081,
+                                    "sendSlopeBps": -92168874.07317191,
+                                    "creditMinBits": -1474.7019851707507,
+                                    "creditMaxBits": 62.64900741462464
+                                }
+                            ],
+                            "arrivalCurveData": [
+                                {
+                                    "h": 1,
+                                    "flowSlopeBps": 3200000,
+                                    "flowInterceptBits": 2262.741699796952,
+                                    "linkSlopeBps": 100000000,
+                                    "linkInterceptBits": 1600,
+                                    "cbsSlopeBps": 8035889.036350424,
+                                    "cbsInterceptBits": 3135.7128877091964
+                                }
+                            ],
+                            "xyCandidates": [
+                                {
+                                    "h": 1,
+                                    "points": [
+                                        {
+                                            "xNs": 6846.505163191655,
+                                            "yBits": 2284.6505163191655
+                                        },
+                                        {
+                                            "xNs": 16699.045656149643,
+                                            "yBits": 3269.9045656149647
+                                        }
+                                    ]
+                                }
+                            ],
+                            "xyPoints": [
+                                {
+                                    "h": 1,
+                                    "point": {
+                                        "xNs": 6846.505163191655,
+                                        "yBits": 2284.6505163191655
+                                    }
+                                }
+                            ],
+                            "theorem2Results": [
+                                {
+                                    "h": 1,
+                                    "idleSlopeBps": 7831125.926828081
+                                }
+                            ],
+                            "worstCaseDelayNs": 499999.9999999999,
+                            "deadlineSatisfied": true
+                        },
+                        {
+                            "stream": "f3",
+                            "talker": "ES2",
+                            "listener": "ES4",
+                            "path": [
+                                "ES2",
+                                "SW1",
+                                "ES4"
+                            ],
+                            "frameSize": 100,
+                            "interval": 500000,
+                            "deadline": 500000,
+                            "rateBps": 1600000,
+                            "pathLinks": [
+                                {
+                                    "id": "link-es2-sw1",
+                                    "sourceNode": "ES2",
+                                    "sourcePort": "Port1",
+                                    "destNode": "SW1",
+                                    "destPort": "P2",
+                                    "propDelay": 0,
+                                    "linkBw": 100000000
+                                },
+                                {
+                                    "id": "link-sw1-es4",
+                                    "sourceNode": "SW1",
+                                    "sourcePort": "P4",
+                                    "destNode": "ES4",
+                                    "destPort": "Port1",
+                                    "propDelay": 0,
+                                    "linkBw": 100000000
+                                }
+                            ],
+                            "srClass": "M1",
+                            "burstBits": 800,
+                            "rhoBps": 1600000,
+                            "egressPorts": [
+                                {
+                                    "h": 0,
+                                    "node": "ES2",
+                                    "port": "Port1",
+                                    "linkSpeedBps": 100000000,
+                                    "weightBps": 1600000
+                                },
+                                {
+                                    "h": 1,
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "linkSpeedBps": 100000000,
+                                    "weightBps": 1600000
+                                }
+                            ],
+                            "totalWeightBps": 3200000,
+                            "localDeadlinesNs": [
+                                207106.7811865475,
+                                292893.21881345246
+                            ],
+                            "beMaxFrameBits": 800,
+                            "sourceIdleSlopeBps": 4017944.518175212,
+                            "portBurstsBits": [
+                                800,
+                                1131.370849898476
+                            ],
+                            "m1IdleSlopes": [
+                                {
+                                    "h": 0,
+                                    "node": "ES2",
+                                    "port": "Port1",
+                                    "idleSlopeBps": 4017944.518175212,
+                                    "sendSlopeBps": -95982055.48182479,
+                                    "creditMinBits": -767.8564438545982,
+                                    "creditMaxBits": 32.143556145401696
+                                },
+                                {
+                                    "h": 1,
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "idleSlopeBps": 3943508.6535798996,
+                                    "sendSlopeBps": -96056491.3464201,
+                                    "creditMinBits": -768.4519307713608,
+                                    "creditMaxBits": 31.548069228639196
+                                }
+                            ],
+                            "arrivalCurveData": [
+                                {
+                                    "h": 1,
+                                    "flowSlopeBps": 1600000,
+                                    "flowInterceptBits": 1131.370849898476,
+                                    "linkSlopeBps": 100000000,
+                                    "linkInterceptBits": 800,
+                                    "cbsSlopeBps": 4017944.518175212,
+                                    "cbsInterceptBits": 1600
+                                }
+                            ],
+                            "xyCandidates": [
+                                {
+                                    "h": 1,
+                                    "points": [
+                                        {
+                                            "xNs": 3367.589937992643,
+                                            "yBits": 1136.7589937992643
+                                        },
+                                        {
+                                            "xNs": 8334.891308422628,
+                                            "yBits": 1633.489130842263
+                                        }
+                                    ]
+                                }
+                            ],
+                            "xyPoints": [
+                                {
+                                    "h": 1,
+                                    "point": {
+                                        "xNs": 3367.589937992643,
+                                        "yBits": 1136.7589937992643
+                                    }
+                                }
+                            ],
+                            "theorem2Results": [
+                                {
+                                    "h": 1,
+                                    "idleSlopeBps": 3943508.6535798996
+                                }
+                            ],
+                            "worstCaseDelayNs": 500000,
+                            "deadlineSatisfied": true
+                        },
+                        {
+                            "stream": "f4",
+                            "talker": "ES3",
+                            "listener": "ES4",
+                            "path": [
+                                "ES3",
+                                "SW1",
+                                "ES4"
+                            ],
+                            "frameSize": 100,
+                            "interval": 1000000,
+                            "deadline": 1000000,
+                            "rateBps": 800000,
+                            "pathLinks": [
+                                {
+                                    "id": "link-es3-sw1",
+                                    "sourceNode": "ES3",
+                                    "sourcePort": "Port1",
+                                    "destNode": "SW1",
+                                    "destPort": "P3",
+                                    "propDelay": 0,
+                                    "linkBw": 100000000
+                                },
+                                {
+                                    "id": "link-sw1-es4",
+                                    "sourceNode": "SW1",
+                                    "sourcePort": "P4",
+                                    "destNode": "ES4",
+                                    "destPort": "Port1",
+                                    "propDelay": 0,
+                                    "linkBw": 100000000
+                                }
+                            ],
+                            "srClass": "M1",
+                            "burstBits": 800,
+                            "rhoBps": 800000,
+                            "egressPorts": [
+                                {
+                                    "h": 0,
+                                    "node": "ES3",
+                                    "port": "Port1",
+                                    "linkSpeedBps": 100000000,
+                                    "weightBps": 800000
+                                },
+                                {
+                                    "h": 1,
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "linkSpeedBps": 100000000,
+                                    "weightBps": 800000
+                                }
+                            ],
+                            "totalWeightBps": 1600000,
+                            "localDeadlinesNs": [
+                                414213.562373095,
+                                585786.4376269049
+                            ],
+                            "beMaxFrameBits": 800,
+                            "sourceIdleSlopeBps": 1969407.4105414134,
+                            "portBurstsBits": [
+                                800,
+                                1131.370849898476
+                            ],
+                            "m1IdleSlopes": [
+                                {
+                                    "h": 0,
+                                    "node": "ES3",
+                                    "port": "Port1",
+                                    "idleSlopeBps": 1969407.4105414134,
+                                    "sendSlopeBps": -98030592.58945858,
+                                    "creditMinBits": -784.2447407156686,
+                                    "creditMaxBits": 15.755259284331308
+                                },
+                                {
+                                    "h": 1,
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "idleSlopeBps": 1951455.4477214343,
+                                    "sendSlopeBps": -98048544.55227856,
+                                    "creditMinBits": -784.3883564182285,
+                                    "creditMaxBits": 15.611643581771474
+                                }
+                            ],
+                            "arrivalCurveData": [
+                                {
+                                    "h": 1,
+                                    "flowSlopeBps": 800000,
+                                    "flowInterceptBits": 1131.370849898476,
+                                    "linkSlopeBps": 100000000,
+                                    "linkInterceptBits": 800,
+                                    "cbsSlopeBps": 1969407.4105414134,
+                                    "cbsInterceptBits": 1600
+                                }
+                            ],
+                            "xyCandidates": [
+                                {
+                                    "h": 1,
+                                    "points": [
+                                        {
+                                            "xNs": 3340.431954621735,
+                                            "yBits": 1134.0431954621736
+                                        },
+                                        {
+                                            "xNs": 8160.717780727009,
+                                            "yBits": 1616.071778072701
+                                        }
+                                    ]
+                                }
+                            ],
+                            "xyPoints": [
+                                {
+                                    "h": 1,
+                                    "point": {
+                                        "xNs": 3340.431954621735,
+                                        "yBits": 1134.0431954621736
+                                    }
+                                }
+                            ],
+                            "theorem2Results": [
+                                {
+                                    "h": 1,
+                                    "idleSlopeBps": 1951455.4477214343
+                                }
+                            ],
+                            "worstCaseDelayNs": 1000000,
+                            "deadlineSatisfied": true
+                        }
+                    ],
+                    "portClassGroups": [
+                        {
+                            "node": "ES1",
+                            "port": "Port1",
+                            "srClass": "M1",
+                            "streams": [
+                                "f1",
+                                "f2"
+                            ],
+                            "aggregateRhoBps": 4000000,
+                            "aggregateBurstBits": 2400,
+                            "maxFrameBits": 1600,
+                            "linkSpeedBps": 100000000,
+                            "streamDeadlines": [
+                                {
+                                    "stream": "f1",
+                                    "deadlineNs": 414213.562373095
+                                },
+                                {
+                                    "stream": "f2",
+                                    "deadlineNs": 207106.7811865475
+                                }
+                            ],
+                            "beMaxFrameBits": 800,
+                            "streamBursts": [
+                                {
+                                    "stream": "f1",
+                                    "rhoBps": 800000,
+                                    "burstBits": 800,
+                                    "maxFrameBits": 800
+                                },
+                                {
+                                    "stream": "f2",
+                                    "rhoBps": 3200000,
+                                    "burstBits": 1600,
+                                    "maxFrameBits": 1600
+                                }
+                            ],
+                            "streamPositions": [
+                                {
+                                    "stream": "f1",
+                                    "h": 0,
+                                    "predecessor": null
+                                },
+                                {
+                                    "stream": "f2",
+                                    "h": 0,
+                                    "predecessor": null
+                                }
+                            ],
+                            "requiredDeadlineNs": 203950.35303178296,
+                            "aggregatePortBurstBits": 2400,
+                            "theorem1DeadlineNs": 203950.35303178296,
+                            "blockingFrameBits": 1600,
+                            "sharedCBS": {
+                                "idleSlopeBps": 12769329.56648479,
+                                "sendSlopeBps": -87230670.4335152,
+                                "creditMinBits": -1395.6907269362432,
+                                "creditMaxBits": 204.30927306375665
+                            },
+                            "sharedDelayNs": 203950.35303178296
+                        },
+                        {
+                            "node": "SW1",
+                            "port": "P4",
+                            "srClass": "M1",
+                            "streams": [
+                                "f1",
+                                "f3",
+                                "f4"
+                            ],
+                            "aggregateRhoBps": 3200000,
+                            "aggregateBurstBits": 2400,
+                            "maxFrameBits": 800,
+                            "linkSpeedBps": 100000000,
+                            "streamDeadlines": [
+                                {
+                                    "stream": "f1",
+                                    "deadlineNs": 585786.4376269049
+                                },
+                                {
+                                    "stream": "f3",
+                                    "deadlineNs": 292893.21881345246
+                                },
+                                {
+                                    "stream": "f4",
+                                    "deadlineNs": 585786.4376269049
+                                }
+                            ],
+                            "beMaxFrameBits": 800,
+                            "streamBursts": [
+                                {
+                                    "stream": "f1",
+                                    "rhoBps": 800000,
+                                    "burstBits": 963.1602824254264,
+                                    "maxFrameBits": 800
+                                },
+                                {
+                                    "stream": "f3",
+                                    "rhoBps": 1600000,
+                                    "burstBits": 1071.9338040423772,
+                                    "maxFrameBits": 800
+                                },
+                                {
+                                    "stream": "f4",
+                                    "rhoBps": 800000,
+                                    "burstBits": 1071.9338040423772,
+                                    "maxFrameBits": 800
+                                }
+                            ],
+                            "streamPositions": [
+                                {
+                                    "stream": "f1",
+                                    "h": 1,
+                                    "predecessor": {
+                                        "node": "ES1",
+                                        "port": "Port1",
+                                        "srClass": "M1"
+                                    }
+                                },
+                                {
+                                    "stream": "f3",
+                                    "h": 1,
+                                    "predecessor": {
+                                        "node": "ES2",
+                                        "port": "Port1",
+                                        "srClass": "M1"
+                                    }
+                                },
+                                {
+                                    "stream": "f4",
+                                    "h": 1,
+                                    "predecessor": {
+                                        "node": "ES3",
+                                        "port": "Port1",
+                                        "srClass": "M1"
+                                    }
+                                }
+                            ],
+                            "requiredDeadlineNs": 330041.37247351423,
+                            "aggregatePortBurstBits": 3107.027890510181,
+                            "theorem1DeadlineNs": 330041.37247351423,
+                            "blockingFrameBits": 1600,
+                            "sharedArrivalCurve": {
+                                "predecessorCurves": [
+                                    {
+                                        "predecessor": {
+                                            "node": "ES1",
+                                            "port": "Port1",
+                                            "srClass": "M1"
+                                        },
+                                        "streams": [
+                                            "f1"
+                                        ],
+                                        "flowSlopeBps": 800000,
+                                        "flowInterceptBits": 963.1602824254264,
+                                        "linkSlopeBps": 100000000,
+                                        "linkInterceptBits": 800,
+                                        "cbsSlopeBps": 12769329.56648479,
+                                        "cbsInterceptBits": 2400
+                                    },
+                                    {
+                                        "predecessor": {
+                                            "node": "ES2",
+                                            "port": "Port1",
+                                            "srClass": "M1"
+                                        },
+                                        "streams": [
+                                            "f3"
+                                        ],
+                                        "flowSlopeBps": 1600000,
+                                        "flowInterceptBits": 1071.9338040423772,
+                                        "linkSlopeBps": 100000000,
+                                        "linkInterceptBits": 800,
+                                        "cbsSlopeBps": 4939533.0907529,
+                                        "cbsInterceptBits": 1600
+                                    },
+                                    {
+                                        "predecessor": {
+                                            "node": "ES3",
+                                            "port": "Port1",
+                                            "srClass": "M1"
+                                        },
+                                        "streams": [
+                                            "f4"
+                                        ],
+                                        "flowSlopeBps": 800000,
+                                        "flowInterceptBits": 1071.9338040423772,
+                                        "linkSlopeBps": 100000000,
+                                        "linkInterceptBits": 800,
+                                        "cbsSlopeBps": 2469766.54537645,
+                                        "cbsInterceptBits": 1619.7581323630116
+                                    }
+                                ]
+                            },
+                            "initialIdleSlopeBps": 9647915.317978945,
+                            "sharedXYCandidates": [
+                                {
+                                    "xNs": 1644.7609115466375,
+                                    "yBits": 2893.4282734639914
+                                },
+                                {
+                                    "xNs": 2741.2681859110608,
+                                    "yBits": 3113.606934156367
+                                },
+                                {
+                                    "xNs": 2763.55491912985,
+                                    "yBits": 3115.8712662513963
+                                },
+                                {
+                                    "xNs": 8405.169385187704,
+                                    "yBits": 3133.9244325427817
+                                },
+                                {
+                                    "xNs": 8415.69609334813,
+                                    "yBits": 3133.9581180088944
+                                },
+                                {
+                                    "xNs": 18342.172449763246,
+                                    "yBits": 3165.7228423494234
+                                }
+                            ],
+                            "sharedXYPoint": {
+                                "xNs": 2763.55491912985,
+                                "yBits": 3115.8712662513963
+                            },
+                            "sharedCBS": {
+                                "idleSlopeBps": 9835299.254640773,
+                                "sendSlopeBps": -90164700.74535923,
+                                "creditMinBits": -721.3176059628738,
+                                "creditMaxBits": 157.36478807425235
+                            },
+                            "sharedDelayNs": 330041.3724735143
+                        },
+                        {
+                            "node": "SW1",
+                            "port": "P5",
+                            "srClass": "M1",
+                            "streams": [
+                                "f2"
+                            ],
+                            "aggregateRhoBps": 3200000,
+                            "aggregateBurstBits": 1600,
+                            "maxFrameBits": 1600,
+                            "linkSpeedBps": 100000000,
+                            "streamDeadlines": [
+                                {
+                                    "stream": "f2",
+                                    "deadlineNs": 292893.21881345246
+                                }
+                            ],
+                            "beMaxFrameBits": 800,
+                            "streamBursts": [
+                                {
+                                    "stream": "f2",
+                                    "rhoBps": 3200000,
+                                    "burstBits": 2252.6411297017057,
+                                    "maxFrameBits": 1600
+                                }
+                            ],
+                            "streamPositions": [
+                                {
+                                    "stream": "f2",
+                                    "h": 1,
+                                    "predecessor": {
+                                        "node": "ES1",
+                                        "port": "Port1",
+                                        "srClass": "M1"
+                                    }
+                                }
+                            ],
+                            "requiredDeadlineNs": 239284.87169613395,
+                            "aggregatePortBurstBits": 2252.6411297017057,
+                            "theorem1DeadlineNs": 239284.87169613395,
+                            "blockingFrameBits": 800,
+                            "sharedArrivalCurve": {
+                                "predecessorCurves": [
+                                    {
+                                        "predecessor": {
+                                            "node": "ES1",
+                                            "port": "Port1",
+                                            "srClass": "M1"
+                                        },
+                                        "streams": [
+                                            "f2"
+                                        ],
+                                        "flowSlopeBps": 3200000,
+                                        "flowInterceptBits": 2252.6411297017057,
+                                        "linkSlopeBps": 100000000,
+                                        "linkInterceptBits": 1600,
+                                        "cbsSlopeBps": 12769329.56648479,
+                                        "cbsInterceptBits": 3200
+                                    }
+                                ]
+                            },
+                            "initialIdleSlopeBps": 9739682.120935539,
+                            "sharedXYCandidates": [
+                                {
+                                    "xNs": 6742.160430802745,
+                                    "yBits": 2274.2160430802746
+                                },
+                                {
+                                    "xNs": 18342.172449763246,
+                                    "yBits": 2311.3360815409483
+                                }
+                            ],
+                            "sharedXYPoint": {
+                                "xNs": 6742.160430802745,
+                                "yBits": 2274.2160430802746
+                            },
+                            "sharedCBS": {
+                                "idleSlopeBps": 9554444.395489775,
+                                "sendSlopeBps": -90445555.60451022,
+                                "creditMinBits": -1447.1288896721635,
+                                "creditMaxBits": 76.4355551639182
+                            },
+                            "sharedDelayNs": 239284.8716961339
+                        },
+                        {
+                            "node": "ES2",
+                            "port": "Port1",
+                            "srClass": "M1",
+                            "streams": [
+                                "f3"
+                            ],
+                            "aggregateRhoBps": 1600000,
+                            "aggregateBurstBits": 800,
+                            "maxFrameBits": 800,
+                            "linkSpeedBps": 100000000,
+                            "streamDeadlines": [
+                                {
+                                    "stream": "f3",
+                                    "deadlineNs": 207106.7811865475
+                                }
+                            ],
+                            "beMaxFrameBits": 800,
+                            "streamBursts": [
+                                {
+                                    "stream": "f3",
+                                    "rhoBps": 1600000,
+                                    "burstBits": 800,
+                                    "maxFrameBits": 800
+                                }
+                            ],
+                            "streamPositions": [
+                                {
+                                    "stream": "f3",
+                                    "h": 0,
+                                    "predecessor": null
+                                }
+                            ],
+                            "requiredDeadlineNs": 169958.6275264858,
+                            "aggregatePortBurstBits": 800,
+                            "theorem1DeadlineNs": 169958.6275264858,
+                            "blockingFrameBits": 800,
+                            "sharedCBS": {
+                                "idleSlopeBps": 4939533.0907529,
+                                "sendSlopeBps": -95060466.9092471,
+                                "creditMinBits": -760.4837352739768,
+                                "creditMaxBits": 39.516264726023195
+                            },
+                            "sharedDelayNs": 169958.6275264858
+                        },
+                        {
+                            "node": "ES3",
+                            "port": "Port1",
+                            "srClass": "M1",
+                            "streams": [
+                                "f4"
+                            ],
+                            "aggregateRhoBps": 800000,
+                            "aggregateBurstBits": 800,
+                            "maxFrameBits": 800,
+                            "linkSpeedBps": 100000000,
+                            "streamDeadlines": [
+                                {
+                                    "stream": "f4",
+                                    "deadlineNs": 414213.562373095
+                                }
+                            ],
+                            "beMaxFrameBits": 800,
+                            "streamBursts": [
+                                {
+                                    "stream": "f4",
+                                    "rhoBps": 800000,
+                                    "burstBits": 800,
+                                    "maxFrameBits": 800
+                                }
+                            ],
+                            "streamPositions": [
+                                {
+                                    "stream": "f4",
+                                    "h": 0,
+                                    "predecessor": null
+                                }
+                            ],
+                            "requiredDeadlineNs": 339917.2550529716,
+                            "aggregatePortBurstBits": 800,
+                            "theorem1DeadlineNs": 339917.2550529716,
+                            "blockingFrameBits": 1600,
+                            "sharedCBS": {
+                                "idleSlopeBps": 2469766.54537645,
+                                "sendSlopeBps": -97530233.45462355,
+                                "creditMinBits": -780.2418676369883,
+                                "creditMaxBits": 39.516264726023195
+                            },
+                            "sharedDelayNs": 339917.2550529716
+                        }
+                    ],
+                    "sharedStreamResults": [
+                        {
+                            "stream": "f1",
+                            "sharedPathDelayNs": 533991.7255052973,
+                            "deadlineNs": 1000000,
+                            "deadlineSatisfied": true,
+                            "portDelays": [
+                                {
+                                    "node": "ES1",
+                                    "port": "Port1",
+                                    "delayNs": 203950.35303178296
+                                },
+                                {
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "delayNs": 330041.3724735143
+                                }
+                            ]
+                        },
+                        {
+                            "stream": "f2",
+                            "sharedPathDelayNs": 443235.2247279169,
+                            "deadlineNs": 500000,
+                            "deadlineSatisfied": true,
+                            "portDelays": [
+                                {
+                                    "node": "ES1",
+                                    "port": "Port1",
+                                    "delayNs": 203950.35303178296
+                                },
+                                {
+                                    "node": "SW1",
+                                    "port": "P5",
+                                    "delayNs": 239284.8716961339
+                                }
+                            ]
+                        },
+                        {
+                            "stream": "f3",
+                            "sharedPathDelayNs": 500000.0000000001,
+                            "deadlineNs": 500000,
+                            "deadlineSatisfied": true,
+                            "portDelays": [
+                                {
+                                    "node": "ES2",
+                                    "port": "Port1",
+                                    "delayNs": 169958.6275264858
+                                },
+                                {
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "delayNs": 330041.3724735143
+                                }
+                            ]
+                        },
+                        {
+                            "stream": "f4",
+                            "sharedPathDelayNs": 669958.6275264858,
+                            "deadlineNs": 1000000,
+                            "deadlineSatisfied": true,
+                            "portDelays": [
+                                {
+                                    "node": "ES3",
+                                    "port": "Port1",
+                                    "delayNs": 339917.2550529716
+                                },
+                                {
+                                    "node": "SW1",
+                                    "port": "P4",
+                                    "delayNs": 330041.3724735143
+                                }
+                            ]
+                        }
+                    ],
+                    "overallWorstCaseDelayNs": 669958.6275264858,
+                    "allDeadlinesSatisfied": true,
+                    "kpis": {
+                        "executionTimeMs": 1.5420840000075486,
+                        "cpuTimeMs": 0,
+                        "memoryBeforeBytes": 112238592,
+                        "memoryAfterBytes": 112275456,
+                        "memoryDeltaBytes": 36864
+                    }
+                }
+            }
+        },
+        "kpis": {
+            "executionTimeMs": 1.5420840000075486,
+            "cpuTimeMs": 0,
+            "memoryBeforeBytes": 112238592,
+            "memoryAfterBytes": 112275456,
+            "memoryDeltaBytes": 36864
+        },
+        "warnings": [
+            {
+                "code": "NOT_INDEPENDENTLY_VALIDATED",
+                "message": "Deadlines and feasibility are CBS optimizer-reported; no independent CNC/hardware validation has run."
+            },
+            {
+                "code": "CBS_SIGNED_MAGNITUDES_PROVISIONAL",
+                "message": "sendSlopeBps/loCreditBytes are nonnegative magnitudes of mathematically nonpositive values in CNC uint64 fields. Confirm end-to-end CNC interpretation before deployment."
+            }
+        ],
+        "errors": []
+    },
+    "validation": {
+        "status": "notRun",
+        "deployable": null,
+        "checks": [],
+        "warnings": [],
+        "errors": []
+    },
+    "frameworkKpis": {},
+    "finalStatus": "notEvaluated",
+    "warnings": [
+        {
+            "code": "INDEPENDENT_VALIDATION_NOT_RUN",
+            "message": "Independent configuration validation has not run."
+        }
+    ],
+    "errors": []
+}

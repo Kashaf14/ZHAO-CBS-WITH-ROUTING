@@ -1,0 +1,1018 @@
+{
+  "cases": {
+    "tc1_m1_m2": {
+      "inputSHA256": "ef7fa2b9e890604810ed185460668a9a813122403c7a5c94bd1b5abb0b786497",
+      "result": {
+        "allDeadlinesSatisfied": true,
+        "overallWorstCaseDelayNs": 1648732.1500281994,
+        "portClassGroups": [
+          {
+            "aggregateRhoBps": 4000000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES1",
+            "port": "Port1",
+            "requiredDeadlineNs": 203950.35303178296,
+            "sharedCBS": {
+              "creditMaxBits": 204.30927306375665,
+              "creditMinBits": -1395.6907269362432,
+              "idleSlopeBps": 12769329.56648479,
+              "sendSlopeBps": -87230670.4335152
+            },
+            "sharedDelayNs": 203950.35303178296,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 1600000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES2",
+            "port": "Port1",
+            "requiredDeadlineNs": 169958.6275264858,
+            "sharedCBS": {
+              "creditMaxBits": 39.516264726023195,
+              "creditMinBits": -760.4837352739768,
+              "idleSlopeBps": 4939533.0907529,
+              "sendSlopeBps": -95060466.9092471
+            },
+            "sharedDelayNs": 169958.6275264858,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 800000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 339917.2550529716,
+            "sharedCBS": {
+              "creditMaxBits": 39.516264726023195,
+              "creditMinBits": -780.2418676369883,
+              "idleSlopeBps": 2469766.54537645,
+              "sendSlopeBps": -97530233.45462355
+            },
+            "sharedDelayNs": 339917.2550529716,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P4",
+            "requiredDeadlineNs": 330041.37247351423,
+            "sharedCBS": {
+              "creditMaxBits": 157.36478807425235,
+              "creditMinBits": -721.3176059628738,
+              "idleSlopeBps": 9835299.254640773,
+              "sendSlopeBps": -90164700.74535923
+            },
+            "sharedDelayNs": 330041.3724735143,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 239284.87169613395,
+            "sharedCBS": {
+              "creditMaxBits": 76.4355551639182,
+              "creditMinBits": -1447.1288896721635,
+              "idleSlopeBps": 9554444.395489775,
+              "sendSlopeBps": -90445555.60451022
+            },
+            "sharedDelayNs": 239284.8716961339,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 1600000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES1",
+            "port": "Port1",
+            "requiredDeadlineNs": 227056.25250986978,
+            "sharedCBS": {
+              "creditMaxBits": 199.4883462758169,
+              "creditMinBits": -1473.195240288917,
+              "idleSlopeBps": 7925297.481942699,
+              "sendSlopeBps": -92074702.5180573
+            },
+            "sharedDelayNs": 227056.25250986978,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 160000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES2",
+            "port": "Port1",
+            "requiredDeadlineNs": 1135281.2625493489,
+            "sharedCBS": {
+              "creditMaxBits": 11.737385856171972,
+              "creditMinBits": -794.2799204910095,
+              "idleSlopeBps": 715009.9386238104,
+              "sendSlopeBps": -99284990.06137618
+            },
+            "sharedDelayNs": 1135281.2625493489,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 1120000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 486549.11252114957,
+            "sharedCBS": {
+              "creditMaxBits": 82.67564648930397,
+              "creditMinBits": -1518.3580663871787,
+              "idleSlopeBps": 5102620.8508013375,
+              "sendSlopeBps": -94897379.14919867
+            },
+            "sharedDelayNs": 486549.11252114957,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 1920000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "SW1",
+            "port": "P4",
+            "requiredDeadlineNs": 439801.5420448137,
+            "sharedCBS": {
+              "creditMaxBits": 147.36446386945926,
+              "creditMinBits": -1460.2572114255609,
+              "idleSlopeBps": 8733924.285902435,
+              "sendSlopeBps": -91266075.71409756
+            },
+            "sharedDelayNs": 439801.5420448137,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 960000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 513450.88747885043,
+            "sharedCBS": {
+              "creditMaxBits": 109.69782986638482,
+              "creditMinBits": -764.6778385824707,
+              "idleSlopeBps": 4415270.17719117,
+              "sendSlopeBps": -95584729.82280883
+            },
+            "sharedDelayNs": 513450.88747885043,
+            "srClass": "M2"
+          }
+        ],
+        "sharedStreamResults": [
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 533991.7255052973,
+            "stream": "f1"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 443235.2247279169,
+            "stream": "f2"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 500000.0000000001,
+            "stream": "f3"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 669958.6275264858,
+            "stream": "f4"
+          },
+          {
+            "deadlineNs": 5000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 1648732.1500281994,
+            "stream": "f5"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 666857.7945546835,
+            "stream": "f6"
+          },
+          {
+            "deadlineNs": 5000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 926350.6545659632,
+            "stream": "f7"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 1000000.0,
+            "stream": "f8"
+          }
+        ]
+      }
+    },
+    "tc1_m1_m2_m3_100B": {
+      "inputSHA256": "8b6b90ebd4789d8e4fbbbb8af42beb1ca606a6b12a8812758c3e41b99ff4ed56",
+      "result": {
+        "allDeadlinesSatisfied": true,
+        "overallWorstCaseDelayNs": 5000000.0,
+        "portClassGroups": [
+          {
+            "aggregateRhoBps": 4000000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES1",
+            "port": "Port1",
+            "requiredDeadlineNs": 203950.35303178296,
+            "sharedCBS": {
+              "creditMaxBits": 204.30927306375665,
+              "creditMinBits": -1395.6907269362432,
+              "idleSlopeBps": 12769329.56648479,
+              "sendSlopeBps": -87230670.4335152
+            },
+            "sharedDelayNs": 203950.35303178296,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 1600000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES2",
+            "port": "Port1",
+            "requiredDeadlineNs": 169958.6275264858,
+            "sharedCBS": {
+              "creditMaxBits": 39.516264726023195,
+              "creditMinBits": -760.4837352739768,
+              "idleSlopeBps": 4939533.0907529,
+              "sendSlopeBps": -95060466.9092471
+            },
+            "sharedDelayNs": 169958.6275264858,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 800000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 339917.2550529716,
+            "sharedCBS": {
+              "creditMaxBits": 39.516264726023195,
+              "creditMinBits": -780.2418676369883,
+              "idleSlopeBps": 2469766.54537645,
+              "sendSlopeBps": -97530233.45462355
+            },
+            "sharedDelayNs": 339917.2550529716,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P4",
+            "requiredDeadlineNs": 330041.37247351423,
+            "sharedCBS": {
+              "creditMaxBits": 157.36478807425235,
+              "creditMinBits": -721.3176059628738,
+              "idleSlopeBps": 9835299.254640773,
+              "sendSlopeBps": -90164700.74535923
+            },
+            "sharedDelayNs": 330041.3724735143,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 239284.87169613395,
+            "sharedCBS": {
+              "creditMaxBits": 76.4355551639182,
+              "creditMinBits": -1447.1288896721635,
+              "idleSlopeBps": 9554444.395489775,
+              "sendSlopeBps": -90445555.60451022
+            },
+            "sharedDelayNs": 239284.8716961339,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 1600000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES1",
+            "port": "Port1",
+            "requiredDeadlineNs": 227056.25250986978,
+            "sharedCBS": {
+              "creditMaxBits": 199.4883462758169,
+              "creditMinBits": -1473.195240288917,
+              "idleSlopeBps": 7925297.481942699,
+              "sendSlopeBps": -92074702.5180573
+            },
+            "sharedDelayNs": 227056.25250986978,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 160000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES2",
+            "port": "Port1",
+            "requiredDeadlineNs": 1135281.2625493489,
+            "sharedCBS": {
+              "creditMaxBits": 11.737385856171972,
+              "creditMinBits": -794.2799204910095,
+              "idleSlopeBps": 715009.9386238104,
+              "sendSlopeBps": -99284990.06137618
+            },
+            "sharedDelayNs": 1135281.2625493489,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 1120000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 486549.11252114957,
+            "sharedCBS": {
+              "creditMaxBits": 82.67564648930397,
+              "creditMinBits": -1518.3580663871787,
+              "idleSlopeBps": 5102620.8508013375,
+              "sendSlopeBps": -94897379.14919867
+            },
+            "sharedDelayNs": 486549.11252114957,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 1920000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "SW1",
+            "port": "P4",
+            "requiredDeadlineNs": 439801.5420448137,
+            "sharedCBS": {
+              "creditMaxBits": 147.36446386945926,
+              "creditMinBits": -1460.2572114255609,
+              "idleSlopeBps": 8733924.285902435,
+              "sendSlopeBps": -91266075.71409756
+            },
+            "sharedDelayNs": 439801.5420448137,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 960000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 513450.88747885043,
+            "sharedCBS": {
+              "creditMaxBits": 109.69782986638482,
+              "creditMinBits": -764.6778385824707,
+              "idleSlopeBps": 4415270.17719117,
+              "sendSlopeBps": -95584729.82280883
+            },
+            "sharedDelayNs": 513450.88747885043,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 80000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 2247448.7139158905,
+            "sharedCBS": {
+              "creditMaxBits": 12.114096553507592,
+              "creditMinBits": -797.1092053259323,
+              "idleSlopeBps": 361349.334258446,
+              "sendSlopeBps": -99638650.66574155
+            },
+            "sharedDelayNs": 2247448.7139158905,
+            "srClass": "M3"
+          },
+          {
+            "aggregateRhoBps": 80000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 2752551.2860841095,
+            "sharedCBS": {
+              "creditMaxBits": 12.615699122100573,
+              "creditMinBits": -797.1171265774587,
+              "idleSlopeBps": 360359.1778176447,
+              "sendSlopeBps": -99639640.82218236
+            },
+            "sharedDelayNs": 2752551.28608411,
+            "srClass": "M3"
+          }
+        ],
+        "sharedStreamResults": [
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 533991.7255052973,
+            "stream": "f1"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 443235.2247279169,
+            "stream": "f2"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 500000.0000000001,
+            "stream": "f3"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 669958.6275264858,
+            "stream": "f4"
+          },
+          {
+            "deadlineNs": 5000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 1648732.1500281994,
+            "stream": "f5"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 666857.7945546835,
+            "stream": "f6"
+          },
+          {
+            "deadlineNs": 5000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 926350.6545659632,
+            "stream": "f7"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 1000000.0,
+            "stream": "f8"
+          },
+          {
+            "deadlineNs": 5000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 5000000.0,
+            "stream": "f9"
+          }
+        ]
+      }
+    },
+    "tc1_m1_m2_m3_300B": {
+      "inputSHA256": "ca37380a824c4010433dcf56651657ffad9d8a197edb9cfdd5dccc8167902d7e",
+      "result": {
+        "allDeadlinesSatisfied": true,
+        "overallWorstCaseDelayNs": 5000000.0,
+        "portClassGroups": [
+          {
+            "aggregateRhoBps": 4000000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES1",
+            "port": "Port1",
+            "requiredDeadlineNs": 203950.35303178296,
+            "sharedCBS": {
+              "creditMaxBits": 204.30927306375665,
+              "creditMinBits": -1395.6907269362432,
+              "idleSlopeBps": 12769329.56648479,
+              "sendSlopeBps": -87230670.4335152
+            },
+            "sharedDelayNs": 203950.35303178296,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 1600000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES2",
+            "port": "Port1",
+            "requiredDeadlineNs": 169958.6275264858,
+            "sharedCBS": {
+              "creditMaxBits": 39.516264726023195,
+              "creditMinBits": -760.4837352739768,
+              "idleSlopeBps": 4939533.0907529,
+              "sendSlopeBps": -95060466.9092471
+            },
+            "sharedDelayNs": 169958.6275264858,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 800000.0,
+            "blockingFrameBits": 2400,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 339917.2550529716,
+            "sharedCBS": {
+              "creditMaxBits": 60.775407778155795,
+              "creditMinBits": -779.7415307406147,
+              "idleSlopeBps": 2532308.657423158,
+              "sendSlopeBps": -97467691.34257685
+            },
+            "sharedDelayNs": 339917.2550529716,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P4",
+            "requiredDeadlineNs": 330041.37247351423,
+            "sharedCBS": {
+              "creditMaxBits": 157.36478807425235,
+              "creditMinBits": -721.3176059628738,
+              "idleSlopeBps": 9835299.254640773,
+              "sendSlopeBps": -90164700.74535923
+            },
+            "sharedDelayNs": 330041.3724735143,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 2400,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 239284.87169613395,
+            "sharedCBS": {
+              "creditMaxBits": 245.83125987434528,
+              "creditMinBits": -1436.112493417103,
+              "idleSlopeBps": 10242969.161431054,
+              "sendSlopeBps": -89757030.83856894
+            },
+            "sharedDelayNs": 239284.87169613395,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 1600000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES1",
+            "port": "Port1",
+            "requiredDeadlineNs": 227056.25250986978,
+            "sharedCBS": {
+              "creditMaxBits": 199.4883462758169,
+              "creditMinBits": -1473.195240288917,
+              "idleSlopeBps": 7925297.481942699,
+              "sendSlopeBps": -92074702.5180573
+            },
+            "sharedDelayNs": 227056.25250986978,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 160000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES2",
+            "port": "Port1",
+            "requiredDeadlineNs": 1135281.2625493489,
+            "sharedCBS": {
+              "creditMaxBits": 11.737385856171972,
+              "creditMinBits": -794.2799204910095,
+              "idleSlopeBps": 715009.9386238104,
+              "sendSlopeBps": -99284990.06137618
+            },
+            "sharedDelayNs": 1135281.2625493489,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 1120000.0,
+            "blockingFrameBits": 2400,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 486549.11252114957,
+            "sharedCBS": {
+              "creditMaxBits": 172.48754287027413,
+              "creditMinBits": -1515.404633105491,
+              "idleSlopeBps": 5287210.430906812,
+              "sendSlopeBps": -94712789.56909318
+            },
+            "sharedDelayNs": 486549.11252114957,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 1920000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "SW1",
+            "port": "P4",
+            "requiredDeadlineNs": 439801.5420448137,
+            "sharedCBS": {
+              "creditMaxBits": 147.36446386945926,
+              "creditMinBits": -1460.2572114255609,
+              "idleSlopeBps": 8733924.285902435,
+              "sendSlopeBps": -91266075.71409756
+            },
+            "sharedDelayNs": 439801.5420448137,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 960000.0,
+            "blockingFrameBits": 2400,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 513450.88747885043,
+            "sharedCBS": {
+              "creditMaxBits": 195.8176982143764,
+              "creditMinBits": -763.3461944454938,
+              "idleSlopeBps": 4581725.694313291,
+              "sendSlopeBps": -95418274.30568671
+            },
+            "sharedDelayNs": 513450.88747885043,
+            "srClass": "M2"
+          },
+          {
+            "aggregateRhoBps": 240000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 2400,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 2247448.7139158905,
+            "sharedCBS": {
+              "creditMaxBits": 36.399966847872605,
+              "creditMinBits": -2373.9822320116637,
+              "idleSlopeBps": 1084073.6661806887,
+              "sendSlopeBps": -98915926.33381931
+            },
+            "sharedDelayNs": 2247448.7139158905,
+            "srClass": "M3"
+          },
+          {
+            "aggregateRhoBps": 240000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 2400,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 2752551.286084109,
+            "sharedCBS": {
+              "creditMaxBits": 38.03392006454792,
+              "creditMinBits": -2374.0789168890587,
+              "idleSlopeBps": 1080045.1296225684,
+              "sendSlopeBps": -98919954.87037744
+            },
+            "sharedDelayNs": 2752551.286084109,
+            "srClass": "M3"
+          }
+        ],
+        "sharedStreamResults": [
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 533991.7255052973,
+            "stream": "f1"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 443235.2247279169,
+            "stream": "f2"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 500000.0000000001,
+            "stream": "f3"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 669958.6275264858,
+            "stream": "f4"
+          },
+          {
+            "deadlineNs": 5000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 1648732.1500281994,
+            "stream": "f5"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 666857.7945546835,
+            "stream": "f6"
+          },
+          {
+            "deadlineNs": 5000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 926350.6545659632,
+            "stream": "f7"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 1000000.0,
+            "stream": "f8"
+          },
+          {
+            "deadlineNs": 5000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 5000000.0,
+            "stream": "f9"
+          }
+        ]
+      }
+    },
+    "tc1_m1_with_m2_background": {
+      "inputSHA256": "35caf292c7216b80fa3673b1f7d1ff854e6d887e4e3ea1a99d8425b44f79458c",
+      "result": {
+        "allDeadlinesSatisfied": true,
+        "overallWorstCaseDelayNs": 669958.6275264858,
+        "portClassGroups": [
+          {
+            "aggregateRhoBps": 4000000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES1",
+            "port": "Port1",
+            "requiredDeadlineNs": 203950.35303178296,
+            "sharedCBS": {
+              "creditMaxBits": 204.30927306375665,
+              "creditMinBits": -1395.6907269362432,
+              "idleSlopeBps": 12769329.56648479,
+              "sendSlopeBps": -87230670.4335152
+            },
+            "sharedDelayNs": 203950.35303178296,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 1600000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES2",
+            "port": "Port1",
+            "requiredDeadlineNs": 169958.6275264858,
+            "sharedCBS": {
+              "creditMaxBits": 39.516264726023195,
+              "creditMinBits": -760.4837352739768,
+              "idleSlopeBps": 4939533.0907529,
+              "sendSlopeBps": -95060466.9092471
+            },
+            "sharedDelayNs": 169958.6275264858,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 800000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 339917.2550529716,
+            "sharedCBS": {
+              "creditMaxBits": 39.516264726023195,
+              "creditMinBits": -780.2418676369883,
+              "idleSlopeBps": 2469766.54537645,
+              "sendSlopeBps": -97530233.45462355
+            },
+            "sharedDelayNs": 339917.2550529716,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P4",
+            "requiredDeadlineNs": 330041.37247351423,
+            "sharedCBS": {
+              "creditMaxBits": 157.36478807425235,
+              "creditMinBits": -721.3176059628738,
+              "idleSlopeBps": 9835299.254640773,
+              "sendSlopeBps": -90164700.74535923
+            },
+            "sharedDelayNs": 330041.3724735143,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 239284.87169613395,
+            "sharedCBS": {
+              "creditMaxBits": 76.4355551639182,
+              "creditMinBits": -1447.1288896721635,
+              "idleSlopeBps": 9554444.395489775,
+              "sendSlopeBps": -90445555.60451022
+            },
+            "sharedDelayNs": 239284.8716961339,
+            "srClass": "M1"
+          }
+        ],
+        "sharedStreamResults": [
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 533991.7255052973,
+            "stream": "f1"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 443235.2247279169,
+            "stream": "f2"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 500000.0000000001,
+            "stream": "f3"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 669958.6275264858,
+            "stream": "f4"
+          }
+        ]
+      }
+    },
+    "tc1_m1_with_m3_300B_background": {
+      "inputSHA256": "381bd0d023a7a235f956446fba90eaad5b56dbf09d34df2913c7f31bf51ebf54",
+      "result": {
+        "allDeadlinesSatisfied": true,
+        "overallWorstCaseDelayNs": 669958.6275264858,
+        "portClassGroups": [
+          {
+            "aggregateRhoBps": 4000000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "ES1",
+            "port": "Port1",
+            "requiredDeadlineNs": 203950.35303178296,
+            "sharedCBS": {
+              "creditMaxBits": 204.30927306375665,
+              "creditMinBits": -1395.6907269362432,
+              "idleSlopeBps": 12769329.56648479,
+              "sendSlopeBps": -87230670.4335152
+            },
+            "sharedDelayNs": 203950.35303178296,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 1600000.0,
+            "blockingFrameBits": 800,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES2",
+            "port": "Port1",
+            "requiredDeadlineNs": 169958.6275264858,
+            "sharedCBS": {
+              "creditMaxBits": 39.516264726023195,
+              "creditMinBits": -760.4837352739768,
+              "idleSlopeBps": 4939533.0907529,
+              "sendSlopeBps": -95060466.9092471
+            },
+            "sharedDelayNs": 169958.6275264858,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 800000.0,
+            "blockingFrameBits": 2400,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "ES3",
+            "port": "Port1",
+            "requiredDeadlineNs": 339917.2550529716,
+            "sharedCBS": {
+              "creditMaxBits": 60.775407778155795,
+              "creditMinBits": -779.7415307406147,
+              "idleSlopeBps": 2532308.657423158,
+              "sendSlopeBps": -97467691.34257685
+            },
+            "sharedDelayNs": 339917.2550529716,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 1600,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 800,
+            "node": "SW1",
+            "port": "P4",
+            "requiredDeadlineNs": 330041.37247351423,
+            "sharedCBS": {
+              "creditMaxBits": 157.36478807425235,
+              "creditMinBits": -721.3176059628738,
+              "idleSlopeBps": 9835299.254640773,
+              "sendSlopeBps": -90164700.74535923
+            },
+            "sharedDelayNs": 330041.3724735143,
+            "srClass": "M1"
+          },
+          {
+            "aggregateRhoBps": 3200000.0,
+            "blockingFrameBits": 2400,
+            "linkSpeedBps": 100000000,
+            "maxFrameBits": 1600,
+            "node": "SW1",
+            "port": "P5",
+            "requiredDeadlineNs": 239284.87169613395,
+            "sharedCBS": {
+              "creditMaxBits": 245.83125987434528,
+              "creditMinBits": -1436.112493417103,
+              "idleSlopeBps": 10242969.161431054,
+              "sendSlopeBps": -89757030.83856894
+            },
+            "sharedDelayNs": 239284.87169613395,
+            "srClass": "M1"
+          }
+        ],
+        "sharedStreamResults": [
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 533991.7255052973,
+            "stream": "f1"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 443235.2247279169,
+            "stream": "f2"
+          },
+          {
+            "deadlineNs": 500000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 500000.0000000001,
+            "stream": "f3"
+          },
+          {
+            "deadlineNs": 1000000,
+            "deadlineSatisfied": true,
+            "sharedPathDelayNs": 669958.6275264858,
+            "stream": "f4"
+          }
+        ]
+      }
+    }
+  },
+  "classification": "user-executed prior implementation output; NOT independent NC validation",
+  "kind": "CBS pre-generic-dispatch numerical regression reference",
+  "legacyDispatcherSourceSHA256": "aa261dcceb07a7acbcd52d1e9d2d4e40108947aafe8f9e00db35e39124109673",
+  "managerAdvertisedTrafficClasses": [
+    "M1"
+  ],
+  "sourceFixtureSHA256": "d1eb91bcc3406be5415eaa776fd44d8b0b03328d1245fa448589969e9aeba93c"
+}

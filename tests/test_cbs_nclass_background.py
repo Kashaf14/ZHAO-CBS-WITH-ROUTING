@@ -3,7 +3,7 @@
 Checks generic dispatch versus direct-call behavior, blocking with untargeted
 lower classes, and validation of unsafe selections. These tests are NOT old
 solver parity after Step 18; the immutable numerical reference is checked in
-``test_cbs_step18_frozen_baseline.py``. Not independent NC validation.
+``test_cbs_nclass_regression.py.py``. Not independent NC validation.
 """
 from __future__ import annotations
 

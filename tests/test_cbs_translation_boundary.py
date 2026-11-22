@@ -28,7 +28,7 @@ with patch.dict(sys.modules, {
     "algorithm": package,
     "algorithm.cbs_nclass_candidate": solver,
 }):
-    source = ROOT / "optimizer-manager" / "cbs_translation_boundary.py"
+    source = ROOT / "cbs_translation_boundary.py"
     spec = importlib.util.spec_from_file_location("cbs_translation_boundary_isolated", source)
     boundary = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(boundary)

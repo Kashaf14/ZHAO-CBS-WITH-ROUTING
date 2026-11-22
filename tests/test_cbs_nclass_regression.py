@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT / "tests"))
 from algorithm.cbs import CBSOptimizer
 import algorithm.cbs_nclass_candidate as generic_module
 from usecase_adapter import build_usecase_from_payload
-from scripts.capture_cbs_pre_dispatch_baseline import (
+from scripts.cbs_legacy_baseline_capture.py import (
     compact_result, canonical_json, make_request, append_m3,
 )
 
