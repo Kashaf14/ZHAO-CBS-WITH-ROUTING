@@ -1,0 +1,875 @@
+{
+  "capabilities": {
+    "devices": [
+      {
+        "nodeId": "RELY-TSN4",
+        "ports": {
+          "P1": {
+            "mechanisms": {
+              "CBS": {
+                "supported": true
+              },
+              "FRER": {
+                "supported": false
+              },
+              "TAS": {
+                "framePreemptionSupported": false,
+                "supported": true
+              }
+            }
+          },
+          "P2": {
+            "mechanisms": {
+              "CBS": {
+                "supported": true
+              },
+              "FRER": {
+                "supported": false
+              },
+              "TAS": {
+                "framePreemptionSupported": false,
+                "supported": true
+              }
+            }
+          },
+          "P3": {
+            "mechanisms": {
+              "CBS": {
+                "supported": false
+              },
+              "FRER": {
+                "supported": false
+              },
+              "TAS": {
+                "framePreemptionSupported": false,
+                "supported": true
+              }
+            }
+          },
+          "P4": {
+            "mechanisms": {
+              "CBS": {
+                "supported": false
+              },
+              "FRER": {
+                "supported": false
+              },
+              "TAS": {
+                "framePreemptionSupported": false,
+                "supported": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "nodeId": "tsn1",
+        "ports": {
+          "enp1s0": {
+            "mechanisms": {
+              "CBS": {
+                "supported": true
+              },
+              "FRER": {
+                "supported": false
+              },
+              "TAS": {
+                "framePreemptionSupported": false,
+                "supported": true
+              }
+            }
+          }
+        }
+      },
+      {
+        "nodeId": "tsn2",
+        "ports": {
+          "ens6": {
+            "mechanisms": {
+              "CBS": {
+                "supported": true
+              },
+              "FRER": {
+                "supported": false
+              },
+              "TAS": {
+                "framePreemptionSupported": false,
+                "supported": true
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "forwardingPlane": {
+    "configuration": {
+      "linkConfigs": [],
+      "nodeConfigs": [
+        {
+          "nodeId": "tsn1",
+          "portConfigs": [
+            {
+              "gcl": {
+                "adminState": "ENABLED",
+                "baseTime": 0,
+                "baseTimeRef": "DEVICE_BOOT_TIME",
+                "cycleTime": 1000000,
+                "entries": [
+                  {
+                    "gateStates": "AQ==",
+                    "timeInterval": 300000
+                  },
+                  {
+                    "gateStates": "Ag==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "BA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "CA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "EA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "IA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "QA==",
+                    "timeInterval": 200000
+                  }
+                ]
+              },
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "egressQueueId": 0,
+                    "priority": 0
+                  },
+                  {
+                    "egressQueueId": 1,
+                    "priority": 1
+                  },
+                  {
+                    "egressQueueId": 2,
+                    "priority": 2
+                  },
+                  {
+                    "egressQueueId": 3,
+                    "priority": 3
+                  },
+                  {
+                    "egressQueueId": 4,
+                    "priority": 4
+                  },
+                  {
+                    "egressQueueId": 5,
+                    "priority": 5
+                  },
+                  {
+                    "egressQueueId": 6,
+                    "priority": 6
+                  },
+                  {
+                    "egressQueueId": 7,
+                    "priority": 7
+                  }
+                ]
+              },
+              "pcpMappingEnabled": true,
+              "portId": "enp1s0",
+              "queueConfigs": []
+            }
+          ]
+        },
+        {
+          "nodeId": "tsn2",
+          "portConfigs": [
+            {
+              "gcl": {
+                "adminState": "ENABLED",
+                "baseTime": 0,
+                "baseTimeRef": "DEVICE_BOOT_TIME",
+                "cycleTime": 1000000,
+                "entries": [
+                  {
+                    "gateStates": "AQ==",
+                    "timeInterval": 300000
+                  },
+                  {
+                    "gateStates": "Ag==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "BA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "CA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "EA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "IA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "QA==",
+                    "timeInterval": 200000
+                  }
+                ]
+              },
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "egressQueueId": 0,
+                    "priority": 0
+                  },
+                  {
+                    "egressQueueId": 1,
+                    "priority": 1
+                  },
+                  {
+                    "egressQueueId": 2,
+                    "priority": 2
+                  },
+                  {
+                    "egressQueueId": 3,
+                    "priority": 3
+                  },
+                  {
+                    "egressQueueId": 4,
+                    "priority": 4
+                  },
+                  {
+                    "egressQueueId": 5,
+                    "priority": 5
+                  },
+                  {
+                    "egressQueueId": 6,
+                    "priority": 6
+                  },
+                  {
+                    "egressQueueId": 7,
+                    "priority": 7
+                  }
+                ]
+              },
+              "pcpMappingEnabled": true,
+              "portId": "ens6",
+              "queueConfigs": []
+            }
+          ]
+        },
+        {
+          "nodeId": "RELY-TSN4",
+          "portConfigs": [
+            {
+              "gcl": {
+                "adminState": "ENABLED",
+                "baseTime": 0,
+                "baseTimeRef": "DEVICE_BOOT_TIME",
+                "cycleTime": 1000000,
+                "entries": [
+                  {
+                    "gateStates": "AQ==",
+                    "timeInterval": 300000
+                  },
+                  {
+                    "gateStates": "Ag==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "BA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "CA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "EA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "IA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "QA==",
+                    "timeInterval": 200000
+                  }
+                ]
+              },
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "egressQueueId": 0,
+                    "priority": 0
+                  },
+                  {
+                    "egressQueueId": 1,
+                    "priority": 1
+                  },
+                  {
+                    "egressQueueId": 2,
+                    "priority": 2
+                  },
+                  {
+                    "egressQueueId": 3,
+                    "priority": 3
+                  },
+                  {
+                    "egressQueueId": 4,
+                    "priority": 4
+                  },
+                  {
+                    "egressQueueId": 5,
+                    "priority": 5
+                  },
+                  {
+                    "egressQueueId": 6,
+                    "priority": 6
+                  },
+                  {
+                    "egressQueueId": 7,
+                    "priority": 7
+                  }
+                ]
+              },
+              "pcpMappingEnabled": true,
+              "portId": "P1",
+              "queueConfigs": []
+            },
+            {
+              "gcl": {
+                "adminState": "ENABLED",
+                "baseTime": 0,
+                "baseTimeRef": "DEVICE_BOOT_TIME",
+                "cycleTime": 1000000,
+                "entries": [
+                  {
+                    "gateStates": "AQ==",
+                    "timeInterval": 300000
+                  },
+                  {
+                    "gateStates": "Ag==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "BA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "CA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "EA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "IA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "QA==",
+                    "timeInterval": 200000
+                  }
+                ]
+              },
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "egressQueueId": 0,
+                    "priority": 0
+                  },
+                  {
+                    "egressQueueId": 1,
+                    "priority": 1
+                  },
+                  {
+                    "egressQueueId": 2,
+                    "priority": 2
+                  },
+                  {
+                    "egressQueueId": 3,
+                    "priority": 3
+                  },
+                  {
+                    "egressQueueId": 4,
+                    "priority": 4
+                  },
+                  {
+                    "egressQueueId": 5,
+                    "priority": 5
+                  },
+                  {
+                    "egressQueueId": 6,
+                    "priority": 6
+                  },
+                  {
+                    "egressQueueId": 7,
+                    "priority": 7
+                  }
+                ]
+              },
+              "pcpMappingEnabled": true,
+              "portId": "P2",
+              "queueConfigs": []
+            },
+            {
+              "gcl": {
+                "adminState": "ENABLED",
+                "baseTime": 0,
+                "baseTimeRef": "DEVICE_BOOT_TIME",
+                "cycleTime": 1000000,
+                "entries": [
+                  {
+                    "gateStates": "AQ==",
+                    "timeInterval": 300000
+                  },
+                  {
+                    "gateStates": "Ag==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "BA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "CA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "EA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "IA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "QA==",
+                    "timeInterval": 200000
+                  }
+                ]
+              },
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "egressQueueId": 0,
+                    "priority": 0
+                  },
+                  {
+                    "egressQueueId": 1,
+                    "priority": 1
+                  },
+                  {
+                    "egressQueueId": 2,
+                    "priority": 2
+                  },
+                  {
+                    "egressQueueId": 3,
+                    "priority": 3
+                  },
+                  {
+                    "egressQueueId": 4,
+                    "priority": 4
+                  },
+                  {
+                    "egressQueueId": 5,
+                    "priority": 5
+                  },
+                  {
+                    "egressQueueId": 6,
+                    "priority": 6
+                  },
+                  {
+                    "egressQueueId": 7,
+                    "priority": 7
+                  }
+                ]
+              },
+              "pcpMappingEnabled": true,
+              "portId": "P3",
+              "queueConfigs": []
+            },
+            {
+              "gcl": {
+                "adminState": "ENABLED",
+                "baseTime": 0,
+                "baseTimeRef": "DEVICE_BOOT_TIME",
+                "cycleTime": 1000000,
+                "entries": [
+                  {
+                    "gateStates": "AQ==",
+                    "timeInterval": 300000
+                  },
+                  {
+                    "gateStates": "Ag==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "BA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "CA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "EA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "IA==",
+                    "timeInterval": 100000
+                  },
+                  {
+                    "gateStates": "QA==",
+                    "timeInterval": 200000
+                  }
+                ]
+              },
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "egressQueueId": 0,
+                    "priority": 0
+                  },
+                  {
+                    "egressQueueId": 1,
+                    "priority": 1
+                  },
+                  {
+                    "egressQueueId": 2,
+                    "priority": 2
+                  },
+                  {
+                    "egressQueueId": 3,
+                    "priority": 3
+                  },
+                  {
+                    "egressQueueId": 4,
+                    "priority": 4
+                  },
+                  {
+                    "egressQueueId": 5,
+                    "priority": 5
+                  },
+                  {
+                    "egressQueueId": 6,
+                    "priority": 6
+                  },
+                  {
+                    "egressQueueId": 7,
+                    "priority": 7
+                  }
+                ]
+              },
+              "pcpMappingEnabled": true,
+              "portId": "P4",
+              "queueConfigs": []
+            }
+          ]
+        }
+      ]
+    },
+    "streams": [
+      {
+        "change": "add",
+        "configuration": {
+          "enabled": false,
+          "path": [],
+          "pcp": 7,
+          "queueAssignments": []
+        },
+        "decisionVariables": {
+          "placement": "fixed",
+          "routing": "optimize",
+          "scheduling": "optimize"
+        },
+        "definition": {
+          "frameSpec": {
+            "destinationMac": "00-00-00-00-00-02",
+            "ethertype": 0,
+            "sourceMac": "00-00-00-00-00-01"
+          },
+          "id": "00-00-00-00-00-01/1",
+          "listenerNodeIds": [
+            "tsn2"
+          ],
+          "streamId": {
+            "macAddress": "00-00-00-00-00-01",
+            "uniqueId": 1
+          },
+          "streamRank": "RANK_EMERGENCY",
+          "talkerNodeId": "tsn1",
+          "trafficClassId": "Critical",
+          "trafficSpec": {
+            "interFrameGapBytes": 12,
+            "intervalNs": 1000000000,
+            "maxFrameSize": 128,
+            "maxIntervalFrames": 1,
+            "serializationOverheadBytes": 8
+          },
+          "userToNetworkRequirements": {
+            "maxBandwidthBps": 0,
+            "maxJitterNs": 0,
+            "maxLatencyNs": 1000000000,
+            "maxLossRate": 0,
+            "numSeamlessTrees": 1
+          }
+        }
+      },
+      {
+        "change": "add",
+        "configuration": {
+          "enabled": false,
+          "path": [],
+          "pcp": 7,
+          "queueAssignments": []
+        },
+        "decisionVariables": {
+          "placement": "fixed",
+          "routing": "optimize",
+          "scheduling": "optimize"
+        },
+        "definition": {
+          "frameSpec": {
+            "destinationMac": "00-00-00-00-00-01",
+            "ethertype": 0,
+            "sourceMac": "00-00-00-00-00-02"
+          },
+          "id": "00-00-00-00-00-02/2",
+          "listenerNodeIds": [
+            "tsn1"
+          ],
+          "streamId": {
+            "macAddress": "00-00-00-00-00-02",
+            "uniqueId": 2
+          },
+          "streamRank": "RANK_EMERGENCY",
+          "talkerNodeId": "tsn2",
+          "trafficClassId": "Critical",
+          "trafficSpec": {
+            "interFrameGapBytes": 12,
+            "intervalNs": 1000000000,
+            "maxFrameSize": 128,
+            "maxIntervalFrames": 1,
+            "serializationOverheadBytes": 8
+          },
+          "userToNetworkRequirements": {
+            "maxBandwidthBps": 0,
+            "maxJitterNs": 0,
+            "maxLatencyNs": 1000000000,
+            "maxLossRate": 0,
+            "numSeamlessTrees": 1
+          }
+        }
+      }
+    ],
+    "topology": {
+      "links": [
+        {
+          "bandwidth_mbps": 1000,
+          "destination_node": "tsn1",
+          "destination_port": "enp1s0",
+          "id": "link-switch-to-tsn1",
+          "propagation_delay_ns": 100,
+          "source_node": "RELY-TSN4",
+          "source_port": "P1"
+        },
+        {
+          "bandwidth_mbps": 1000,
+          "destination_node": "tsn2",
+          "destination_port": "ens6",
+          "id": "link-switch-to-tsn2",
+          "propagation_delay_ns": 100,
+          "source_node": "RELY-TSN4",
+          "source_port": "P2"
+        },
+        {
+          "bandwidth_mbps": 1000,
+          "destination_node": "RELY-TSN4",
+          "destination_port": "P1",
+          "id": "link-tsn1-to-switch",
+          "propagation_delay_ns": 100,
+          "source_node": "tsn1",
+          "source_port": "enp1s0"
+        },
+        {
+          "bandwidth_mbps": 1000,
+          "destination_node": "RELY-TSN4",
+          "destination_port": "P2",
+          "id": "link-tsn2-to-switch",
+          "propagation_delay_ns": 100,
+          "source_node": "tsn2",
+          "source_port": "ens6"
+        }
+      ],
+      "nodes": [
+        {
+          "name": "tsn1",
+          "ports": [
+            {
+              "capabilities": {
+                "maximumTransmissionUnit": 0,
+                "mode": "HD",
+                "port_speed": 1000,
+                "supportedPcpValues": [],
+                "supportedVlanIds": [],
+                "supportsCqf": false,
+                "supportsInterfaceTimeOffset": false,
+                "supportsStreamFiltering": false,
+                "supportsTimeSync": false
+              },
+              "id": "enp1s0",
+              "number_of_queues": 8
+            }
+          ],
+          "type": "END_STATION"
+        },
+        {
+          "name": "tsn2",
+          "ports": [
+            {
+              "capabilities": {
+                "maximumTransmissionUnit": 0,
+                "mode": "HD",
+                "port_speed": 1000,
+                "supportedPcpValues": [],
+                "supportedVlanIds": [],
+                "supportsCqf": false,
+                "supportsInterfaceTimeOffset": false,
+                "supportsStreamFiltering": false,
+                "supportsTimeSync": false
+              },
+              "id": "ens6",
+              "number_of_queues": 8
+            }
+          ],
+          "type": "END_STATION"
+        },
+        {
+          "name": "RELY-TSN4",
+          "ports": [
+            {
+              "capabilities": {
+                "maximumTransmissionUnit": 0,
+                "mode": "HD",
+                "port_speed": 1000,
+                "supportedPcpValues": [],
+                "supportedVlanIds": [],
+                "supportsCqf": false,
+                "supportsInterfaceTimeOffset": false,
+                "supportsStreamFiltering": false,
+                "supportsTimeSync": false
+              },
+              "id": "P1",
+              "number_of_queues": 8
+            },
+            {
+              "capabilities": {
+                "maximumTransmissionUnit": 0,
+                "mode": "HD",
+                "port_speed": 1000,
+                "supportedPcpValues": [],
+                "supportedVlanIds": [],
+                "supportsCqf": false,
+                "supportsInterfaceTimeOffset": false,
+                "supportsStreamFiltering": false,
+                "supportsTimeSync": false
+              },
+              "id": "P2",
+              "number_of_queues": 8
+            },
+            {
+              "capabilities": {
+                "maximumTransmissionUnit": 0,
+                "mode": "HD",
+                "port_speed": 1000,
+                "supportedPcpValues": [],
+                "supportedVlanIds": [],
+                "supportsCqf": false,
+                "supportsInterfaceTimeOffset": false,
+                "supportsStreamFiltering": false,
+                "supportsTimeSync": false
+              },
+              "id": "P3",
+              "number_of_queues": 8
+            },
+            {
+              "capabilities": {
+                "maximumTransmissionUnit": 0,
+                "mode": "HD",
+                "port_speed": 1000,
+                "supportedPcpValues": [],
+                "supportedVlanIds": [],
+                "supportsCqf": false,
+                "supportsInterfaceTimeOffset": false,
+                "supportsStreamFiltering": false,
+                "supportsTimeSync": false
+              },
+              "id": "P4",
+              "number_of_queues": 8
+            }
+          ],
+          "type": "BRIDGE"
+        }
+      ]
+    }
+  },
+  "mechanisms": [
+    {
+      "name": "CBS",
+      "constraints": {
+        "maxBestEffortFrameSizeBytes": 1500
+      }
+    }
+  ],
+  "operation": "reconfiguration",
+  "optimizationTask": {
+    "changePolicy": {
+      "allowPathChanges": true,
+      "allowQueueChanges": true,
+      "allowScheduleChanges": true,
+      "allowStreamMigration": false,
+      "allowVlanChanges": false,
+      "maxChangedStreams": 2,
+      "preserveExistingStreams": true
+    },
+    "intent": "ADD_STREAM",
+    "objectives": [
+      {
+        "metric": "MINIMIZE_CONFIGURATION_CHANGES",
+        "priority": 1,
+        "weight": 0
+      },
+      {
+        "metric": "MINIMIZE_LATENCY",
+        "priority": 2,
+        "weight": 0
+      }
+    ],
+    "scope": {
+      "streamIds": [
+        "00-00-00-00-00-01/1",
+        "00-00-00-00-00-02/2"
+      ]
+    },
+    "taskId": "a11a40b0-e489-4522-a726-1d47a98f3251",
+    "trigger": "STREAM_ADDITION"
+  },
+  "schemaVersion": "1.4"
+}

@@ -41,13 +41,13 @@ chmod +x deploy-zhao-cbs-standalone.sh
 ./deploy-zhao-cbs-standalone.sh
 ```
 
-The script builds `zhao-cbs-standalone:local` and starts the container `zhao-cbs-standalone` on `127.0.0.1:8005`. It mounts the external library read-only and refuses to replace an existing container. It does not deploy or change the OaaS Manager.
+The script builds `zhao-cbs-standalone:local` and starts the container `zhao-cbs-standalone` on `127.0.0.1:8001`. It mounts the external library read-only and refuses to replace an existing container. It does not deploy or change the OaaS Manager.
 
 Once deployed, you can inspect:
 
 ```bash
-curl -fsS http://127.0.0.1:8005/health
-curl -fsS http://127.0.0.1:8005/capabilities
+curl -fsS http://127.0.0.1:8001/health
+curl -fsS http://127.0.0.1:8001/capabilities
 ```
 
 ## Run tests
