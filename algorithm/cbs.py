@@ -5,11 +5,11 @@ from .topology import (
 )
 
 class CBSOptimizer:
-    name = "CBS"
+    name = "Zhao CBS + Routing"
 
     def get_capabilities(self):
         return {
-            "name": "CBS",
+            "name": "Zhao CBS + Routing",
             "tasks": ["configuration", "reconfiguration"],
             "mechanisms": ["CBS"],        
             "objectives": [

@@ -27,6 +27,6 @@ COPY cbs_service.py \
 # CBS algorithm package
 COPY algorithm/ ./algorithm/
 
-EXPOSE 8005
+EXPOSE 8001
 
-CMD ["python", "-m", "uvicorn", "cbs_service:app", "--host", "0.0.0.0", "--port", "8005"]
+CMD ["python", "-m", "uvicorn", "cbs_service:app", "--host", "0.0.0.0", "--port", "8001"]

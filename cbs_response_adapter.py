@@ -583,7 +583,8 @@ def build_cbs_response_v13(
     return {
         "schemaVersion": "1.3",
         "optimizer": {
-            "id": "CBS", "name": "CBS",
+            "id": "zhao-cbs-routing",
+            "name": "Zhao CBS + Routing",
             "version": os.environ.get("CBS_OPTIMIZER_VERSION", "unversioned"),
             "type": "analytical",
         },
