@@ -25,10 +25,7 @@ from test_cbs_m3_response_boundary import with_test_only_mappings
 from cbs_response_adapter import build_cbs_response_v13
 from tsn_contract_validator.response_validator import validate_optimizer_response
 
-TC1 = Path(os.environ.get("CBS_TC1_REQUEST") or (
-    ROOT.parent / "tsn-optimization-contracts" / "tests" / "request"
-    / "valid" / "cbs-paper-tc1-full-8flow-contract.json"
-))
+TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 
 
 def index(result):

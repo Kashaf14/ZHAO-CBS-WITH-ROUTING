@@ -3,7 +3,7 @@
 Preconditions:
   - Step 4 M1+M2 candidate dispatch already applied locally.
   - Current shared contracts v0.2.2 installed in the local venv.
-  - The unchanged full eight-flow TC1 request fixture available in sibling contract checkout.
+  - The frozen local TC1 Step 17 fixture in tests/fixtures/.
   - Hamza's existing Usecase package importable as in previous tests.
 
 This test uses a SYNTHETIC, TEST-ONLY PCP 4 -> queue 4 mapping.
@@ -27,10 +27,7 @@ from usecase_adapter import build_usecase_from_payload
 from cbs_response_adapter import build_cbs_response_v13
 from tsn_contract_validator.response_validator import validate_optimizer_response
 
-TC1 = Path(os.environ.get("CBS_TC1_REQUEST") or (
-    ROOT.parent / "tsn-optimization-contracts" / "tests" / "request"
-    / "valid" / "cbs-paper-tc1-full-8flow-contract.json"
-))
+TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 EXPECTED_PORTS = {
     ("ES1", "Port1"), ("ES2", "Port1"), ("ES3", "Port1"),
     ("SW1", "P4"), ("SW1", "P5"),
@@ -70,7 +67,7 @@ class TestCBSM1M2ResponseBoundary(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         if not TC1.is_file():
-            raise FileNotFoundError(f"Missing TC1 fixture: {TC1}; set CBS_TC1_REQUEST")
+            raise FileNotFoundError(f"Missing TC1 fixture: {TC1}; restore the local frozen fixture")
         cls.original_bytes = TC1.read_bytes()
         cls.original = json.loads(cls.original_bytes)
         cls.request = make_test_only_request(cls.original)

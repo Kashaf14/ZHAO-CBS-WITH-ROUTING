@@ -2,7 +2,7 @@
 
 Run from the standalone CBS repository with Hamza's external Usecase library
 available through TSN_LIBRARY_PATH and the shared-contract TC1 fixture
-available in a sibling repository or through CBS_TC1_REQUEST.
+stored locally in tests/fixtures/cbs-paper-tc1-step17-original.json.
 
 These checks do not establish independent NC correctness or live CNC integration.
 
@@ -24,10 +24,7 @@ sys.path.insert(0, str(FRAMEWORK))
 from algorithm.cbs import CBSOptimizer  # noqa: E402
 from usecase_adapter import build_usecase_from_payload  # noqa: E402
 
-TC1 = Path(os.environ.get('CBS_TC1_REQUEST') or (
-    FRAMEWORK.parent / 'tsn-optimization-contracts' / 'tests' / 'request'
-    / 'valid' / 'cbs-paper-tc1-full-8flow-contract.json'
-))
+TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 
 M1_REFERENCE = {
     ('ES1', 'Port1'): 12.77,
@@ -66,7 +63,7 @@ class TestM1M2TC1Candidate(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         if not TC1.is_file():
-            raise FileNotFoundError(f'TC1 request not found: {TC1}. Set CBS_TC1_REQUEST.')
+            raise FileNotFoundError(f'TC1 request not found: {TC1}. Restore the local historical fixture.')
         cls.payload = json.loads(TC1.read_text(encoding='utf-8'))
         if (cls.payload.get('schemaVersion') != '1.4'
                 or cls.payload.get('operation') != 'configuration'

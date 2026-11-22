@@ -21,10 +21,7 @@ from algorithm.cbs import CBSOptimizer
 from algorithm import cbs_m3_candidate
 from usecase_adapter import build_usecase_from_payload
 
-TC1 = Path(os.environ.get("CBS_TC1_REQUEST") or (
-    ROOT.parent / "tsn-optimization-contracts" / "tests" / "request"
-    / "valid" / "cbs-paper-tc1-full-8flow-contract.json"
-))
+TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 
 
 def m3_request_from_tc1(original):

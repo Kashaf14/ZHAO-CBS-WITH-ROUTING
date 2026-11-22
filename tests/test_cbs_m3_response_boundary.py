@@ -24,10 +24,7 @@ from tsn_contract_validator.response_validator import validate_optimizer_respons
 from usecase_adapter import build_usecase_from_payload
 from test_cbs_m3_candidate import m3_request_from_tc1
 
-TC1 = Path(os.environ.get("CBS_TC1_REQUEST") or (
-    ROOT.parent / "tsn-optimization-contracts" / "tests" / "request"
-    / "valid" / "cbs-paper-tc1-full-8flow-contract.json"
-))
+TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 M3_PORTS = {("ES3", "Port1"), ("SW1", "P5")}
 TC1_PORTS = {
     ("ES1", "Port1"), ("ES2", "Port1"), ("ES3", "Port1"),
