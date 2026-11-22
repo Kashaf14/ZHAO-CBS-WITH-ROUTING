@@ -1,14 +1,13 @@
-"""CBS legacy output -> versioned OaaS Optimizer Response Contracts.
+"""Convert CBS optimization results into standardized OaaS responses.
 
-v1.3 returns sparse CBS queue updates, not a rebuilt ForwardingPlaneModel.
-The v1.2 entry point remains available until the CBS service and Manager are
-migrated together; this avoids silently changing the deployed response wire
-format. Neither entry point changes CBS optimization mathematics.
+Supports response versions v1.2 and v1.3. The CBS service currently uses
+v1.3, which returns only the required configuration changes.
 
-Physical queue mapping is REQUIRED from the input's per-port PCP table. A
-stream's PCP is NOT the same as its physical egress queue identifier.
+Maps traffic priorities (PCP) to physical queues using the request's
+port configuration. Does not modify CBS calculations.
 """
 
+# TODO: remove 1.2 verison support as its not longer in use  
 from __future__ import annotations
 
 import math

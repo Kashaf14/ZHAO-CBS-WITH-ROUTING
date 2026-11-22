@@ -6,7 +6,7 @@ independent network-calculus or hardware validation. It does not edit code,
 contracts, requests, or OpenCNC. It refuses to overwrite an existing snapshot.
 
 Run at repository root:
-    python scripts/cbs_legacy_baseline_capture.py.py
+    python scripts/cbs_legacy_baseline_capture.py
 
 Requires the previously passing Step 15/16 test modules and TC1 fixture.
 """
