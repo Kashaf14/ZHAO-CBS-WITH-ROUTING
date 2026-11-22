@@ -55,8 +55,8 @@ curl -fsS http://127.0.0.1:8001/capabilities
 For local Python tests, install `requirements.txt` and make Hamza's library importable:
 
 ```bash
-export TSN_LIBRARY_PATH="/absolute/path/to/TSN_optimizer_platform-Hamza"
-export CBS_TC1_REQUEST="/absolute/path/to/tsn-optimization-contracts/tests/request/valid/cbs-paper-tc1-full-8flow-contract.json"
+export TSN_LIBRARY_PATH="/Users/kashaf/Desktop/THESIS/TSN_optimizer_platform-Hamza"
+export CBS_TC1_REQUEST="/Users/kashaf/Desktop/THESIS/tsn-optimization-contracts/tests/request/valid/cbs-paper-tc1-full-8flow-contract.json"
 python3 -m unittest discover -s tests -p 'test_cbs_nclass_regression.py' -v
 python3 -m unittest discover -s tests -p 'test_*.py' -v
 ```
