@@ -12,6 +12,7 @@ need to be returned/applied; a usecase-local route is not a CNC route update.
 from __future__ import annotations
 
 from collections import deque
+from optimizer_metadata import ROUTING_ENABLED
 from copy import deepcopy
 
 
@@ -166,7 +167,16 @@ def prepare_cbs_routes(request: dict, usecase, optimizer) -> dict[str, list[dict
         if routing not in ("fixed", "preserve", "optimize", None):
             raise CBSRoutePreparationError(f"{stream_id}: unsupported routing policy {routing!r}")
 
+        if not ROUTING_ENABLED and routing == "optimize":
+            raise CBSRoutePreparationError(
+                f"{stream_id}: Zhao CBS does not support routing optimization"
+            )
         if hops is None:
+            if not ROUTING_ENABLED:
+                raise CBSRoutePreparationError(
+                    f"{stream_id}: Zhao CBS requires a predefined route"
+                )
+
             if routing != "optimize":
                 raise CBSRoutePreparationError(
                     f"{stream_id}: fixed/preserve/unspecified routing needs a supplied nonempty path"

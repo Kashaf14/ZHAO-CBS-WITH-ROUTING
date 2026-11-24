@@ -3,7 +3,7 @@ from .topology import (
     get_path_links,
     build_egress_ports
 )
-from optimizer_metadata import NAME
+from optimizer_metadata import NAME, REQUIRES_ROUTES
 
 class CBSOptimizer:
     name = NAME
@@ -21,7 +21,7 @@ class CBSOptimizer:
             "supportsReconfiguration": True,
             "inputRequirements": {
                 "requiresPcp": True,
-                "requiresRoutes": False,
+                "requiresRoutes": REQUIRES_ROUTES,
                 "acceptsClientTrafficClassIds": True, # zhao's CBS-specific adapter translates arbitrary client labels to M1..M7.
             }
         }
