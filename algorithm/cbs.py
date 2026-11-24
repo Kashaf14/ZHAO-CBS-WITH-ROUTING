@@ -3,7 +3,7 @@ from .topology import (
     get_path_links,
     build_egress_ports
 )
-from optimizer_metadata import NAME, REQUIRES_ROUTES
+from optimizer_metadata import NAME, REQUIRES_ROUTES, ROUTING_ENABLED
 
 class CBSOptimizer:
     name = NAME
@@ -12,20 +12,22 @@ class CBSOptimizer:
         return {
             "name": NAME,
             "tasks": ["configuration", "reconfiguration"],
-            "mechanisms": ["CBS"],        
-            "objectives": [
-                "latency",
-                "bandwidth"
-            ],
+            "mechanisms": ["CBS"],
+            "objectives": ["latency", "bandwidth"],
             "supportsIncremental": False,
             "supportsReconfiguration": True,
+
             "inputRequirements": {
                 "requiresPcp": True,
                 "requiresRoutes": REQUIRES_ROUTES,
-                "acceptsClientTrafficClassIds": True, # zhao's CBS-specific adapter translates arbitrary client labels to M1..M7.
-            }
+                "acceptsClientTrafficClassIds": True,
+            },
+
+            "routing": {
+                "supportsRouteGeneration": ROUTING_ENABLED,
+                "supportsRouteOptimization": False,
+            },
         }
-  
 
     # limitations: This is a targeted replacement for directed, bridge-based unicast paths such as TC1. 
     # current CBS implementation processes only the first listener; general multicast, direct end-station paths, and more complex routing policies require separate handling.

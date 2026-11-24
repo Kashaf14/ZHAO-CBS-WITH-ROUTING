@@ -1,0 +1,28 @@
+services:
+  zhao-cbs:
+    build: .
+    image: zhao-cbs:local
+    ports:
+      - "127.0.0.1:8003:8001"
+    environment:
+      CBS_VARIANT: fixed
+      TSN_LIBRARY_PATH: /opt/hamza
+    volumes:
+      - type: bind
+        source: ${TSN_LIBRARY_HOST_PATH}
+        target: /opt/hamza
+        read_only: true
+
+  zhao-cbs-routing:
+    build: .
+    image: zhao-cbs:local
+    ports:
+      - "127.0.0.1:8001:8001"
+    environment:
+      CBS_VARIANT: routing
+      TSN_LIBRARY_PATH: /opt/hamza
+    volumes:
+      - type: bind
+        source: ${TSN_LIBRARY_HOST_PATH}
+        target: /opt/hamza
+        read_only: true
