@@ -47,10 +47,20 @@ def request():
                 {"definition": {"id": "s2", "trafficClassId": "standard"}, "configuration": {"pcp": 5}},
             ],
             "configuration": {"nodeConfigs": [{"nodeId": "SW1", "portConfigs": [
-                {"portId": "P1", "pcpMappingEnabled": True, "pcpConfig": {"trafficClassTable": [
-                    {"priority": 7, "egressQueueId": 0},
-                    {"priority": 5, "egressQueueId": 1}
-                ]}}
+                {
+                    "portId": "P1",
+                    "pcpMappingEnabled": True,
+                    "pcpConfig": {
+                        "trafficClassTable": [
+                            {"priority": 7, "egressQueueId": 0},
+                            {"priority": 5, "egressQueueId": 1}
+                        ]
+                    },
+                    "queuePriorityTable": [
+                        {"queueId": 0, "schedulingPriority": 2},
+                        {"queueId": 1, "schedulingPriority": 1}
+                    ]
+                }
             ]}]}
         }
     }

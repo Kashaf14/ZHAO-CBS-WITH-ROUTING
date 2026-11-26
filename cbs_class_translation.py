@@ -1,20 +1,17 @@
 """Map client CBS class IDs to Zhao's priority-ordered M1..M7 symbols.
 
-This is a pure, pre-solver adapter. It does not change the OaaS request, queue
-configurations, or the CBS mathematical implementation.
+This adapter derives scheduling priorities from the standardized
+OptimizerRequest v1.4 using two per-port configuration tables:
 
-Assumption for this integration step: OpenCNC pcpConfig.trafficClassTable's
-egressQueueId is the IEEE traffic-class index, as documented in its proto.
-Higher traffic-class indices have higher priority (Hamza, Nov 2026). Hardware
-interpretation of this index is a separate, unresolved integration question.
+- trafficClassTable: maps PCP values to egress queues.
+- queuePriorityTable: defines queue scheduling priorities.
 
-Only call this for a CBS-only stream set, after hardware eligibility checks,
-with the actual egress ports resolved from the optimizer's fixed routes.
-The request must contain an explicit, enabled PCP-to-TC mapping for every
-relevant output port; default/switch-internal mappings are not inferred here.
+Lower schedulingPriority values represent higher priority.
+
+The adapter does not infer priorities from queue IDs or PCP values.
+It does not modify the original request or CBS mathematical algorithm.
 """
 
-# Note: The higher TC index takes priority, not the higher PCP.
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
@@ -60,6 +57,48 @@ def _traffic_class_index(
     return matches[0]
 
 
+def _scheduling_priority(
+    port: dict[str, Any],
+    queue_id: int,
+    *,
+    node_id: str,
+    port_id: str,
+) -> int:
+    label = f"{node_id}/{port_id}"
+
+    table = port.get("queuePriorityTable")
+
+    if not isinstance(table, list) or not table:
+        raise CBSClassTranslationError(
+            f"Missing queuePriorityTable at {label}"
+        )
+
+    matches = [
+        entry.get("schedulingPriority")
+        for entry in table
+        if entry.get("queueId") == queue_id
+    ]
+
+    if len(matches) != 1:
+        raise CBSClassTranslationError(
+            f"Expected exactly one scheduling priority "
+            f"for queue {queue_id} at {label}"
+        )
+
+    priority = matches[0]
+
+    if (
+        not isinstance(priority, int)
+        or isinstance(priority, bool)
+        or priority < 1
+    ):
+        raise CBSClassTranslationError(
+            f"Invalid scheduling priority for queue "
+            f"{queue_id} at {label}"
+        )
+
+    return priority
+
 def derive_zhao_class_mapping(
     request: dict[str, Any],
     stream_egress_ports: Mapping[str, Sequence[tuple[str, str]]],
@@ -69,7 +108,7 @@ def derive_zhao_class_mapping(
     stream_egress_ports: stream ID -> every (node ID, port ID) *egress* used by
     that stream. It must cover every active stream in this CBS-only request.
 
-    Conservative constraints for the first CNC pilot:
+    Conservative constraints of the current CBS adapter:
     - each logical class must use exactly one IEEE TC index across all routes;
     - distinct logical classes must have distinct indices;
     - 1..7 logical CBS classes are supported;
@@ -88,6 +127,7 @@ def derive_zhao_class_mapping(
     ports = _configuration_ports(plane)
     seen_stream_ids: set[str] = set()
     index_by_class: dict[str, int] = {}
+    priority_by_class: dict[str, int] = {}
     active_stream_ids: set[str] = set()
 
     for stream in plane.get("streams", []):
@@ -125,6 +165,22 @@ def derive_zhao_class_mapping(
                     f"Class {class_id!r} uses inconsistent IEEE TC indices: "
                     f"{previous} and {tc_index} (at {node_id}/{port_id})"
                 )
+            priority = _scheduling_priority(
+                port,
+                tc_index,
+                node_id=node_id,
+                port_id=port_id,
+            )
+
+            previous_priority = priority_by_class.setdefault(
+                class_id, priority
+            )
+
+            if previous_priority != priority:
+                raise CBSClassTranslationError(
+                    f"Class {class_id!r} uses inconsistent "
+                    f"scheduling priorities across ports"
+                )
 
     if not index_by_class or len(index_by_class) > 7:
         raise CBSClassTranslationError("Expected 1..7 active CBS SR classes")
@@ -149,9 +205,15 @@ def derive_zhao_class_mapping(
         inverse[tc_index] = name
 
     # Zhao M1 is the highest-priority CBS SR class PRESENT, not necessarily TC7.
+    if len(set(priority_by_class.values())) != len(priority_by_class):
+        raise CBSClassTranslationError(
+            "Different CBS classes share the same scheduling priority"
+        )
+
     return {
         name: f"M{position}"
-        for position, (tc_index, name) in enumerate(
-            sorted(inverse.items(), reverse=True), start=1
+        for position, (name, priority) in enumerate(
+            sorted(priority_by_class.items(), key=lambda item: item[1]),
+            start=1,
         )
     }

@@ -24,8 +24,13 @@ def request(classes=('critical', 'standard'), pcps=(7, 5), mapping=((7, 0), (5, 
                 {'nodeId': 'SW1', 'portConfigs': [
                     {'portId': 'P1', 'pcpMappingEnabled': True,
                      'pcpConfig': {'trafficClassTable': [
-                         {'priority': pcp, 'egressQueueId': tc} for pcp, tc in mapping
-                     ]}}
+                        {'priority': pcp, 'egressQueueId': tc}
+                        for pcp, tc in mapping
+                    ]},
+                    'queuePriorityTable': [
+                        {'queueId': queue, 'schedulingPriority': 8 - queue}
+                        for queue in range(8)
+                    ]}
                 ]}
             ]},
         }
@@ -111,6 +116,23 @@ class TestClassTranslation(unittest.TestCase):
         with self.assertRaisesRegex(module.CBSClassTranslationError, 'Expected exactly one'):
             module.derive_zhao_class_mapping(req, egress())
 
+
+    def test_explicit_priority_overrides_queue_id_order(self):
+        req = request(
+            mapping=((7, 2), (5, 7))
+        )
+
+        port = req["forwardingPlane"]["configuration"]["nodeConfigs"][0]["portConfigs"][0]
+
+        port["queuePriorityTable"] = [
+            {"queueId": 2, "schedulingPriority": 1},
+            {"queueId": 7, "schedulingPriority": 2},
+        ]
+
+        self.assertEqual(
+            module.derive_zhao_class_mapping(req, egress()),
+            {"critical": "M1", "standard": "M2"},
+        )
 
 if __name__ == '__main__':
     unittest.main()
