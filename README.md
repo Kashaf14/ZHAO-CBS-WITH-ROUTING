@@ -54,7 +54,7 @@ curl -fsS http://127.0.0.1:8001/capabilities
 
 ## Run tests
 
-For local Python tests, install `requirements.txt` and make Hamza's library importable:
+For local Python tests, install `requirements.txt`, install the pinned test-only dependencies in `requirements-test.txt`, and make Hamza's library importable. Response compatibility tests use only the shared response schema; Manager job correlation, contextual validation and native CNC application belong to their respective components.
 
 ```bash
 export TSN_LIBRARY_PATH="/absolute/path/to/TSN_optimizer_platform-Hamza"

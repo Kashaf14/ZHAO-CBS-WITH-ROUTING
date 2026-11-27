@@ -23,7 +23,7 @@ sys.path.insert(0, str(ROOT / 'tests'))
 from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13
 from algorithm.cbs import CBSOptimizer
 from test_cbs_nclass_candidate import synth_request
-from tsn_contract_validator.response_validator import validate_optimizer_response
+from tsn_contract_validator.response import validate_common_response
 from usecase_adapter import build_usecase_from_payload
 
 TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
@@ -130,17 +130,12 @@ class TestNClassPhysicalQueueBoundary(unittest.TestCase):
                         self.assertGreater(item['cbs'][0]['adminIdleSlopeBps'], 0)
                 self.assertEqual(req, before, 'Response converter mutated request')
 
-    def test_seven_class_response_passes_shared_v13_validator(self):
+    def test_seven_class_response_passes_shared_v13_schema(self):
         req, legacy = self.solve(7)
         baseline = deepcopy(req['forwardingPlane'])
         response = build_cbs_response_v13(req, legacy)
-        report = validate_optimizer_response(
-            response, request=req, baseline=baseline,
-            expected_job_id='synthetic-offline', result_job_id='synthetic-offline',
-        )
-        self.assertTrue(report.applicable, report)
+        validate_common_response(response)
         self.assertEqual(req['forwardingPlane'], baseline)
-        self.assertTrue(report.not_verified)  # No independent hardware check.
 
     def test_missing_mapping_for_targeted_class_is_rejected(self):
         req, legacy = self.solve(7)

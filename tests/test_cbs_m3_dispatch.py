@@ -23,7 +23,7 @@ from usecase_adapter import build_usecase_from_payload
 from test_cbs_m3_candidate import m3_request_from_tc1
 from test_cbs_m3_response_boundary import with_test_only_mappings
 from cbs_response_adapter import build_cbs_response_v13
-from tsn_contract_validator.response_validator import validate_optimizer_response
+from tsn_contract_validator.response import validate_common_response
 
 TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 
@@ -75,18 +75,13 @@ class TestCBSM3Dispatch(unittest.TestCase):
             for node, port in (("ES3", "Port1"), ("SW1", "P5")):
                 self.assertEqual(index(result)[(cls, node, port)]["blockingFrameBits"], 2400)
 
-    def test_dispatched_result_passes_response_contract_with_synthetic_mapping(self):
-        # Simulated physical queues and fake matching job ids only: not Manager validation.
+    def test_dispatched_result_passes_response_schema_with_synthetic_mapping(self):
+        # Synthetic queue mapping; check response schema and input preservation only.
         req = with_test_only_mappings(self.request, m3=True)
         saved = deepcopy(req["forwardingPlane"])
         result = self.optimizer.optimize(build_usecase_from_payload(req))
         response = build_cbs_response_v13(req, result)
-        report = validate_optimizer_response(
-            response, request=req, baseline=saved,
-            expected_job_id="offline-step12", result_job_id="offline-step12",
-        )
-        self.assertTrue(report.applicable)
-        self.assertTrue(report.not_verified)
+        validate_common_response(response)
         self.assertEqual(req["forwardingPlane"], saved)
 
     def test_invalid_multiframe_fails_closed(self):

@@ -1,0 +1,2 @@
+# Offline response-schema compatibility only; not a runtime service dependency.
+tsn-optimization-contracts @ git+https://github.com/Kashaf14/tsn-optimization-contracts.git@v1.0.0

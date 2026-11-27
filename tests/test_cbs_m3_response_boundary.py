@@ -20,7 +20,7 @@ sys.path.insert(0, str(ROOT / "tests"))
 from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13
 from algorithm.cbs import CBSOptimizer
 from algorithm.cbs_m3_candidate import optimize_m1_m2_m3_candidate
-from tsn_contract_validator.response_validator import validate_optimizer_response
+from tsn_contract_validator.response import validate_common_response
 from usecase_adapter import build_usecase_from_payload
 from test_cbs_m3_candidate import m3_request_from_tc1
 
@@ -101,23 +101,12 @@ class TestSyntheticM3ResponseBoundary(unittest.TestCase):
             self.assertEqual(set(by_port[key]), {4, 5, 3} if key in M3_PORTS else {4, 5})
         self.assertEqual(request, before, "Response conversion mutated its input")
 
-    def test_shared_v13_semantics_with_synthetic_m3_mapping(self):
+    def test_shared_v13_schema_with_synthetic_m3_mapping(self):
         request = with_test_only_mappings(self.m3_request, m3=True)
         preserved_baseline = deepcopy(request["forwardingPlane"])
         response = build_cbs_response_v13(request, self.legacy)
-        # These equal IDs are fabricated ONLY to exercise the boundary validator.
-        # They do not constitute actual Manager job-correlation verification.
-        report = validate_optimizer_response(
-            response,
-            request=request,
-            baseline=preserved_baseline,
-            expected_job_id="synthetic-test-no-real-manager",
-            result_job_id="synthetic-test-no-real-manager",
-        )
-        self.assertTrue(report.applicable)
+        validate_common_response(response)
         self.assertEqual(request["forwardingPlane"], preserved_baseline)
-        # Shared validation reports unresolved real-world checks separately.
-        self.assertTrue(report.not_verified)
 
     def test_explicit_cbs_unsupported_device_is_rejected(self):
         request = with_test_only_mappings(self.m3_request, m3=True)

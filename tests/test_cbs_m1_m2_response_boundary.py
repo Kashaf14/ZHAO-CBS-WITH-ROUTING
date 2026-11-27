@@ -2,7 +2,7 @@
 
 Preconditions:
   - Step 4 M1+M2 candidate dispatch already applied locally.
-  - Current shared contracts v0.2.2 installed in the local venv.
+  - Shared contracts v1.0.0 installed for offline schema tests.
   - The frozen local TC1 Step 17 fixture in tests/fixtures/.
   - Hamza's existing Usecase package importable as in previous tests.
 
@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT))
 from algorithm.cbs import CBSOptimizer
 from usecase_adapter import build_usecase_from_payload
 from cbs_response_adapter import build_cbs_response_v13
-from tsn_contract_validator.response_validator import validate_optimizer_response
+from tsn_contract_validator.response import validate_common_response
 
 TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
 EXPECTED_PORTS = {
@@ -108,22 +108,8 @@ class TestCBSM1M2ResponseBoundary(unittest.TestCase):
         for port, queues in seen.items():
             self.assertEqual(set(queues), {4, 5}, port)
 
-    def test_shared_response_schema_and_semantic_validation(self):
-        # These two equal IDs are SIMULATED for a direct-call test.
-        # This is NOT a real Manager job-correlation check.
-        report = validate_optimizer_response(
-            self.response,
-            request=self.request,
-            baseline=self.preserved_baseline,
-            expected_job_id="synthetic-offline-test",
-            result_job_id="synthetic-offline-test",
-        )
-        self.assertTrue(report.applicable)
-        # Semantic contract validation does NOT prove deployment or schedulability.
-        self.assertTrue(any(
-            "not independently verified" in item["message"].lower()
-            for item in report.not_verified
-        ), report.not_verified)
+    def test_shared_response_schema_compatibility(self):
+        validate_common_response(self.response)
 
     def test_original_request_and_input_are_not_modified(self):
         self.assertEqual(TC1.read_bytes(), self.original_bytes)
