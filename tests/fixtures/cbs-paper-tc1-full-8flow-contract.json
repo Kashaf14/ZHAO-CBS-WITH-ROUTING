@@ -525,7 +525,41 @@
                     "egressQueueId": 4
                   }
                 ]
-              }
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
             }
           ]
         },
@@ -546,7 +580,41 @@
                     "egressQueueId": 4
                   }
                 ]
-              }
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
             }
           ]
         },
@@ -567,7 +635,41 @@
                     "egressQueueId": 4
                   }
                 ]
-              }
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
             }
           ]
         },
@@ -588,7 +690,41 @@
                     "egressQueueId": 4
                   }
                 ]
-              }
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
             },
             {
               "portId": "P5",
@@ -604,7 +740,41 @@
                     "egressQueueId": 4
                   }
                 ]
-              }
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
             }
           ]
         }

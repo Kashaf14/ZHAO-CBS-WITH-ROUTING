@@ -28,7 +28,7 @@ See `algorithm/cbs_nclass_candidate.py`, `cbs_route_preparation.py`, and the tes
 - Hamza's external TSN library, including `usecase_generator.py`. This library is **not included** in this repository.
 - Python packages from `requirements.txt`.
 - Historical TC1 Step 17 tests read `tests/fixtures/cbs-paper-tc1-step17-original.json` (PCP 5 only), an unchanged local copy from `tsn-optimization-contracts` at commit `9664a6a09f8a38a65362d90dae95c20eb42d094e`. The frozen regression verifies its SHA-256 against the recorded reference.
-- `tests/fixtures/cbs-paper-tc1-full-8flow-contract.json` is a separate extended fixture with explicit PCP 4-to-queue 4 mappings at five TC1 ports. Do not substitute it for the historical Step 17 input.
+- `tests/fixtures/cbs-paper-tc1-full-8flow-contract.json` is a separate extended fixture with explicit PCP 4-to-queue 4 mappings and experimental eight-queue priority tables (`schedulingPriority = 8 - queueId`, lower rank means higher priority) at five TC1 ports. This ordering matches OpenCNC's `ApplyCNCQueuePriorities` policy; it is not a hardware measurement. Do not substitute it for the historical Step 17 input.
 - Both fixtures are local. Normal tests require no sibling contract checkout or `CBS_TC1_REQUEST` variable.
 
 The standardized JSON contracts are maintained separately in [tsn-optimization-contracts](https://github.com/Kashaf14/tsn-optimization-contracts). The JSON files under `examples/` are legacy internal-format scenarios, **not** current v1.4 HTTP request examples.
