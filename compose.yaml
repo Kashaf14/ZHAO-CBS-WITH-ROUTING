@@ -7,6 +7,7 @@ services:
     environment:
       CBS_VARIANT: fixed
       TSN_LIBRARY_PATH: /opt/hamza
+      CBS_BENCHMARK_EGRESS_PORT: "SW1/P5"
     volumes:
       - type: bind
         source: ${TSN_LIBRARY_HOST_PATH}

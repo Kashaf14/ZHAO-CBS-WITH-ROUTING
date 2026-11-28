@@ -1,0 +1,677 @@
+{
+  "schemaVersion": "1.4",
+  "operation": "configuration",
+  "optimizationTask": {
+    "taskId": "zhao-tc2-period-1100us",
+    "intent": "INITIAL_CONFIGURATION",
+    "trigger": "USER_REQUEST",
+    "scope": {
+      "trafficClasses": [
+        "M1",
+        "M2"
+      ]
+    },
+    "objectives": [
+      {
+        "metric": "OAAS_MINIMIZE_BANDWIDTH",
+        "priority": 1
+      }
+    ]
+  },
+  "mechanisms": [
+    {
+      "name": "CBS",
+      "constraints": {
+        "maxBestEffortFrameSizeBytes": 1542
+      }
+    }
+  ],
+  "forwardingPlane": {
+    "topology": {
+      "nodes": [
+        {
+          "name": "ES1",
+          "type": "END_STATION",
+          "ports": [
+            {
+              "id": "Port1",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            }
+          ]
+        },
+        {
+          "name": "ES2",
+          "type": "END_STATION",
+          "ports": [
+            {
+              "id": "Port1",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            }
+          ]
+        },
+        {
+          "name": "ES3",
+          "type": "END_STATION",
+          "ports": [
+            {
+              "id": "Port1",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            }
+          ]
+        },
+        {
+          "name": "ES4",
+          "type": "END_STATION",
+          "ports": [
+            {
+              "id": "Port1",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            }
+          ]
+        },
+        {
+          "name": "SW1",
+          "type": "BRIDGE",
+          "ports": [
+            {
+              "id": "P1",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            },
+            {
+              "id": "P2",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            },
+            {
+              "id": "P3",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            },
+            {
+              "id": "P4",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            },
+            {
+              "id": "P5",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            }
+          ]
+        },
+        {
+          "name": "ES-RX",
+          "type": "END_STATION",
+          "ports": [
+            {
+              "id": "Port1",
+              "number_of_queues": 8,
+              "capabilities": {
+                "port_speed": 100
+              }
+            }
+          ]
+        }
+      ],
+      "links": [
+        {
+          "id": "link-es1-sw1",
+          "source_node": "ES1",
+          "source_port": "Port1",
+          "destination_node": "SW1",
+          "destination_port": "P1",
+          "propagation_delay_ns": 0,
+          "bandwidth_mbps": 100
+        },
+        {
+          "id": "link-es2-sw1",
+          "source_node": "ES2",
+          "source_port": "Port1",
+          "destination_node": "SW1",
+          "destination_port": "P2",
+          "propagation_delay_ns": 0,
+          "bandwidth_mbps": 100
+        },
+        {
+          "id": "link-es3-sw1",
+          "source_node": "ES3",
+          "source_port": "Port1",
+          "destination_node": "SW1",
+          "destination_port": "P3",
+          "propagation_delay_ns": 0,
+          "bandwidth_mbps": 100
+        },
+        {
+          "id": "link-es4-sw1",
+          "source_node": "ES4",
+          "source_port": "Port1",
+          "destination_node": "SW1",
+          "destination_port": "P4",
+          "propagation_delay_ns": 0,
+          "bandwidth_mbps": 100
+        },
+        {
+          "id": "link-sw1-es-rx",
+          "source_node": "SW1",
+          "source_port": "P5",
+          "destination_node": "ES-RX",
+          "destination_port": "Port1",
+          "propagation_delay_ns": 0,
+          "bandwidth_mbps": 100
+        }
+      ]
+    },
+    "streams": [
+      {
+        "definition": {
+          "id": "f1",
+          "streamId": {
+            "macAddress": "02:00:00:00:00:01",
+            "uniqueId": 1
+          },
+          "talkerNodeId": "ES1",
+          "listenerNodeIds": [
+            "ES-RX"
+          ],
+          "trafficSpec": {
+            "intervalNs": 1100000,
+            "maxIntervalFrames": 1,
+            "maxFrameSize": 542,
+            "serializationOverheadBytes": 0,
+            "interFrameGapBytes": 0
+          },
+          "userToNetworkRequirements": {
+            "maxLatencyNs": 1100000
+          },
+          "trafficClassId": "M1"
+        },
+        "configuration": {
+          "pcp": 5,
+          "path": [
+            {
+              "hopNumber": 0,
+              "bridgeId": "SW1",
+              "ingressPortId": "P1",
+              "egressPortId": "P5"
+            }
+          ]
+        },
+        "decisionVariables": {
+          "routing": "fixed",
+          "scheduling": "optimize",
+          "placement": "fixed"
+        }
+      },
+      {
+        "definition": {
+          "id": "f2",
+          "streamId": {
+            "macAddress": "02:00:00:00:00:02",
+            "uniqueId": 2
+          },
+          "talkerNodeId": "ES2",
+          "listenerNodeIds": [
+            "ES-RX"
+          ],
+          "trafficSpec": {
+            "intervalNs": 1100000,
+            "maxIntervalFrames": 1,
+            "maxFrameSize": 542,
+            "serializationOverheadBytes": 0,
+            "interFrameGapBytes": 0
+          },
+          "userToNetworkRequirements": {
+            "maxLatencyNs": 1100000
+          },
+          "trafficClassId": "M1"
+        },
+        "configuration": {
+          "pcp": 5,
+          "path": [
+            {
+              "hopNumber": 0,
+              "bridgeId": "SW1",
+              "ingressPortId": "P2",
+              "egressPortId": "P5"
+            }
+          ]
+        },
+        "decisionVariables": {
+          "routing": "fixed",
+          "scheduling": "optimize",
+          "placement": "fixed"
+        }
+      },
+      {
+        "definition": {
+          "id": "f3",
+          "streamId": {
+            "macAddress": "02:00:00:00:00:03",
+            "uniqueId": 3
+          },
+          "talkerNodeId": "ES3",
+          "listenerNodeIds": [
+            "ES-RX"
+          ],
+          "trafficSpec": {
+            "intervalNs": 1100000,
+            "maxIntervalFrames": 1,
+            "maxFrameSize": 542,
+            "serializationOverheadBytes": 0,
+            "interFrameGapBytes": 0
+          },
+          "userToNetworkRequirements": {
+            "maxLatencyNs": 1100000
+          },
+          "trafficClassId": "M2"
+        },
+        "configuration": {
+          "pcp": 4,
+          "path": [
+            {
+              "hopNumber": 0,
+              "bridgeId": "SW1",
+              "ingressPortId": "P3",
+              "egressPortId": "P5"
+            }
+          ]
+        },
+        "decisionVariables": {
+          "routing": "fixed",
+          "scheduling": "optimize",
+          "placement": "fixed"
+        }
+      },
+      {
+        "definition": {
+          "id": "f4",
+          "streamId": {
+            "macAddress": "02:00:00:00:00:04",
+            "uniqueId": 4
+          },
+          "talkerNodeId": "ES4",
+          "listenerNodeIds": [
+            "ES-RX"
+          ],
+          "trafficSpec": {
+            "intervalNs": 1100000,
+            "maxIntervalFrames": 1,
+            "maxFrameSize": 542,
+            "serializationOverheadBytes": 0,
+            "interFrameGapBytes": 0
+          },
+          "userToNetworkRequirements": {
+            "maxLatencyNs": 1100000
+          },
+          "trafficClassId": "M2"
+        },
+        "configuration": {
+          "pcp": 4,
+          "path": [
+            {
+              "hopNumber": 0,
+              "bridgeId": "SW1",
+              "ingressPortId": "P4",
+              "egressPortId": "P5"
+            }
+          ]
+        },
+        "decisionVariables": {
+          "routing": "fixed",
+          "scheduling": "optimize",
+          "placement": "fixed"
+        }
+      }
+    ],
+    "configuration": {
+      "nodeConfigs": [
+        {
+          "nodeId": "ES1",
+          "portConfigs": [
+            {
+              "portId": "Port1",
+              "pcpMappingEnabled": true,
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "priority": 5,
+                    "egressQueueId": 5
+                  },
+                  {
+                    "priority": 4,
+                    "egressQueueId": 4
+                  }
+                ]
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeId": "ES2",
+          "portConfigs": [
+            {
+              "portId": "Port1",
+              "pcpMappingEnabled": true,
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "priority": 5,
+                    "egressQueueId": 5
+                  },
+                  {
+                    "priority": 4,
+                    "egressQueueId": 4
+                  }
+                ]
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeId": "ES3",
+          "portConfigs": [
+            {
+              "portId": "Port1",
+              "pcpMappingEnabled": true,
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "priority": 5,
+                    "egressQueueId": 5
+                  },
+                  {
+                    "priority": 4,
+                    "egressQueueId": 4
+                  }
+                ]
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeId": "ES4",
+          "portConfigs": [
+            {
+              "portId": "Port1",
+              "pcpMappingEnabled": true,
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "priority": 5,
+                    "egressQueueId": 5
+                  },
+                  {
+                    "priority": 4,
+                    "egressQueueId": 4
+                  }
+                ]
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "nodeId": "SW1",
+          "portConfigs": [
+            {
+              "portId": "P5",
+              "pcpMappingEnabled": true,
+              "pcpConfig": {
+                "trafficClassTable": [
+                  {
+                    "priority": 5,
+                    "egressQueueId": 5
+                  },
+                  {
+                    "priority": 4,
+                    "egressQueueId": 4
+                  }
+                ]
+              },
+              "queuePriorityTable": [
+                {
+                  "queueId": 0,
+                  "schedulingPriority": 8
+                },
+                {
+                  "queueId": 1,
+                  "schedulingPriority": 7
+                },
+                {
+                  "queueId": 2,
+                  "schedulingPriority": 6
+                },
+                {
+                  "queueId": 3,
+                  "schedulingPriority": 5
+                },
+                {
+                  "queueId": 4,
+                  "schedulingPriority": 4
+                },
+                {
+                  "queueId": 5,
+                  "schedulingPriority": 3
+                },
+                {
+                  "queueId": 6,
+                  "schedulingPriority": 2
+                },
+                {
+                  "queueId": 7,
+                  "schedulingPriority": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "capabilities": {
+    "devices": [
+      {
+        "nodeId": "ES1",
+        "mechanisms": {
+          "CBS": {
+            "supported": true
+          }
+        }
+      },
+      {
+        "nodeId": "ES2",
+        "mechanisms": {
+          "CBS": {
+            "supported": true
+          }
+        }
+      },
+      {
+        "nodeId": "ES3",
+        "mechanisms": {
+          "CBS": {
+            "supported": true
+          }
+        }
+      },
+      {
+        "nodeId": "ES4",
+        "mechanisms": {
+          "CBS": {
+            "supported": true
+          }
+        }
+      },
+      {
+        "nodeId": "SW1",
+        "mechanisms": {
+          "CBS": {
+            "supported": true
+          }
+        }
+      }
+    ]
+  },
+  "metadata": {
+    "scenarioId": "zhao-tc2-period-1100us",
+    "source": "Zhao et al. 2024 Section VII-B Fig. 6; reconstructed single-egress benchmark"
+  }
+}
