@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.3",
   "job": {
-    "jobId": "1bc574b3-4ef0-45cd-934c-312195b90705",
+    "jobId": "5945774b-37bc-4454-bdb1-6b4e71436d06",
     "status": "COMPLETED"
   },
   "selection": {
@@ -53,7 +53,7 @@
                           "adminState": "ENABLED",
                           "adminIdleSlopeBps": 7296001,
                           "sendSlopeBps": 92703999,
-                          "hiCreditBytes": 113,
+                          "hiCreditBytes": 147,
                           "loCreditBytes": 318
                         }
                       ],
@@ -483,6 +483,7 @@
                 "xNs": 0.0,
                 "yBits": 10944.0
               },
+              "zhaoPriorityRank": 1,
               "sharedCBS": {
                 "idleSlopeBps": 7296000.000000001,
                 "sendSlopeBps": -92704000.0,
@@ -581,6 +582,7 @@
                 "xNs": 0.0,
                 "yBits": 10944.0
               },
+              "zhaoPriorityRank": 2,
               "sharedCBS": {
                 "idleSlopeBps": 7296000.000000001,
                 "sendSlopeBps": -92704000.0,
@@ -705,20 +707,20 @@
           ],
           "validationNote": "Experimental variable-N Zhao analytical CBS candidate only. Untargeted lower-priority streams contribute blocking only; Local deadline bounds are not independent NC schedulability verification; Manager/CNC and actual queue mapping not validated.",
           "kpis": {
-            "executionTimeMs": 1.9928750043618493,
+            "executionTimeMs": 2.2477079983218573,
             "cpuTimeMs": 0.0,
-            "memoryBeforeBytes": 112234496,
-            "memoryAfterBytes": 112242688,
+            "memoryBeforeBytes": 111337472,
+            "memoryAfterBytes": 111345664,
             "memoryDeltaBytes": 8192
           }
         }
       }
     },
     "kpis": {
-      "executionTimeMs": 1.9928750043618493,
+      "executionTimeMs": 2.2477079983218573,
       "cpuTimeMs": 0.0,
-      "memoryBeforeBytes": 112234496,
-      "memoryAfterBytes": 112242688,
+      "memoryBeforeBytes": 111337472,
+      "memoryAfterBytes": 111345664,
       "memoryDeltaBytes": 8192
     },
     "warnings": [
@@ -737,19 +739,19 @@
     "errors": []
   },
   "frameworkKpis": {
-    "manager_request_validation_ms": 10.549167,
-    "manager_selection_ms": 0.156208,
+    "manager_request_validation_ms": 14.8335,
+    "manager_selection_ms": 0.243709,
     "manager_optimizer_request_body_bytes": 14238,
-    "manager_optimizer_response_body_bytes": 9610,
-    "manager_optimizer_call_ms": 18.803542,
-    "manager_response_validation_ms": 2.335584,
-    "manager_stored_optimizer_result_json_bytes": 10455,
-    "manager_processing_ms": 24.248708,
-    "manager_process_cpu_time_ms": 6.055496000000105,
-    "manager_process_rss_before_bytes": 68222976,
-    "manager_process_rss_after_bytes": 69222400,
-    "manager_process_rss_delta_bytes": 999424,
-    "manager_result_storage_ms": 0.382208
+    "manager_optimizer_response_body_bytes": 9652,
+    "manager_optimizer_call_ms": 54.684834,
+    "manager_response_validation_ms": 2.912583,
+    "manager_stored_optimizer_result_json_bytes": 10501,
+    "manager_processing_ms": 60.789292,
+    "manager_process_cpu_time_ms": 7.3078159999999945,
+    "manager_process_rss_before_bytes": 39321600,
+    "manager_process_rss_after_bytes": 42106880,
+    "manager_process_rss_delta_bytes": 2785280,
+    "manager_result_storage_ms": 0.418208
   },
   "finalStatus": "notEvaluated",
   "warnings": [
