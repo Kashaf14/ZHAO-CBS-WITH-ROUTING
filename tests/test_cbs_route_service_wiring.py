@@ -48,7 +48,14 @@ def load_service(calls):
     def restore(result, mapping):
         calls.append(("restore", mapping))
         return result
-    def response(request, result, *, generated_routes=None):
+    prepared_sentinel = object()
+    conversion_error = type("CBSResponseConversionError", (ValueError,), {})
+    def prepare_configuration(request, result):
+        calls.append(("configure", deepcopy(request)))
+        return prepared_sentinel
+    def response(request, result, *, prepared, generated_routes=None):
+        if prepared is not prepared_sentinel:
+            raise AssertionError("Response did not receive prepared configuration")
         calls.append(("response", deepcopy(request), deepcopy(generated_routes)))
         return {"status": "ok", "result": result}
 
@@ -58,9 +65,11 @@ def load_service(calls):
         "usecase_adapter": make_module("usecase_adapter", build_usecase_from_payload=new_usecase),
         "algorithm": fake_pkg,
         "algorithm.cbs": make_module("algorithm.cbs", CBSOptimizer=lambda: FakeCBSOptimizer(calls)),
+        "algorithm.cbs_configuration": make_module(
+            "algorithm.cbs_configuration", prepare_cbs_configuration=prepare_configuration,
+            CBSResponseConversionError=conversion_error),
         "cbs_response_adapter": make_module(
-            "cbs_response_adapter", build_cbs_response_v13=response,
-            CBSResponseConversionError=type("CBSResponseConversionError", (ValueError,), {})),
+            "cbs_response_adapter", build_cbs_response_v13=response),
         "cbs_precheck": make_module("cbs_precheck", validate_cbs_precheck=precheck),
         "cbs_translation_boundary": make_module(
             "cbs_translation_boundary", prepare_cbs_solver_usecase=translation,
@@ -86,7 +95,7 @@ class TestCBSServiceRouteWiring(unittest.TestCase):
         result=svc.optimize(request)
         self.assertEqual(result["status"], "ok")
         self.assertEqual([x[0] for x in calls],
-                         ["precheck", "translate", "solve", "restore", "response"])
+                         ["precheck", "translate", "solve", "restore", "configure", "response"])
         self.assertEqual(request, original)
 
     def test_missing_optimize_route_is_returned_for_cnc_application_later(self):
@@ -98,7 +107,7 @@ class TestCBSServiceRouteWiring(unittest.TestCase):
         result = svc.optimize(request)
         self.assertEqual(result["status"], "ok")
         self.assertEqual([x[0] for x in calls],
-                         ["precheck", "translate", "solve", "restore", "response"])
+                         ["precheck", "translate", "solve", "restore", "configure", "response"])
         self.assertEqual(calls[2][1]["f1"]["path"], HOPS)
         self.assertEqual(calls[-1][2], {"f1": HOPS})
         self.assertEqual(request, before)

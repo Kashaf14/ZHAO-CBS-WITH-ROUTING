@@ -22,7 +22,8 @@ from algorithm.cbs_m3_candidate import optimize_m1_m2_m3_candidate
 from usecase_adapter import build_usecase_from_payload
 from test_cbs_m3_candidate import m3_request_from_tc1
 from test_cbs_m3_response_boundary import with_test_only_mappings
-from cbs_response_adapter import build_cbs_response_v13
+from cbs_response_adapter import build_cbs_response_v13 as _map_response
+from algorithm.cbs_configuration import prepare_cbs_configuration
 from tsn_contract_validator.response import validate_common_response
 
 TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
@@ -116,6 +117,12 @@ class TestCBSM3Dispatch(unittest.TestCase):
         self.assertEqual(TC1.read_bytes(), self.tc1_bytes)
         self.assertEqual(self.tc1["optimizationTask"]["scope"]["trafficClasses"], ["M1"])
         self.assertEqual(len(self.tc1["forwardingPlane"]["streams"]), 8)
+
+
+
+def build_cbs_response_v13(request, legacy):
+    """Exercise the explicit configuration-to-response boundary."""
+    return _map_response(request, legacy, prepared=prepare_cbs_configuration(request, legacy))
 
 
 if __name__ == "__main__":

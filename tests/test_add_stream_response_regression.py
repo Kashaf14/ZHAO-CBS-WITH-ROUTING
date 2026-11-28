@@ -57,7 +57,7 @@ class TestProposedAddStreamSerialization(unittest.TestCase):
     def test_returns_both_full_additions_without_existing_stream_updates(self):
         with patch("cbs_response_adapter._partial_changes_from_result", return_value={}):
             response = build_cbs_response_v13(
-                self.request, fake_numerical(self.request), generated_routes=self.routes
+                self.request, fake_numerical(self.request), prepared=[], generated_routes=self.routes
             )
 
         changes = response["solution"]["changes"]
@@ -83,7 +83,7 @@ class TestProposedAddStreamSerialization(unittest.TestCase):
         with patch("cbs_response_adapter._partial_changes_from_result",
                    return_value=deepcopy(cbs_sentinel)):
             response = build_cbs_response_v13(
-                self.request, fake_numerical(self.request), generated_routes=self.routes
+                self.request, fake_numerical(self.request), prepared=[], generated_routes=self.routes
             )
         changes = response["solution"]["changes"]
         self.assertEqual(changes["configuration"], cbs_sentinel["configuration"])

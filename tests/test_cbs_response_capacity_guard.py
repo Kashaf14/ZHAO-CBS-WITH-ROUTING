@@ -13,7 +13,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / 'tests'))
 
-from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13
+from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13 as _map_response
+from algorithm.cbs_configuration import prepare_cbs_configuration
 import test_cbs_nclass_queue_boundary as boundary
 from usecase_adapter import build_usecase_from_payload
 
@@ -83,6 +84,12 @@ class TestStep20CapacityGuard(unittest.TestCase):
         }]
         with self.assertRaisesRegex(CBSResponseConversionError, 'Invalid existing CBS idleSlope'):
             build_cbs_response_v13(request, legacy)
+
+
+
+def build_cbs_response_v13(request, legacy):
+    """Exercise the explicit configuration-to-response boundary."""
+    return _map_response(request, legacy, prepared=prepare_cbs_configuration(request, legacy))
 
 
 if __name__ == '__main__':

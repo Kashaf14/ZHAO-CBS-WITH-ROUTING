@@ -3,13 +3,12 @@
 Supports response versions v1.2 and v1.3. The CBS service currently uses
 v1.3, which returns only the required configuration changes.
 
-Maps traffic priorities (PCP) to physical queues using the request's
-port configuration. Does not modify CBS calculations.
+Maps already-prepared physical queue configurations to response fields.
+Does not initiate or modify CBS calculations.
 """
 
 from __future__ import annotations
 
-import math
 import os
 from copy import deepcopy
 
@@ -18,19 +17,8 @@ from typing import Any
 from optimizer_metadata import OPTIMIZER_ID, NAME, VERSION
 
 from algorithm.cbs_configuration import (
-    CBSResponseConversionError, PortConfiguration, admin_idle_slope as _admin_idle_slope,
+    CBSResponseConversionError, PreparedCBSQueue,
 )
-
-
-def _port_index(topology: dict[str, Any]) -> dict[tuple[str, str], dict[str, Any]]:
-    index = {}
-    for node in topology["nodes"]:
-        for port in node["ports"]:
-            key = (node["name"], port["id"])
-            if key in index:
-                raise CBSResponseConversionError(f"Duplicate topology port {key}")
-            index[key] = port
-    return index
 
 
 def _config_port(config: dict[str, Any], node_id: str, port_id: str) -> dict[str, Any]:
@@ -51,38 +39,28 @@ def _config_port(config: dict[str, Any], node_id: str, port_id: str) -> dict[str
     return ports[0]
 
 
-def _mapped_egress_queue(port_cfg: dict[str, Any], pcp: int, port_label: str) -> int:
-    if port_cfg.get("pcpMappingEnabled") is not True:
-        raise CBSResponseConversionError(
-            f"Missing enabled PCP-to-queue mapping for {port_label}. "
-            f"Provide forwardingPlane.configuration.nodeConfigs[].portConfigs[] "
-            f"with pcpMappingEnabled=true and pcpConfig.trafficClassTable "
-            f"(priority={pcp}, egressQueueId=<physical queue>)."
-        )
-    table = (port_cfg.get("pcpConfig") or {}).get("trafficClassTable", [])
-    queues = {entry["egressQueueId"] for entry in table if entry.get("priority") == pcp}
-    if len(queues) != 1:
-        raise CBSResponseConversionError(
-            f"Expected one physical queue mapping for PCP {pcp} at {port_label}; "
-            f"found {len(queues)} distinct queues"
-        )
-    return next(iter(queues))
+def _desired_cbs(queue: PreparedCBSQueue) -> dict[str, Any]:
+    """Map finished device-compatible values to contract field names."""
+    return {
+        "adminState": "ENABLED",
+        "adminIdleSlopeBps": queue.idle_slope_bps,
+        "sendSlopeBps": queue.send_slope_magnitude_bps,
+        "hiCreditBytes": queue.hi_credit_bytes,
+        "loCreditBytes": queue.lo_credit_magnitude_bytes,
+    }
 
 
-def _get_device_cbs_capabilities(
-    request: dict[str, Any], node_id: str, port_id: str,
+def _require_prepared_groups(legacy: dict[str, Any], prepared: list[PreparedCBSQueue]) -> None:
+    """Reject incomplete or mismatched configuration results without calculating."""
+    expected = [(g["node"], g["port"], g["srClass"]) for g in legacy["portClassGroups"]]
+    actual = [(q.node_id, q.port_id, q.traffic_class) for q in prepared]
+    if not expected or len(expected) != len(set(expected)) or sorted(expected) != sorted(actual):
+        raise CBSResponseConversionError("Missing or mismatched prepared CBS configuration")
+
+
+def _full_plane_from_result(
+    request: dict[str, Any], legacy: dict[str, Any], prepared: list[PreparedCBSQueue],
 ) -> dict[str, Any]:
-    for device in (request.get("capabilities") or {}).get("devices", []):
-        if device.get("nodeId") != node_id:
-            continue
-        result = dict((device.get("mechanisms") or {}).get("CBS") or {})
-        override = ((device.get("ports") or {}).get(port_id) or {})
-        result.update((override.get("mechanisms") or {}).get("CBS") or {})
-        return result
-    return {}
-
-
-def _full_plane_from_result(request: dict[str, Any], legacy: dict[str, Any]) -> dict[str, Any]:
     original = request["forwardingPlane"]
     plane = deepcopy(original)
     task_id = request["optimizationTask"]["taskId"]
@@ -107,61 +85,11 @@ def _full_plane_from_result(request: dict[str, Any], legacy: dict[str, Any]) -> 
         configuration["streamId"] = deepcopy(definition["streamId"])
         plane["streams"].append({"definition": definition, "configuration": configuration})
 
-    streams_by_id = {s["definition"]["id"]: s for s in original["streams"]}
-    ports = _port_index(original["topology"])
-    seen_groups = set()
-
-    configured = PortConfiguration()
-    for group in legacy["portClassGroups"]:
-        node_id, port_id, traffic_class = group["node"], group["port"], group["srClass"]
+    _require_prepared_groups(legacy, prepared)
+    for queue in prepared:
+        node_id, port_id, traffic_class = queue.node_id, queue.port_id, queue.traffic_class
+        queue_id = queue.queue_id
         label = f"{node_id}/{port_id}/{traffic_class}"
-        key = (node_id, port_id, traffic_class)
-        if key in seen_groups:
-            raise CBSResponseConversionError(f"Duplicate CBS group {label}")
-        seen_groups.add(key)
-        if (node_id, port_id) not in ports:
-            raise CBSResponseConversionError(f"CBS result references nonexistent port {label}")
-        if not group.get("streams"):
-            raise CBSResponseConversionError(f"Empty CBS port/class group {label}")
-
-        pcps = set()
-        for stream_id in group["streams"]:
-            if stream_id not in streams_by_id:
-                raise CBSResponseConversionError(f"Unknown stream {stream_id} in {label}")
-            stream = streams_by_id[stream_id]
-            if stream["definition"].get("trafficClassId") != traffic_class:
-                raise CBSResponseConversionError(f"Traffic class mismatch for {stream_id} in {label}")
-            pcp = (stream.get("configuration") or {}).get("pcp")
-            if not isinstance(pcp, int):
-                raise CBSResponseConversionError(f"Stream {stream_id} has no PCP")
-            pcps.add(pcp)
-        if len(pcps) != 1:
-            raise CBSResponseConversionError(f"Multiple PCPs on shared CBS group {label}: {sorted(pcps)}")
-        pcp = next(iter(pcps))
-
-        # Require an EXPLICIT physical queue assignment supplied by CNC/test
-        # input; never infer queueId from PCP numerical equality.
-        original_node_cfgs = (original.get("configuration") or {}).get("nodeConfigs", [])
-        matches = [p for n in original_node_cfgs if n["nodeId"] == node_id
-                   for p in n.get("portConfigs", []) if p["portId"] == port_id]
-        if len(matches) != 1:
-            raise CBSResponseConversionError(f"Missing/ambiguous input port config {label}")
-        queue_id = _mapped_egress_queue(matches[0], pcp, label)
-        max_queues = ports[(node_id, port_id)]["number_of_queues"]
-        if not 0 <= queue_id < max_queues:
-            raise CBSResponseConversionError(f"Queue {queue_id} outside [0,{max_queues - 1}] at {label}")
-
-        caps = _get_device_cbs_capabilities(request, node_id, port_id)
-        supported_queues = caps.get("supportedQueues")
-        if supported_queues is not None and queue_id not in supported_queues and str(queue_id) not in supported_queues:
-            raise CBSResponseConversionError(f"Queue {queue_id} does not support CBS at {label}")
-
-        # Delegate CBS-specific configuration calculation; map its outputs only.
-        # Raw mathematical values remain in diagnostics.
-        raw_slope = group["sharedCBS"]["idleSlopeBps"]
-        speed_bps = int(ports[(node_id, port_id)]["capabilities"]["port_speed"] * 1_000_000)
-        slope = _admin_idle_slope(raw_slope, speed_bps, caps, label)
-        registers = configured.registers(group, slope, speed_bps, label)
         cfg = _config_port(plane["configuration"], node_id, port_id)
         queue_cfgs = cfg.setdefault("queueConfigs", [])
         same_queue = [q for q in queue_cfgs if q["queueId"] == queue_id]
@@ -176,9 +104,7 @@ def _full_plane_from_result(request: dict[str, Any], legacy: dict[str, Any]) -> 
         cbs_items[:] = [x for x in cbs_items if x["egressQueueId"] != queue_id]
         cbs_items.append({
             "egressQueueId": queue_id,
-            "adminState": "ENABLED",
-            "adminIdleSlopeBps": slope,
-            **registers,
+            **_desired_cbs(queue),
             "description": (
                 f"{traffic_class} result; idleSlope rounded up to hardware granularity; "
                 "hi/lo credits rounded outward to bytes; sendSlope/loCredit stored "
@@ -187,12 +113,13 @@ def _full_plane_from_result(request: dict[str, Any], legacy: dict[str, Any]) -> 
         })
         queue_cfg["scheduling"] = "CREDIT_BASED_SHAPER"
 
-    if not seen_groups:
-        raise CBSResponseConversionError("CBS optimizer returned no port-class groups")
     return plane
 
 
-def build_cbs_response_v12(request: dict[str, Any], legacy: dict[str, Any]) -> dict[str, Any]:
+def build_cbs_response_v12(
+    request: dict[str, Any], legacy: dict[str, Any],
+    *, prepared: list[PreparedCBSQueue],
+) -> dict[str, Any]:
     """Convert actual CBS service output to strict Optimizer Response v1.2."""
     if request.get("schemaVersion") != "1.4":
         raise CBSResponseConversionError("Expected standardized CBS Request Contract v1.4")
@@ -229,7 +156,7 @@ def build_cbs_response_v12(request: dict[str, Any], legacy: dict[str, Any]) -> d
         "message": "Deadlines and feasibility are CBS optimizer-reported; no independent CNC/hardware validation has run.",
     }]
     if status == "success":
-        plane = _full_plane_from_result(request, legacy)
+        plane = _full_plane_from_result(request, legacy, prepared)
         solution = {"type": "configuration", "representation": "full", "forwardingPlane": plane}
         warnings.append({
             "code": "CBS_SIGNED_MAGNITUDES_PROVISIONAL",
@@ -267,115 +194,21 @@ def build_cbs_response_v12(request: dict[str, Any], legacy: dict[str, Any]) -> d
 
 
 def _partial_changes_from_result(
-    request: dict[str, Any], legacy: dict[str, Any]
+    request: dict[str, Any], legacy: dict[str, Any], prepared: list[PreparedCBSQueue],
 ) -> dict[str, Any]:
-    """Build identifier-addressed CBS changes without cloning the input model.
-
-    Only configuration values that differ from the baseline are emitted.
-    All other topology, stream definitions, port settings, PCP tables and
-    queue configuration remain the CNC adapter's responsibility to preserve.
-    """
-    original = request["forwardingPlane"]
-    topology_ports = _port_index(original["topology"])
-    original_node_cfgs = (original.get("configuration") or {}).get("nodeConfigs", [])
-
-    # Index all existing configurations, explicitly rejecting ambiguous keys.
-    baseline_ports: dict[tuple[str, str], dict[str, Any]] = {}
-    known_nodes: set[str] = set()
-    for node in original_node_cfgs:
-        node_id = node["nodeId"]
-        if node_id in known_nodes:
-            raise CBSResponseConversionError(f"Duplicate input config node: {node_id}")
-        known_nodes.add(node_id)
-        for port in node.get("portConfigs", []):
-            key = (node_id, port["portId"])
-            if key in baseline_ports:
-                raise CBSResponseConversionError(f"Duplicate input port config: {key}")
-            baseline_ports[key] = port
-
-    streams_by_id = {}
-    for stream in original["streams"]:
-        stream_id = stream["definition"]["id"]
-        if stream_id in streams_by_id:
-            raise CBSResponseConversionError(f"Duplicate input stream: {stream_id}")
-        streams_by_id[stream_id] = stream
-
+    """Map finished configurations to identifier-addressed changes only."""
+    _require_prepared_groups(legacy, prepared)
+    baseline_ports = {
+        (node["nodeId"], port["portId"]): port
+        for node in (request["forwardingPlane"].get("configuration") or {}).get("nodeConfigs", [])
+        for port in node.get("portConfigs", [])
+    }
     delta_config = {"nodeConfigs": []}
-    seen_groups: set[tuple[str, str, str]] = set()
-    seen_queue_targets: set[tuple[str, str, int]] = set()
-    # Proposed slope after hardware rounding, indexed by physical queue per port.
-    configured_slopes_by_port: dict[tuple[str, str], dict[int, int]] = {}
-    configured_port_speeds: dict[tuple[str, str], int] = {}
-    configured = PortConfiguration()
-    for group in legacy["portClassGroups"]:
-        node_id, port_id, traffic_class = group["node"], group["port"], group["srClass"]
-        label = f"{node_id}/{port_id}/{traffic_class}"
-        group_key = (node_id, port_id, traffic_class)
-        if group_key in seen_groups:
-            raise CBSResponseConversionError(f"Duplicate CBS group {label}")
-        seen_groups.add(group_key)
-        if (node_id, port_id) not in topology_ports:
-            raise CBSResponseConversionError(f"CBS result references nonexistent port {label}")
-        if not group.get("streams"):
-            raise CBSResponseConversionError(f"Empty CBS port/class group {label}")
-
-        pcps: set[int] = set()
-        for stream_id in group["streams"]:
-            stream = streams_by_id.get(stream_id)
-            if stream is None:
-                raise CBSResponseConversionError(f"Unknown stream {stream_id} in {label}")
-            if stream["definition"].get("trafficClassId") != traffic_class:
-                raise CBSResponseConversionError(f"Traffic class mismatch for {stream_id} in {label}")
-            pcp = (stream.get("configuration") or {}).get("pcp")
-            if isinstance(pcp, bool) or not isinstance(pcp, int) or not 0 <= pcp <= 7:
-                raise CBSResponseConversionError(f"Stream {stream_id} has no valid PCP")
-            pcps.add(pcp)
-        if len(pcps) != 1:
-            raise CBSResponseConversionError(
-                f"Multiple PCPs on shared CBS group {label}: {sorted(pcps)}"
-            )
-        port_cfg = baseline_ports.get((node_id, port_id))
-        if port_cfg is None:
-            raise CBSResponseConversionError(f"Missing input port config {label}")
-        queue_id = _mapped_egress_queue(port_cfg, next(iter(pcps)), label)
-        max_queues = topology_ports[(node_id, port_id)]["number_of_queues"]
-        if isinstance(queue_id, bool) or not isinstance(queue_id, int) or not 0 <= queue_id < max_queues:
-            raise CBSResponseConversionError(
-                f"Queue {queue_id} outside [0,{max_queues - 1}] at {label}"
-            )
-        queue_target = (node_id, port_id, queue_id)
-        if queue_target in seen_queue_targets:
-            raise CBSResponseConversionError(
-                f"More than one CBS class targets physical queue {node_id}/{port_id}/{queue_id}; "
-                "a combined queue-level CBS solution is required"
-            )
-        seen_queue_targets.add(queue_target)
-
-        caps = _get_device_cbs_capabilities(request, node_id, port_id)
-        supported_queues = caps.get("supportedQueues")
-        if (supported_queues is not None and queue_id not in supported_queues
-                and str(queue_id) not in supported_queues):
-            raise CBSResponseConversionError(f"Queue {queue_id} does not support CBS at {label}")
-        speed_mbps = topology_ports[(node_id, port_id)]["capabilities"]["port_speed"]
-        if (isinstance(speed_mbps, bool) or not isinstance(speed_mbps, (int, float))
-                or not math.isfinite(speed_mbps) or speed_mbps <= 0):
-            raise CBSResponseConversionError(f"Invalid link speed at {label}: {speed_mbps!r}")
-        speed_bps = int(speed_mbps * 1_000_000)
-        slope = _admin_idle_slope(group["sharedCBS"]["idleSlopeBps"], speed_bps, caps, label)
-        port_key = (node_id, port_id)
-        prior_speed = configured_port_speeds.get(port_key)
-        if prior_speed is not None and prior_speed != speed_bps:
-            raise CBSResponseConversionError(f"Conflicting link speeds at {node_id}/{port_id}")
-        configured_port_speeds[port_key] = speed_bps
-        # seen_queue_targets above already prevents two optimized classes sharing a queue.
-        configured_slopes_by_port.setdefault(port_key, {})[queue_id] = slope
-        registers = configured.registers(group, slope, speed_bps, label)
-        desired_cbs = {
-            "adminState": "ENABLED",
-            "adminIdleSlopeBps": slope,
-            **registers,
-        }
-
+    for queue in prepared:
+        node_id, port_id, queue_id = queue.node_id, queue.port_id, queue.queue_id
+        label = f"{node_id}/{port_id}/{queue.traffic_class}"
+        port_cfg = baseline_ports[(node_id, port_id)]
+        desired_cbs = _desired_cbs(queue)
         baseline_queues = [q for q in port_cfg.get("queueConfigs", []) if q["queueId"] == queue_id]
         if len(baseline_queues) > 1:
             raise CBSResponseConversionError(f"Duplicate input queue config for {label} queue {queue_id}")
@@ -397,66 +230,13 @@ def _partial_changes_from_result(
         port_change = _config_port(delta_config, node_id, port_id)
         port_change.setdefault("queueConfigs", []).append(queue_change)
 
-    # The physical link carries all enabled CBS queues, including unchanged
-    # non-target queues retained by this *partial* response. Checking one
-    # idleSlope at a time is insufficient after hardware-granularity rounding.
-    for (node_id, port_id), proposed in configured_slopes_by_port.items():
-        effective = dict(proposed)
-        configured_queues = baseline_ports[(node_id, port_id)].get("queueConfigs", [])
-        seen_existing_queues: set[int] = set()
-        for queue in configured_queues:
-            existing_queue_id = queue.get("queueId")
-            if (isinstance(existing_queue_id, bool) or not isinstance(existing_queue_id, int)
-                    or existing_queue_id in seen_existing_queues):
-                raise CBSResponseConversionError(
-                    f"Invalid/duplicate existing queue at {node_id}/{port_id}"
-                )
-            seen_existing_queues.add(existing_queue_id)
-            if existing_queue_id in proposed:
-                continue  # Replaced by this solution; never double-count old slope.
-
-            matching = [entry for entry in queue.get("cbs", [])
-                        if entry.get("egressQueueId") == existing_queue_id]
-            enabled = [entry for entry in matching
-                       if entry.get("adminState") == "ENABLED"]
-            if not enabled and queue.get("scheduling") != "CREDIT_BASED_SHAPER":
-                continue
-            if not enabled and matching and all(
-                entry.get("adminState") == "DISABLED" for entry in matching
-            ):
-                continue  # Explicitly disabled CBS has no active reservation.
-            if len(enabled) != 1:
-                raise CBSResponseConversionError(
-                    f"Cannot verify existing CBS reservation at "
-                    f"{node_id}/{port_id}/queue {existing_queue_id}"
-                )
-            existing_slope = enabled[0].get("adminIdleSlopeBps")
-            if (isinstance(existing_slope, bool) or not isinstance(existing_slope, int)
-                    or existing_slope < 0):
-                raise CBSResponseConversionError(
-                    f"Invalid existing CBS idleSlope at "
-                    f"{node_id}/{port_id}/queue {existing_queue_id}"
-                )
-            effective[existing_queue_id] = existing_slope
-
-        total_slope = sum(effective.values())
-        link_speed = configured_port_speeds[(node_id, port_id)]
-        # Strictly below link speed preserves capacity for lower-priority BE.
-        if total_slope >= link_speed:
-            raise CBSResponseConversionError(
-                f"Aggregate configured CBS idleSlope {total_slope} bps at "
-                f"{node_id}/{port_id} meets/exceeds link speed {link_speed} bps "
-                f"after hardware rounding (queues: {sorted(effective)})"
-            )
-
-    if not seen_groups:
-        raise CBSResponseConversionError("CBS optimizer returned no port-class groups")
     return {"configuration": delta_config} if delta_config["nodeConfigs"] else {}
 
 
 def build_cbs_response_v13(
     request: dict[str, Any], legacy: dict[str, Any],
-    *, generated_routes: dict[str, list[dict]] | None = None,
+    *, prepared: list[PreparedCBSQueue],
+    generated_routes: dict[str, list[dict]] | None = None,
 ) -> dict[str, Any]:
     """Convert the CBS optimizer's legacy result to sparse Response Contract v1.3."""
     if request.get("schemaVersion") != "1.4":
@@ -493,7 +273,7 @@ def build_cbs_response_v13(
         "message": "Deadlines and feasibility are CBS optimizer-reported; no independent CNC/hardware validation has run.",
     }]
     if status == "success":
-        changes = _partial_changes_from_result(request, legacy)
+        changes = _partial_changes_from_result(request, legacy, prepared)
         if generated_routes is not None:
             route_changes = generated_route_change_sets(request, generated_routes)
             if route_changes:

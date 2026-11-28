@@ -56,7 +56,7 @@ class TestCBSRouteResponse(unittest.TestCase):
         payload = request()
         numerical = fake_numerical()
         with patch("cbs_response_adapter._partial_changes_from_result", return_value={}) as calc:
-            result = build_cbs_response_v13(payload, numerical,
+            result = build_cbs_response_v13(payload, numerical, prepared=[],
                                             generated_routes={"logical-f1": HOPS})
         calc.assert_called_once()
         self.assertEqual(result["status"], "success")

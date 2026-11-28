@@ -24,7 +24,8 @@ sys.path.insert(0, str(ROOT))
 
 from algorithm.cbs import CBSOptimizer
 from usecase_adapter import build_usecase_from_payload
-from cbs_response_adapter import build_cbs_response_v13
+from cbs_response_adapter import build_cbs_response_v13 as _map_response
+from algorithm.cbs_configuration import prepare_cbs_configuration
 from tsn_contract_validator.response import validate_common_response
 
 TC1 = ROOT / "tests" / "fixtures" / "cbs-paper-tc1-step17-original.json"
@@ -120,6 +121,12 @@ class TestCBSM1M2ResponseBoundary(unittest.TestCase):
                 self.assertNotIn(4, [
                     item["priority"] for item in pc["pcpConfig"]["trafficClassTable"]
                 ])
+
+
+
+def build_cbs_response_v13(request, legacy):
+    """Exercise the explicit configuration-to-response boundary."""
+    return _map_response(request, legacy, prepared=prepare_cbs_configuration(request, legacy))
 
 
 if __name__ == "__main__":

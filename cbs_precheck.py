@@ -6,7 +6,7 @@ Calculated idleSlope, credits, rounding and total reserved capacity remain respo
 
 from collections import defaultdict
 
-from cbs_response_adapter import (
+from algorithm.cbs_configuration import (
     CBSResponseConversionError,
     _get_device_cbs_capabilities,
     _mapped_egress_queue,

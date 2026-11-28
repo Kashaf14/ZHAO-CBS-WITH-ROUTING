@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tests"))
 
-from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13
+from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13 as _map_response
+from algorithm.cbs_configuration import prepare_cbs_configuration
 from algorithm.cbs import CBSOptimizer
 from algorithm.cbs_m3_candidate import optimize_m1_m2_m3_candidate
 from tsn_contract_validator.response import validate_common_response
@@ -127,6 +128,12 @@ class TestSyntheticM3ResponseBoundary(unittest.TestCase):
             for pc in nc["portConfigs"]:
                 self.assertEqual(pc["pcpConfig"]["trafficClassTable"],
                                  [{"priority": 5, "egressQueueId": 5}])
+
+
+
+def build_cbs_response_v13(request, legacy):
+    """Exercise the explicit configuration-to-response boundary."""
+    return _map_response(request, legacy, prepared=prepare_cbs_configuration(request, legacy))
 
 
 if __name__ == "__main__":

@@ -12,9 +12,9 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from cbs_response_adapter import (
+from algorithm.cbs_configuration import (
     _get_device_cbs_capabilities,
-    _admin_idle_slope,
+    admin_idle_slope as _admin_idle_slope,
     CBSResponseConversionError,
 )
 

@@ -20,7 +20,8 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / 'tests'))
 
-from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13
+from cbs_response_adapter import CBSResponseConversionError, build_cbs_response_v13 as _map_response
+from algorithm.cbs_configuration import prepare_cbs_configuration
 from algorithm.cbs import CBSOptimizer
 from test_cbs_nclass_candidate import synth_request
 from tsn_contract_validator.response import validate_common_response
@@ -185,6 +186,12 @@ class TestNClassPhysicalQueueBoundary(unittest.TestCase):
         self.assertNotIn("trafficClasses", caps)
         self.assertIs(caps["inputRequirements"]["requiresPcp"], True)
         self.assertIs(caps["inputRequirements"]["acceptsClientTrafficClassIds"], True)
+
+
+
+def build_cbs_response_v13(request, legacy):
+    """Exercise the explicit configuration-to-response boundary."""
+    return _map_response(request, legacy, prepared=prepare_cbs_configuration(request, legacy))
 
 
 if __name__ == '__main__':

@@ -153,6 +153,7 @@ class TestM1M2TC1Candidate(unittest.TestCase):
             CBSResponseConversionError,
             build_cbs_response_v13,
         )
+        from algorithm.cbs_configuration import prepare_cbs_configuration
         fp = self.full_payload['forwardingPlane']
         for nc in fp['configuration']['nodeConfigs']:
             for pc in nc['portConfigs']:
@@ -160,7 +161,8 @@ class TestM1M2TC1Candidate(unittest.TestCase):
                 self.assertNotIn(4, [entry['priority'] for entry in table])
 
         with self.assertRaisesRegex(CBSResponseConversionError, 'PCP 4'):
-            build_cbs_response_v13(self.full_payload, self.candidate)
+            build_cbs_response_v13(self.full_payload, self.candidate,
+                                   prepared=prepare_cbs_configuration(self.full_payload, self.candidate))
         # This is an EXPECTED NEGATIVE test, not successful response validation.
 
 

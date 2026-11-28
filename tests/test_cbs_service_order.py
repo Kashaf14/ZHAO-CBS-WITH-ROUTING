@@ -24,7 +24,7 @@ class TestCBSServiceWiring(unittest.TestCase):
             for n in ast.walk(fn)
             if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)
         }
-        expected = ["validate_cbs_precheck", "prepare_cbs_solver_usecase", "restore_client_classes_in_cbs_result", "build_cbs_response_v13"]
+        expected = ["validate_cbs_precheck", "prepare_cbs_solver_usecase", "restore_client_classes_in_cbs_result", "prepare_cbs_configuration", "build_cbs_response_v13"]
         positions = [positions_by_name[name] for name in expected]
         self.assertEqual(positions, sorted(positions))
         self.assertIn('mapping = prepare_cbs_solver_usecase(payload, usecase, optimizer)', src)

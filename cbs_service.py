@@ -8,7 +8,8 @@ from fastapi import FastAPI, HTTPException
 
 from usecase_adapter import build_usecase_from_payload
 from algorithm.cbs import CBSOptimizer
-from cbs_response_adapter import build_cbs_response_v13, CBSResponseConversionError
+from cbs_response_adapter import build_cbs_response_v13
+from algorithm.cbs_configuration import prepare_cbs_configuration, CBSResponseConversionError
 from cbs_precheck import validate_cbs_precheck
 from cbs_route_preparation import prepare_cbs_routes, CBSRoutePreparationError
 from cbs_translation_boundary import (
@@ -134,7 +135,10 @@ def optimize(payload: dict):
             # Restore client class IDs before the existing response adapter
             # validates each portClassGroups.srClass against the input request.
             result = restore_client_classes_in_cbs_result(result, mapping)
-            return build_cbs_response_v13(payload, result, generated_routes=generated_routes)
+            prepared = prepare_cbs_configuration(payload, result)
+            return build_cbs_response_v13(
+                payload, result, prepared=prepared, generated_routes=generated_routes,
+            )
         except (CBSResponseConversionError, ValueError) as exc:
             raise HTTPException(
                 status_code=422,
