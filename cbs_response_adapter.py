@@ -17,8 +17,9 @@ from cbs_route_response import generated_route_change_sets
 from typing import Any
 from optimizer_metadata import OPTIMIZER_ID, NAME, VERSION
 
-class CBSResponseConversionError(ValueError):
-    """CBS calculations exist but cannot be converted to a valid configuration."""
+from algorithm.cbs_configuration import (
+    CBSResponseConversionError, PortConfiguration, admin_idle_slope as _admin_idle_slope,
+)
 
 
 def _port_index(topology: dict[str, Any]) -> dict[tuple[str, str], dict[str, Any]]:
@@ -81,78 +82,6 @@ def _get_device_cbs_capabilities(
     return {}
 
 
-def _admin_idle_slope(raw_slope: Any, speed_bps: int, caps: dict[str, Any], label: str) -> int:
-    if not isinstance(raw_slope, (int, float)) or not math.isfinite(raw_slope) or raw_slope < 0:
-        raise CBSResponseConversionError(f"Invalid CBS idleSlope at {label}: {raw_slope!r}")
-    if caps.get("supported") is False:
-        raise CBSResponseConversionError(f"CBS is marked unsupported at {label}")
-    step = caps.get("idleSlopeGranularityBps", 1)
-    if not isinstance(step, (int, float)) or step <= 0 or not math.isfinite(step):
-        raise CBSResponseConversionError(f"Invalid CBS slope granularity at {label}")
-    # Ceil rather than truncate: don't under-reserve vs. paper's bound.
-    rounded = int(math.ceil(math.ceil(raw_slope / step - 1e-12) * step))
-    if rounded >= speed_bps:
-        raise CBSResponseConversionError(f"CBS idleSlope {rounded} >= link speed at {label}")
-    limit = caps.get("maxIdleSlopeBps")
-    if limit is not None and rounded > limit:
-        raise CBSResponseConversionError(f"CBS idleSlope {rounded} exceeds hardware limit at {label}")
-    return rounded
-
-
-def _cbs_configured_registers(
-    group: dict[str, Any], idle_slope_bps: int, speed_bps: int, label: str,
-) -> dict[str, int]:
-    """Convert computed CBS results to unsigned OpenCNC register magnitudes.
-
-    A hardware-granularity adjustment to idleSlope also changes sendSlope and
-    the credit bounds, so derive all *configured* fields from the rounded
-    idleSlope rather than combining raw credits with a different configured
-    slope. The original (unrounded) calculations remain in cbsDiagnostics.
-
-    Rounding policy (outwards, in bytes):
-       hiCreditBytes = ceil(configured_hi_credit_bits / 8)
-       loCreditBytes = ceil(abs(configured_lo_credit_bits) / 8)
-
-    sendSlope and loCredit are mathematically <= 0.  OpenCNC's pinned
-    qav.proto uses uint64; encode their NONNEGATIVE MAGNITUDES in JSON. This
-    convention has been confirmed by Hamza for the CNC protobuf encoding;
-    independent deployability validation remains separate.
-    """
-    raw = group["sharedCBS"]
-    for name in ("sendSlopeBps", "creditMinBits", "creditMaxBits"):
-        value = raw[name]
-        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value):
-            raise CBSResponseConversionError(f"Invalid CBS {name} at {label}: {value!r}")
-    if raw["sendSlopeBps"] > 0 or raw["creditMinBits"] > 0 or raw["creditMaxBits"] < 0:
-        raise CBSResponseConversionError(f"Inconsistent CBS credit/slope signs at {label}")
-
-    # Both are frame lengths in BITS from the original CBS optimizer.
-    frame_bits = {}
-    for key in ("maxFrameBits", "blockingFrameBits"):
-        value = group[key]
-        if (isinstance(value, bool) or not isinstance(value, (int, float))
-                or not math.isfinite(value) or value < 0 or int(value) != value):
-            raise CBSResponseConversionError(f"Invalid CBS {key} at {label}: {value!r}")
-        frame_bits[key] = int(value)
-
-    # All operands are integers. Use exact ceiling division (no floating-point
-    # rounding errors near byte boundaries).
-    denominator = speed_bps * 8
-    send_slope_magnitude_bps = speed_bps - idle_slope_bps
-    hi_credit_bytes = (
-        idle_slope_bps * frame_bits["blockingFrameBits"] + denominator - 1
-    ) // denominator
-    lo_credit_magnitude_bytes = (
-        send_slope_magnitude_bps * frame_bits["maxFrameBits"] + denominator - 1
-    ) // denominator
-
-    return {
-        "sendSlopeBps": send_slope_magnitude_bps,
-        "hiCreditBytes": hi_credit_bytes,
-        "loCreditBytes": lo_credit_magnitude_bytes,
-    }
-
-
 def _full_plane_from_result(request: dict[str, Any], legacy: dict[str, Any]) -> dict[str, Any]:
     original = request["forwardingPlane"]
     plane = deepcopy(original)
@@ -182,6 +111,7 @@ def _full_plane_from_result(request: dict[str, Any], legacy: dict[str, Any]) -> 
     ports = _port_index(original["topology"])
     seen_groups = set()
 
+    configured = PortConfiguration()
     for group in legacy["portClassGroups"]:
         node_id, port_id, traffic_class = group["node"], group["port"], group["srClass"]
         label = f"{node_id}/{port_id}/{traffic_class}"
@@ -226,12 +156,12 @@ def _full_plane_from_result(request: dict[str, Any], legacy: dict[str, Any]) -> 
         if supported_queues is not None and queue_id not in supported_queues and str(queue_id) not in supported_queues:
             raise CBSResponseConversionError(f"Queue {queue_id} does not support CBS at {label}")
 
-        # Preserve the raw CBS mathematical values in diagnostics; produce
-        # hardware-compatible rounded/unsigned configuration fields here.
+        # Delegate CBS-specific configuration calculation; map its outputs only.
+        # Raw mathematical values remain in diagnostics.
         raw_slope = group["sharedCBS"]["idleSlopeBps"]
         speed_bps = int(ports[(node_id, port_id)]["capabilities"]["port_speed"] * 1_000_000)
         slope = _admin_idle_slope(raw_slope, speed_bps, caps, label)
-        registers = _cbs_configured_registers(group, slope, speed_bps, label)
+        registers = configured.registers(group, slope, speed_bps, label)
         cfg = _config_port(plane["configuration"], node_id, port_id)
         queue_cfgs = cfg.setdefault("queueConfigs", [])
         same_queue = [q for q in queue_cfgs if q["queueId"] == queue_id]
@@ -376,6 +306,7 @@ def _partial_changes_from_result(
     # Proposed slope after hardware rounding, indexed by physical queue per port.
     configured_slopes_by_port: dict[tuple[str, str], dict[int, int]] = {}
     configured_port_speeds: dict[tuple[str, str], int] = {}
+    configured = PortConfiguration()
     for group in legacy["portClassGroups"]:
         node_id, port_id, traffic_class = group["node"], group["port"], group["srClass"]
         label = f"{node_id}/{port_id}/{traffic_class}"
@@ -438,7 +369,7 @@ def _partial_changes_from_result(
         configured_port_speeds[port_key] = speed_bps
         # seen_queue_targets above already prevents two optimized classes sharing a queue.
         configured_slopes_by_port.setdefault(port_key, {})[queue_id] = slope
-        registers = _cbs_configured_registers(group, slope, speed_bps, label)
+        registers = configured.registers(group, slope, speed_bps, label)
         desired_cbs = {
             "adminState": "ENABLED",
             "adminIdleSlopeBps": slope,

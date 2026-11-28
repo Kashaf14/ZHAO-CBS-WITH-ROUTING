@@ -250,6 +250,8 @@ def _solve_class(optimizer, cls, usecase, all_contexts, previously_solved):
             if delay_ns > group["requiredDeadlineNs"] + 1e-4:
                 raise ValueError(f"Analytical local deadline exceeded: {key}")
             group["sharedXYPoint"] = {"xNs": x_ns, "yBits": y_bits}
+            # Preserve solver priority through restoration of client class IDs.
+            group["zhaoPriorityRank"] = priority_index(cls)
             group["sharedCBS"] = {
                 "idleSlopeBps": slope,
                 "sendSlopeBps": slope - group["linkSpeedBps"],
